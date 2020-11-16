@@ -8,14 +8,17 @@ use App\Vendors;
 use App\RoleUser;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout']);
     }
 
     /**
@@ -40,39 +43,48 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Swift API : User register by iOS mobile.
      *
+     * @since 2020-11-16
+     * @author Nemanja
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate(request(), [
+        $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255unique:vendors',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ]);
+
+        if ($validator->fails()) {
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "error", 'msg' => $validator->errors()]);
+        }
 
         DB::beginTransaction();
 
         try {
             $user = User::create([
-                'username' => $data['username'],
-                'instagram_id' => $data['instagram_id'],
-                'birthday' => @$data['birthday'],
-                'email' => $data['email'],
+                'username' => $request['username'],
+                'instagram_id' => @$request['instagram_id'],
+                'birthday' => @$request['birthday'],
+                'email' => $request['email'],
                 'block' => 0,
-                // 'password' => Hash::make($data['password']),
-                'password' => Hash::make("111111"),
-                'address' => @$data['address'],
-                'remarks' => @$data['remarks'],
+                'password' => Hash::make($request['password']),
+                'address' => @$request['address'],
+                'remarks' => @$request['remarks'],
                 'sign_date' => date('Y-m-d h:i:s'),
             ]);
 
             RoleUser::create([
                 'user_id' => $user->id,
-                'role_id' => $role,
+                'role_id' => 3,
             ]);
+
+            $result = [];
+            $result = $user;
 
             DB::commit();
         } catch (\Exception $e) {
@@ -81,7 +93,58 @@ class UsersController extends Controller
             throw $e;
         }  
 
-        return redirect()->route('users.index')->with('flash', 'Successfully added User account.');
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully registered.']);
+    }
+
+    /**
+     * Swift API : User login by iOS mobile.
+     *
+     * @since 2020-11-16
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loginUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "error", 'msg' => $validator->errors()]);
+        }
+
+        $credentials = request(['email', 'password']);
+
+        if (!Auth::attempt($credentials))
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized Access, please confirm credentials or verify your email.'
+            ]);
+
+        $user = $request->user();
+        
+        return response()->json(['success' => true, 'data' => $user]);
+    }
+    
+    /**
+     * Swift API : User logout by iOS mobile.
+     *
+     * @since 2020-11-16
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */  
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully logged out'
+        ]);
     }
 
     /**
