@@ -165,6 +165,7 @@
     <script src="{{ asset('demo_admin_assets/js/select2.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/form-validation.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/bt-maxLength.js') }}"></script>
+    <script src="{{ asset('js/myFunction.js') }}"></script>
 
     @yield('script')
 </body>
