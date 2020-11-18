@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Mail;
 use App\User;
 use App\Role;
 use App\Vendors;
 use App\RoleUser;
+use App\Emailverify;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify']);
     }
 
     /**
@@ -40,6 +42,59 @@ class UsersController extends Controller
     public function create()
     {
         return view('admin.users.create');
+    }
+
+    /**
+     * Swift API : User emailverify by iOS mobile.
+     *
+     * @since 2020-11-16
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function emailverify(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255|unique:email_verify'
+        ]);
+
+        if ($validator->fails()) {
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "error", 'msg' => $validator->errors()]);
+        }
+
+        DB::beginTransaction();
+
+        $str = rand(100000, 999999);
+        $data = [];
+        $data['name'] = 'Welcome User,';
+        $data['body'] = 'Thank you for registering with us. <br> To complete your registration, please verify your email by entering the following code '.$str;
+
+        $useremail = $request['email'];
+        $username = 'That Dubai Girl';
+        $subject = "Verify your email for That Dubai Girl";
+
+        try {
+            Mail::send('frontend.mail.mail', $data, function($message) use ($username, $useremail, $subject) {
+                $message->to($useremail, $username)->subject($subject);
+                $message->from('solaris.dubai@gmail.com', 'Administrator');
+            });
+
+            $verifyuser = Emailverify::create([
+                'email' => $request['email'],
+                'verify_code' => $str,
+            ]);
+
+            $result = $verifyuser['email'];
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            throw $e;
+        }  
+
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully registered.']);
     }
 
     /**
