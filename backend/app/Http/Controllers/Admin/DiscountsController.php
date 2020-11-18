@@ -63,13 +63,35 @@ class DiscountsController extends Controller
         DB::beginTransaction();
 
         try {
-            $discount = Discounts::create([
-                'title' => $request['title'],
-                'description' => $request['description'],
-                'vendor_id' => $request['vendor_id'],
-                'status' => 0,
-                'sign_date' => date('Y-m-d h:i:s'),
-            ]);
+            if (@$request['title'] && @$request['description']) {
+                $discount = Discounts::create([
+                    'title' => $request['title'],
+                    'description' => $request['description'],
+                    'vendor_id' => $request['vendor_id'],
+                    'status' => 0,
+                    'sign_date' => date('Y-m-d h:i:s'),
+                ]);
+            }
+
+            if (@$request['title2'] && @$request['description2']) {
+                $discount = Discounts::create([
+                    'title' => $request['title2'],
+                    'description' => $request['description2'],
+                    'vendor_id' => $request['vendor_id'],
+                    'status' => 0,
+                    'sign_date' => date('Y-m-d h:i:s'),
+                ]);
+            }
+
+            if (@$request['title3'] && @$request['description3']) {
+                $discount = Discounts::create([
+                    'title' => $request['title3'],
+                    'description' => $request['description3'],
+                    'vendor_id' => $request['vendor_id'],
+                    'status' => 0,
+                    'sign_date' => date('Y-m-d h:i:s'),
+                ]);
+            }
 
             DB::commit();
         } catch (\Exception $e) {
