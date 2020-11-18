@@ -46,7 +46,7 @@
                         <div class="brand-logo">
                             <img src="{{ asset('images/logo.png') }}" alt="logo">
                         </div>
-                        <h4>Welcome back!</h4>
+                        <h4>Welcome!</h4>
                         <h6 class="font-weight-light">Happy to see you again!</h6>
                         <form class="pt-3" action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                             <div class="form-group">
