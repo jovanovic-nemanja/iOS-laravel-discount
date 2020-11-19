@@ -37,8 +37,13 @@ class SwiftApiController extends Controller
     public function getAllcategories(Request $request)
     {
     	$result = Category::all();
+        if (@$result) {
+            $status = "success";
+        }else {
+            $status = "failed";
+        }
 
-    	return response()->json(['status' => "success", 'data' => $result]);
+    	return response()->json(['status' => $status, 'data' => $result]);
     }
 
     /**
@@ -63,9 +68,15 @@ class SwiftApiController extends Controller
                             ->select('vendors.*', 'categories.*', 'categories.sign_date as cate_sign_date', 'vendors.id as main_id')
                             ->get();
         }
+
+        if (@$result) {
+            $status = "success";
+        }else {
+            $status = "failed";
+        }
             
 
-    	return response()->json(['status' => "success", 'data' => $result]);
+    	return response()->json(['status' => $status, 'data' => $result]);
     }
 
     /**
@@ -92,9 +103,14 @@ class SwiftApiController extends Controller
                             ->select('discounts.*', 'vendors.*', 'discounts.sign_date as discounts_date', 'discounts.id as main_id', 'categories.category_name')
                             ->get();
         }
-            
+        
+        if (@$result) {
+            $status = "success";
+        }else {
+            $status = "failed";
+        }
 
-        return response()->json(['status' => "success", 'data' => $result]);
+        return response()->json(['status' => $status, 'data' => $result]);
     }
 
     /**
@@ -122,8 +138,13 @@ class SwiftApiController extends Controller
                             ->get();
         }
             
+        if (@$result) {
+            $status = "success";
+        }else {
+            $status = "failed";
+        }
 
-        return response()->json(['status' => "success", 'data' => $result]);
+        return response()->json(['status' => $status, 'data' => $result]);
     }
 
     /**
@@ -136,7 +157,14 @@ class SwiftApiController extends Controller
     public function getAllsettings(Request $request)
     {
     	$result = GeneralSetting::all();
+        if (@$result) {
+            $data = $result;
+            $status = "success";
+        }else{
+            $data = [];
+            $status = "failed";
+        }
 
-    	return response()->json(['status' => "success", 'data' => $result]);
+    	return response()->json(['status' => $status, 'data' => $data]);
     }
 }
