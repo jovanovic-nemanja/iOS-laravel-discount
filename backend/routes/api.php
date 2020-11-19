@@ -40,4 +40,8 @@ Route::get('/v1/getdetaildiscountbyid', 'API\SwiftApiController@getDetaildiscoun
 
 //register with facebook
 Route::get('/v1/redirectfb', 'Auth\LoginController@redirectToProviderfacebook');
-Route::get('/callbackfb', 'Auth\LoginController@handleProviderCallbackfacebook');
+Route::get('/v1/callbackfb', 'Auth\LoginController@handleProviderCallbackfacebook');
+
+//login with google
+Route::get('/v1/redirect', 'Auth\LoginController@redirectToProvidergoogle');
+Route::get('/v1/callback', 'Auth\LoginController@handleProviderCallbackgoogle');

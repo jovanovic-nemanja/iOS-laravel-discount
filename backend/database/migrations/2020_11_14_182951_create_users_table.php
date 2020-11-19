@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('instagram_id')->nullable();
             // Cached from Facebook
             $table->string('facebook_id')->nullable();
+            // Cached from Google
+            $table->string('google_id')->nullable();
 
             $table->integer('email_verified_at')->nullable();
             $table->string('password')->nullable();

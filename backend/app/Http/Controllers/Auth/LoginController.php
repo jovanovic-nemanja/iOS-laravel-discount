@@ -63,7 +63,7 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver('google')->user();
         } catch (\Exception $e) {
-            return redirect('/login');
+            return response()->json(['status' => "error", 'msg' => "Failed Google Redirected."]);
         }
 
         // check if they're an existing user
@@ -73,34 +73,23 @@ class LoginController extends Controller
             auth()->login($existingUser, true);
         } else {
             // create a new user
-            $role = Session::get('role');
-            if (@$role) {
-                $newUser                  = new User;
-                $newUser->name            = $user->name;
-                $newUser->email           = $user->email;
-                $newUser->sign_date       = date('Y-m-d h:i:s');
-                $newUser->google_id       = $user->id;
-                $newUser->save();
+            $newUser                  = new User;
+            $newUser->username        = $user->name;
+            $newUser->email           = $user->email;
+            $newUser->sign_date       = date('Y-m-d h:i:s');
+            $newUser->google_id     = $user->id;
+            $newUser->save();
 
-                if ($role == "buyer") { //Buyer case
-                    RoleUser::create([
-                        'user_id' => $newUser->id,
-                        'role_id' => 3,
-                    ]);
-                }if ($role == "seller") { //Seller case
-                    RoleUser::create([
-                        'user_id' => $newUser->id,
-                        'role_id' => 2,
-                    ]);
-                }
+            RoleUser::create([
+                'user_id' => $newUser->id,
+                'role_id' => 3,
+            ]);
 
-                auth()->login($newUser, true);
-            }else{
-                $msg = "We have not this google account!";
-                return view('auth/login', compact('msg'));
-            }
+            auth()->login($newUser, true);
         }
-        return redirect()->to('/');
+        $result = Category::all();
+
+        return response()->json(['status' => "success", 'msg' => "Successfully Logged In.", "data" => $result]);
     }
 
     /**
@@ -133,7 +122,6 @@ class LoginController extends Controller
             auth()->login($existingUser, true);
         } else {
             // create a new user
-            $role = 3;
             $newUser                  = new User;
             $newUser->username        = $user->name;
             $newUser->email           = $user->email;
