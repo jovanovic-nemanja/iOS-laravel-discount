@@ -148,29 +148,27 @@ Validate codes for email API
 
 	params: {
 		email: string : required,
-		code: 
+		code: integer: required,
 	}
 
 -Response
 	-- success
 		{
-	    	"success": true,
-		    "data": "jova@gmail.com",
-		    "msg": "Successfully registered."
+		    "status": "success",
+		    "data": "james@gmail.com",
+		    "msg": "Successfully validated now."
 		}
 
 		params: {
-			email: string
+			email: string,
+			code: integer
 		}
 
 	-- failed
 		{
-		    "status": "error",
-		    "msg": {
-		        "email": [
-		            "The email field is required."
-		        ]
-		    }
+		    "status": "failed",
+		    "data": "james@gmail.com",
+		    "msg": "Verify codes is failed. "
 		}
 
 
