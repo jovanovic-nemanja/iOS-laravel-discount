@@ -94,7 +94,7 @@ class UsersController extends Controller
             throw $e;
         }  
 
-        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully registered.']);
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully sent now. Please check a code in your email.']);
     }
 
     /**
