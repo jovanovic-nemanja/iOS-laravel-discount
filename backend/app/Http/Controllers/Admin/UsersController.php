@@ -108,8 +108,11 @@ class UsersController extends Controller
                 return response()->json(['status' => "success", 'data' => $useremail, 'msg' => 'Successfully validate now.']);
             }else{
                 $msg = "Verify codes is failed. ";
-                return response()->json(['status' => "failed", 'data' => $useremail, 'msg' => 'Validating Failed.']);
+                return response()->json(['status' => "failed", 'data' => $useremail, 'msg' => $msg]);
             }
+        }else{
+            $msg = "Not found your email address in our records. ";
+            return response()->json(['status' => "failed", 'data' => $useremail, 'msg' => $msg]);
         }
     }
 
