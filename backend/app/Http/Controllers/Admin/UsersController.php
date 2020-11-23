@@ -97,6 +97,22 @@ class UsersController extends Controller
         return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully sent now. Please check a code in your email.']);
     }
 
+    public function validateCode(Request $request)
+    {
+        $useremail = $request['email'];
+        $verify_codes = $request['code'];
+        $validate = Emailverify::where('email', $useremail)->first();
+
+        if (@$validate) {
+            if ($validate->verify_code == $verify_codes) {
+                return response()->json(['status' => "success", 'data' => $useremail, 'msg' => 'Successfully validate now.']);
+            }else{
+                $msg = "Verify codes is failed. ";
+                return response()->json(['status' => "failed", 'data' => $useremail, 'msg' => 'Validating Failed.']);
+            }
+        }
+    }
+
     /**
      * Swift API : User register by iOS mobile.
      *

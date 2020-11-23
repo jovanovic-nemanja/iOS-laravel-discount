@@ -135,6 +135,47 @@ User Email Verify API
 		}
 
 
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Validate codes for email API
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/validateCode?email=James@us.com&code=12123123
+
+	params: {
+		email: string : required,
+		code: 
+	}
+
+-Response
+	-- success
+		{
+	    	"success": true,
+		    "data": "jova@gmail.com",
+		    "msg": "Successfully registered."
+		}
+
+		params: {
+			email: string
+		}
+
+	-- failed
+		{
+		    "status": "error",
+		    "msg": {
+		        "email": [
+		            "The email field is required."
+		        ]
+		    }
+		}
+
+
+
+
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 Get vendor lists by category ID

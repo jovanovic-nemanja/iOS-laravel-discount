@@ -22,6 +22,7 @@ Route::get('/v1/generalsetting', 'API\SwiftApiController@getAllsettings');
 
 // user email verify and register, login and logout by mobile iOS
 Route::POST('/v1/emailverify', 'Admin\UsersController@emailverify');
+Route::POST('/v1/validateCode', 'Admin\UsersController@validateCode');
 Route::POST('/v1/register', 'Admin\UsersController@store');
 Route::POST('/v1/loginUser', 'Admin\UsersController@loginUser');
 Route::POST('/v1/logout', 'Admin\UsersController@logout');
