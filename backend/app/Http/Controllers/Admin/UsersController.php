@@ -133,8 +133,10 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
+            $messages = $validator->messages();
+
             //pass validator errors as errors object for ajax response
-            return response()->json(['status' => "error", 'msg' => $validator->errors()]);
+            return response()->json(['status' => "error", 'msg' => $messages->first()]);
         }
 
         DB::beginTransaction();
