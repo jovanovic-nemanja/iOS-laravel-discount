@@ -71,10 +71,10 @@ class SwiftApiController extends Controller
 
         if (@$result) {
             $status = "success";
-            $msg = "Success."
+            $msg = "Success.";
         }else {
             $status = "failed";
-            $msg = "Failed."
+            $msg = "Failed.";
         }
             
 
@@ -108,10 +108,10 @@ class SwiftApiController extends Controller
         
         if (@$result) {
             $status = "success";
-            $msg = "Success."
+            $msg = "Success.";
         }else {
             $status = "failed";
-            $msg = "Failed."
+            $msg = "Failed.";
         }
         $result['path'] = "https://tdguae.com/uploads/";
 
@@ -145,10 +145,10 @@ class SwiftApiController extends Controller
             
         if (@$result) {
             $status = "success";
-            $msg = "Success."
+            $msg = "Success.";
         }else {
             $status = "failed";
-            $msg = "Failed."
+            $msg = "Failed.";
         }
         $result['path'] = "https://tdguae.com/uploads/";
 
