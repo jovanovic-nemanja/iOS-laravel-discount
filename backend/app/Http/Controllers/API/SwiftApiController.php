@@ -96,13 +96,13 @@ class SwiftApiController extends Controller
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
                             ->where('discounts.vendor_id', $request->vendor_id)
-                            ->select('discounts.*', 'vendors.vendorname', 'discounts.sign_date as discounts_date', 'categories.category_name')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name')
                             ->get();
         }else{
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
-                            ->select('discounts.*', 'vendors.vendorname', 'discounts.sign_date as discounts_date', 'categories.category_name')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name')
                             ->get();
         }
         
