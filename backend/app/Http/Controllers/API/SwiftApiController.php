@@ -71,12 +71,14 @@ class SwiftApiController extends Controller
 
         if (@$result) {
             $status = "success";
+            $msg = "Success."
         }else {
             $status = "failed";
+            $msg = "Failed."
         }
             
 
-    	return response()->json(['status' => $status, 'data' => $result]);
+    	return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
     }
 
     /**
@@ -106,11 +108,14 @@ class SwiftApiController extends Controller
         
         if (@$result) {
             $status = "success";
+            $msg = "Success."
         }else {
             $status = "failed";
+            $msg = "Failed."
         }
+        $result['path'] = "https://tdguae.com/uploads/";
 
-        return response()->json(['status' => $status, 'data' => $result]);
+        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
     }
 
     /**
@@ -140,11 +145,14 @@ class SwiftApiController extends Controller
             
         if (@$result) {
             $status = "success";
+            $msg = "Success."
         }else {
             $status = "failed";
+            $msg = "Failed."
         }
+        $result['path'] = "https://tdguae.com/uploads/";
 
-        return response()->json(['status' => $status, 'data' => $result]);
+        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
     }
 
     /**
