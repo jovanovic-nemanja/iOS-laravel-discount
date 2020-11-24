@@ -200,13 +200,13 @@ class UsersController extends Controller
 
         if (!Auth::attempt($credentials))
             return response()->json([
-                'success' => false,
+                'status' => "failed",
                 'message' => 'Unauthorized Access, please confirm credentials or verify your email.'
             ]);
 
         $user = $request->user();
         
-        return response()->json(['success' => true, 'data' => $user]);
+        return response()->json(['status' => 'success', 'data' => $user, 'msg' => 'Successfully Logged In.']);
     }
     
     /**
