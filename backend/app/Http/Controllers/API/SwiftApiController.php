@@ -113,7 +113,6 @@ class SwiftApiController extends Controller
             $status = "failed";
             $msg = "Failed.";
         }
-        $result['path'] = "https://tdguae.com/uploads/";
 
         return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
     }
@@ -150,7 +149,6 @@ class SwiftApiController extends Controller
             $status = "failed";
             $msg = "Failed.";
         }
-        $result['path'] = "https://tdguae.com/uploads/";
 
         return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
     }
