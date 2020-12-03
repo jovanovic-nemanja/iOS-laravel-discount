@@ -55,7 +55,7 @@ class UsersController extends Controller
     public function emailverify(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255|unique:email_verify'
+            'email' => 'required|string|email|max:255|unique:users'
         ]);
 
         if ($validator->fails()) {
@@ -82,10 +82,16 @@ class UsersController extends Controller
                 $message->from('solaris.dubai@gmail.com', 'Administrator');
             });
 
-            $verifyuser = Emailverify::create([
-                'email' => $request['email'],
-                'verify_code' => $str,
-            ]);
+            $verifyuser = Emailverify::where('email', $useremail)->first();
+            if (@$verifyuser) {
+                $verifyuser->verify_code = $str;
+                $verifyuser->update();
+            }else{
+                $verifyuser = Emailverify::create([
+                    'email' => $request['email'],
+                    'verify_code' => $str,
+                ]);
+            }
 
             $result = $verifyuser['email'];
 
