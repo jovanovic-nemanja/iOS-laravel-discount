@@ -46,7 +46,7 @@ class SwiftApiController extends Controller
             $link = "https://youtu.be/VSo41Y9i2Ug";
         }
 
-        return response()->json(['status' => $status, 'data' => $link]);
+        return response()->json(['status' => $status, 'data' => $link, 'msg' => 'success']);
     }
 
     /**
