@@ -207,7 +207,7 @@ class UsersController extends Controller
         if (!Auth::attempt($credentials))
             return response()->json([
                 'status' => "failed",
-                'message' => 'Unauthorized Access, please confirm credentials or verify your email.'
+                'msg' => 'Unauthorized Access, please confirm credentials or verify your email.'
             ]);
 
         $user = $request->user();
