@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Video;
 use App\Vendors;
 use App\Category;
 use App\Discounts;
@@ -25,6 +26,27 @@ class SwiftApiController extends Controller
     public function index()
     {
 
+    }
+
+    /**
+     * Swift API: get link of Video for ADS.
+     *
+     * @since 2020-12-03
+     * @author Nemanja
+     * @return \Illuminate\Http\Response
+     */
+    public function getvideolink(Request $request)
+    {
+        $result = Video::where('active', 1)->first();
+        if (@$result) {
+            $status = "success";
+            $link = $result->link;
+        }else {
+            $status = "success";
+            $link = "https://youtu.be/VSo41Y9i2Ug";
+        }
+
+        return response()->json(['status' => $status, 'data' => $link]);
     }
 
     /**

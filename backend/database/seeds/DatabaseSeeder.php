@@ -12,13 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       $this->call([
-            UserSeeder::class
-        ]);
+     $this->call([
+      UserSeeder::class
+      ]);
 
-       // Setting Seeder
-       $this->call([
-            SettingSeeder::class,
-       ]);
+     // Setting Seeder
+     $this->call([
+      SettingSeeder::class,
+     ]);
+
+     $this->call([
+      VideoSeeder::class,
+     ]);
     }
 }

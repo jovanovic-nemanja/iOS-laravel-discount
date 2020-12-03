@@ -48,6 +48,12 @@ Route::get('/admin/creatediscounts/{id}', 'Admin\DiscountsController@createdisco
 
 
 
+Route::resource('admin/video', 'Admin\VideoController');
+Route::get('/admin/video', 'Admin\VideoController@index')->name('video.index');
+Route::put('/admin/video/update/{video}', 'Admin\VideoController@update')->name('admin.video.update');
+
+
+
 Route::get('/account', 'Frontend\AccountController@index')->name('account');
 Route::get('/changepass', 'Frontend\AccountController@changepass')->name('changepass');
 Route::put('/account/update', 'Frontend\AccountController@update')->name('account.update');

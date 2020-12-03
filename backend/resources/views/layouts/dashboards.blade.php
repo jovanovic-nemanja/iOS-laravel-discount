@@ -117,6 +117,13 @@
                                 </ul>
                             </div>
                         </li>
+
+                        <li class="nav-item <?= ($menu == 'video') ? "active" : "" ?>">
+                            <a href="{{ route('video.index') }}" class="nav-link">
+                                <i class="fa fa-youtube-play"></i>&nbsp;
+                                <span class="menu-title">Video</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
