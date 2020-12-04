@@ -4,6 +4,7 @@ namespace App;
 
 use App\Reviews;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -66,5 +67,36 @@ class User extends Authenticatable
         }
 
         return $name;
+    }
+
+    /**
+    * @param user_id
+    * This is a feature to upload a profile logo
+    */
+    public static function upload_photo($user_id, $existings = null) {
+        if(!request()->hasFile('photo')) {
+            return false;
+        }
+
+        Storage::disk('public_local')->put('uploads/', request()->file('photo'));
+
+        self::save_logo_img($user_id, request()->file('photo'));
+    }
+
+    /**
+    * file upload
+    * @param userid and photo file
+    * @return boolean true or false
+    * @since 2020-10-16
+    * @author Nemanja
+    */
+    public static function save_logo_img($user_id, $image) {
+        $user = User::where('id', $user_id)->first();
+
+        if($user) {
+            Storage::disk('public_local')->delete('uploads/', $user->photo);
+            $user->photo = $image->hashName();
+            $user->update();
+        }
     }
 }

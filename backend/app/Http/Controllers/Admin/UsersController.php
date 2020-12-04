@@ -134,6 +134,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        print_r($request->photo); exit();
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -155,6 +157,7 @@ class UsersController extends Controller
                 'instagram_id' => @$request['instagram_id'],
                 'birthday' => @$request['birthday'],
                 'email' => $request['email'],
+                'photo' => @$request['photo'],
                 'block' => 0,
                 'password' => Hash::make($request['password']),
                 'address' => @$request['address'],
@@ -167,6 +170,8 @@ class UsersController extends Controller
                 'role_id' => 3,
             ]);
 
+            User::upload_photo($vendor->id);
+            
             $result = [];
             $result = $user;
 
