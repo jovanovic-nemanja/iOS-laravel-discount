@@ -158,20 +158,13 @@ class SwiftApiController extends Controller
                             ->where('discounts.id', $request->id)
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name')
                             ->get();
-        }else{
-            $result = DB::table('discounts')
-                            ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
-                            ->join('categories', 'categories.id', '=', 'vendors.category_id')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name')
-                            ->get();
-        }
-            
-        if (@$result) {
+
             $status = "success";
             $msg = "Success.";
-        }else {
+        }else{
+            $result = '';
             $status = "failed";
-            $msg = "Failed.";
+            $msg = "Id Not Found.";
         }
 
         return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
