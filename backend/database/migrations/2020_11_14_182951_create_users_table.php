@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('email')->unique();
+            $table->text('photo')->nullable();
 
             // Cached from Instagram
             $table->string('instagram_id')->nullable();
