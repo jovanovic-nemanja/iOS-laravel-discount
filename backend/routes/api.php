@@ -37,7 +37,7 @@ Route::get('/v1/categories', 'API\SwiftApiController@getAllcategories');
 Route::get('/v1/vendros', 'API\SwiftApiController@getAllvendors');
 
 // getting discount lists by vendor Id
-Route::get('/v1/getdiscountlistsbyvendor', 'API\SwiftApiController@getDiscountlistsByVendor');
+Route::get('/v1/getDiscountlists', 'API\SwiftApiController@getDiscountlists');
 
 // getting discount detail one item by Id
 Route::get('/v1/getdetaildiscountbyid', 'API\SwiftApiController@getDetaildiscountById');
