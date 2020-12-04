@@ -134,7 +134,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->photo); exit();
+        // print_r($request->photo); exit();
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
