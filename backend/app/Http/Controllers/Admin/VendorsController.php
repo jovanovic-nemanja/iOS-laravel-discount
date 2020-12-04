@@ -7,6 +7,7 @@ use App\Role;
 use App\Vendors;
 use App\RoleUser;
 use App\Category;
+use App\Discounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -155,8 +156,10 @@ class VendorsController extends Controller
      */
     public function destroy($id)
     {
+        $rec = Vendors::where('id', $id)->first();
+        $res = Discounts::where('vendor_id', $rec->id)->delete();
         $record = Vendors::where('id', $id)->delete();
         
-        return redirect()->route('vendors.index');
+        return redirect()->route('vendor.index');
     }
 }
