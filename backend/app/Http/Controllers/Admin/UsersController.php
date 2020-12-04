@@ -170,7 +170,7 @@ class UsersController extends Controller
                 'role_id' => 3,
             ]);
 
-            User::upload_photo($vendor->id);
+            User::upload_photo($user->id);
             
             $result = [];
             $result = $user;
