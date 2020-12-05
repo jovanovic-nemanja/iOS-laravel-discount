@@ -170,10 +170,12 @@ class UsersController extends Controller
                 'role_id' => 3,
             ]);
 
-            User::upload_photo($user->id);
+            if (@$request->photo) {
+                User::upload_photo($user->id);
+            }
 
             $result = [];
-            $result = $user;
+            $result = User::where('id', $user->id)->first();
 
             DB::commit();
         } catch (\Exception $e) {
