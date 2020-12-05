@@ -142,11 +142,13 @@ class UsersController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]);
 
+        $path = env('APP_URL')."uploads/";
+
         if ($validator->fails()) {
             $messages = $validator->messages();
 
             //pass validator errors as errors object for ajax response
-            return response()->json(['status' => "error", 'msg' => $messages->first()]);
+            return response()->json(['status' => "error", 'msg' => $messages->first(), 'path' => $path]);
         }
 
         DB::beginTransaction();
@@ -184,7 +186,7 @@ class UsersController extends Controller
             throw $e;
         }  
 
-        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully registered.']);
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully registered.', 'path' => $path]);
     }
 
     /**
