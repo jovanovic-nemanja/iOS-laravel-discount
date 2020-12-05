@@ -2,14 +2,10 @@ $(function() {
     "use strict";
 
     $('.submit_discount_h').click(function() {
-        var title1 = $('.title1').val();
-        var title2 = $('.title2').val();
-        var title3 = $('.title3').val();
-        var description1 = $('.description1').val();
-        var description2 = $('.description2').val();
-        var description3 = $('.description3').val();
+        var title1 = $('.title').val();
+        var description1 = $('.description').val();
 
-        if (!((title1 && description1) || (title2 && description2) || (title3 && description3)))
+        if (!title1 || !description1)
         {
             Notificationsystem();
             return;
