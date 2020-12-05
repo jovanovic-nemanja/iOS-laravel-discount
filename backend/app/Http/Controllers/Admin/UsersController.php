@@ -138,7 +138,7 @@ class UsersController extends Controller
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255', //|unique:users
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ]);
 
@@ -171,7 +171,7 @@ class UsersController extends Controller
             ]);
 
             User::upload_photo($user->id);
-
+            
             $result = [];
             $result = $user;
 
