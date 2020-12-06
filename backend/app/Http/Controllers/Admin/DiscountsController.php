@@ -57,6 +57,7 @@ class DiscountsController extends Controller
         $this->validate(request(), [
             'title' => 'required|string',
             'description' => 'required|string',
+            'discount_photo' => 'required',
             'vendor_id' => 'required'
         ]);
 
@@ -67,11 +68,14 @@ class DiscountsController extends Controller
                 $discount = Discounts::create([
                     'title' => $request['title'],
                     'description' => $request['description'],
+                    'discount_photo' => $request['discount_photo'],
                     'vendor_id' => $request['vendor_id'],
                     'status' => 0,
                     'sign_date' => date('Y-m-d h:i:s'),
                 ]);
             }
+
+            Discounts::upload_photo($discount->id);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -126,8 +130,13 @@ class DiscountsController extends Controller
         if (@$record) {
             $record->title = $request->title;
             $record->description = $request->description;
+            $record->discount_photo = @$request->discount_photo;
 
             $record->update();
+        }
+
+        if (@$request->discount_photo) {
+            Discounts::upload_photo($record->id);
         }
         
         return redirect()->route('discounts.index');

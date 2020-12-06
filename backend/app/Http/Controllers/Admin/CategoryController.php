@@ -42,11 +42,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(request(), [
+            'category_name' => 'required',
+            'category_photo' => 'required'
+        ]);
+
         $category = Category::create([
             'category_name' => $request->category_name,
-            'slug' => $request->slug,
+            'category_photo' => @$request->category_photo,
+            'slug' => createSlug(request('category_name')),
             'sign_date' => date('y-m-d h:i:s'),
         ]);
+
+        Category::upload_photo($category->id);
 
         return redirect()->route('category.index')->with('flash', 'Category has been successfully created');
     }
@@ -72,8 +80,12 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->category_name = $request->category_name;
-        $category->slug = $request->slug;
+        $category->category_photo = @$request->category_photo;
         $category->save();
+
+        if (@$request->category_photo) {
+            Category::upload_photo($category->id);
+        }
 
         return redirect()->route('category.index')->with('flash', 'Category has successfully updated');
     }

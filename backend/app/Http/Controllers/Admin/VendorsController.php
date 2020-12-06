@@ -143,7 +143,9 @@ class VendorsController extends Controller
             $record->update();
         }
         
-        Vendors::upload_photo($record->id);
+        if (@$request->photo) {
+            Vendors::upload_photo($record->id);
+        }
 
         return redirect()->route('vendor.index');
     }

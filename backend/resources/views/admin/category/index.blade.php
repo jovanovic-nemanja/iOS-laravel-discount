@@ -23,7 +23,7 @@
 								<tr>
 									<th width="50px">No</th>
 									<th>Name</th>
-									<th>Slug</th>
+									<th>Photo</th>
 									<th width="150px">Action</th>
 								</tr>
 							</thead>
@@ -32,7 +32,14 @@
 								<tr>
 									<td>{{ $category->id }}</td>
 									<td>{{ $category->category_name }}</td>
-									<td>{{ $category->slug }}</td>
+									<?php 
+                                        if(@$category->category_photo) {
+                                            $path = asset('uploads/') . "/" . $category->category_photo;
+                                        }else{
+                                            $path = "";
+                                        }
+                                    ?>
+                                    <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
 									<td>
 										<a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary btn-sm btn-flat">
 											<i class="fa fa-edit"></i>

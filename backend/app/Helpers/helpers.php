@@ -1,6 +1,6 @@
 <?php 
 
-use App\Product;
+use App\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,7 +28,7 @@ function createSlug($title, $id = 0)
 
 function getRelatedSlugs($slug, $id = 0)
 {
-    return Product::select('slug')->where('slug', 'like', $slug.'%')
+    return Category::select('slug')->where('slug', 'like', $slug.'%')
         ->where('id', '<>', $id)
         ->get();
 }

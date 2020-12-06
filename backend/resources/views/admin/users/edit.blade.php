@@ -40,6 +40,32 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
+                                    <label>Profile photo</label>
+                                    <div class="controls">
+                                        <span>
+                                            <input type="file" name="photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile">
+                                            <?php 
+                                                if(@$user->photo) {
+                                                    $path = asset('uploads/') . "/" . $user->photo;
+                                                }else{
+                                                    $path = "";
+                                                }
+                                            ?>
+
+                                            <label for="file" @click="onClick" inputId="1" style="background-image: url(<?= $path ?>);" id='preview_img'>
+                                                <i class="fa fa-plus-circle"></i>
+                                            </label>
+                                        </span>
+                                    </div>
+
+                                    @if ($errors->has('photo'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('photo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group {{ $errors->has('birthday') ? 'has-error' : '' }}">
                                     <label>Birthday</label>
                                     <input type="date" name="birthday" class="form-control" placeholder="Birthday" value="{{ $user->birthday }}" />
@@ -91,3 +117,54 @@
         </div>
     </div>
 @stop
+
+<style type="text/css">
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile + label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        /*background-color: #E9ECEF;*/
+        padding: 50px;
+        display: inline-block;
+        cursor: pointer;
+        background-size: contain;
+        width: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .inputfile:focus + label,
+    .inputfile + label:hover {
+        /*background-color: #38C172ed;*/
+    }
+
+    .hidden {
+        display: none !important;
+    }
+</style>
+
+@section('script')
+    <script>
+        function loadPreview(input, id) {
+            id = "#" + id;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var path = "background-image: " + "url('" + e.target.result + "')";
+                    $(id).attr('style', path);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+@endsection

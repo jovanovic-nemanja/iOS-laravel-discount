@@ -23,6 +23,7 @@
                                     <th>No</th>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Photo</th>
                                     <th>Vendor</th>
                                     <th>Vendor Category</th>
                                     <th>Action</th>
@@ -38,6 +39,14 @@
                                     <td>{{ $discount->id }}</td>
                                     <td>{{ $discount->title }}</td>
                                     <td><?= nl2br($discount->description) ?></td>
+                                    <?php 
+                                        if(@$discount->discount_photo) {
+                                            $path = asset('uploads/') . "/" . $discount->discount_photo;
+                                        }else{
+                                            $path = "";
+                                        }
+                                    ?>
+                                    <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
                                     <td><?= $vendor_infor->vendorname ?></td>
                                     <td><?= $category ?></td>
                                     <td>

@@ -137,12 +137,14 @@
         padding: 50px;
         display: inline-block;
         cursor: pointer;
-        background-size: cover;
+        background-size: contain;
+        width: 100%;
+        background-repeat: no-repeat;
     }
 
     .inputfile:focus + label,
     .inputfile + label:hover {
-        background-color: #38C172ed;
+        /*background-color: #38C172ed;*/
     }
 
     .hidden {

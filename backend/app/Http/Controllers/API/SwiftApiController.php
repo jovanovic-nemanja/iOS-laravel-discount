@@ -65,7 +65,9 @@ class SwiftApiController extends Controller
             $status = "failed";
         }
 
-    	return response()->json(['status' => $status, 'data' => $result]);
+        $path = env('APP_URL')."uploads/";
+
+    	return response()->json(['status' => $status, 'data' => $result, 'path' => $path]);
     }
 
     /**
@@ -98,9 +100,10 @@ class SwiftApiController extends Controller
             $status = "failed";
             $msg = "Failed.";
         }
-            
 
-    	return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
+        $path = env('APP_URL')."uploads/";    
+
+    	return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg, 'path' => $path]);
     }
 
     /**
@@ -138,7 +141,9 @@ class SwiftApiController extends Controller
             $msg = "Failed.";
         }
 
-        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
+        $path = env('APP_URL')."uploads/"; 
+
+        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg, 'path' => $path]);
     }
 
     /**
@@ -167,7 +172,9 @@ class SwiftApiController extends Controller
             $msg = "Id Not Found.";
         }
 
-        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg]);
+        $path = env('APP_URL')."uploads/"; 
+        
+        return response()->json(['status' => $status, 'data' => $result, 'msg' => $msg, 'path' => $path]);
     }
 
     /**

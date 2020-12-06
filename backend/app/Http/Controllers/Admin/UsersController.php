@@ -279,6 +279,7 @@ class UsersController extends Controller
         if (@$record) {
             $record->username = @$request->username;
             $record->email = @$request->email;
+            $record->photo = @$request->photo;
             // $record->instagram_id = @$request->instagram_id;
             // $record->password = Hash::make($request->password);
             $record->block = $request->block;
@@ -287,6 +288,10 @@ class UsersController extends Controller
             $record->remarks = @$request->remarks;
 
             $record->update();
+        }
+
+        if (@$request->photo) {
+            User::upload_photo($record->id);
         }
 
         return redirect()->route('users.index');
