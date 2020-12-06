@@ -52,7 +52,7 @@
                                             $path = "";
                                         }
                                     ?>
-                                    <td><img src="<?= $path ?>" /></td>
+                                    <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
                                     <!-- <td>{{ $vendor->sign_date }}</td> -->
                                     <td>
                                         <a href="{{ route('discounts.creatediscounts', $vendor->id) }}" class="btn btn-success btn-sm btn-flat">

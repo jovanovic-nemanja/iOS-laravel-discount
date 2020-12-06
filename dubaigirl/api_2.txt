@@ -1,0 +1,200 @@
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+User register API
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/register?username=nemanja&email=jovanovic.nemanja.1029@gmail.com&password=aaaa1234!!!!&birthday=1999-10-29&address=Serbia Beograd&password_confirmation=aaaa1234!!!!
+
+	params: {
+		email: string : required
+		password: string
+		password_confirmation: string
+		birthday: string
+		address: string,
+		photo: string
+	}
+	method : post
+
+-Response
+	-- success
+		{
+		    "status": "success",
+		    "data": {
+		        "username": "nemanja",
+		        "birthday": "1999-10-29",
+		        "email": "jovanovic.nemanja.1029@gmail.com",
+		        "address": "Serbia Beograd",
+		        "sign_date": "2020-11-19 12:35:26",
+		        "id": 8
+		    },
+		    "msg": "Successfully registered."
+		}
+
+		params: {
+			id: integer
+			username: string
+			email: string
+			birthday: string
+			address: string
+			signdate: datetime
+		}
+		
+	-- failed
+		{
+		    "status": "error",
+		    "msg": {
+		        "email": [
+		            "The email field is required."
+		        ]
+		    }
+		}
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Get category lists
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/categories
+	method: get
+-Response
+	-- success
+		{
+		    "status": "success",
+		    "data": [
+		        {
+		            "id": 2,
+		            "category_name": "Restaurant",
+		            "parent": null,
+		            "slug": "restaurant",
+		            "sign_date": "2020-11-15 12:56:43",
+		            "created_at": "2020-11-15 03:56:43",
+		            "updated_at": "2020-11-15 03:58:33"
+		        },
+		        {
+		            "id": 3,
+		            "category_name": "Clinic",
+		            "parent": null,
+		            "slug": "clinic",
+		            "sign_date": "2020-11-15 05:56:36",
+		            "created_at": "2020-11-15 08:56:36",
+		            "updated_at": "2020-11-15 08:56:36"
+		        },
+		        {
+		            "id": 4,
+		            "category_name": "Supermarket",
+		            "parent": null,
+		            "slug": "supermarket",
+		            "sign_date": "2020-11-15 05:56:50",
+		            "created_at": "2020-11-15 08:56:50",
+		            "updated_at": "2020-11-15 08:56:50"
+		        },
+		        {
+		            "id": 5,
+		            "category_name": "Dentist",
+		            "parent": null,
+		            "slug": "dentist",
+		            "sign_date": "2020-11-18 01:18:54",
+		            "created_at": "2020-11-18 13:18:54",
+		            "updated_at": "2020-11-18 13:18:54"
+		        },
+		        {
+		            "id": 6,
+		            "category_name": "Stadium",
+		            "parent": null,
+		            "slug": "stadium",
+		            "sign_date": "2020-11-18 01:19:30",
+		            "created_at": "2020-11-18 13:19:30",
+		            "updated_at": "2020-11-18 13:19:30"
+		        }
+		    ]
+		}
+
+	-- failed
+		{
+		    "status": "failed",
+		    "data": []
+		}
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Get discount lists by categoryid or vendor name
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/getDiscountlists?category_id=2&vendor_name=med
+
+	params: {
+		category_id: integer, null able
+		vendor_name: string, null able
+	}
+	method:get
+
+-Response
+	-- success
+		{
+		    "status": "success",
+		    "data": [
+		        {
+		            "id": "4",
+		            "title": "50% Discount",
+		            "description": "50% Discount on all food stuffs",
+		            "vendor_id": "5",
+		            "sign_date": "2020-12-04 04:08:32",
+		            "status": "0",
+		            "vendorname": "Media ONe",
+		            "location": "sdf",
+		            "photo": "N9SDFwq4317WgirvnJ3RIdIh4V6xRBQxuWHpn5Zm.png",
+		            "email": "kin@gmail.com",
+		            "phone": "1234",
+		            "discounts_date": "2020-12-04 04:08:32",
+		            "category_name": "Restaurant"
+		        }
+		    ],
+		    "msg": "Success."
+		}
+
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Get discount detail information by Id
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/getdetaildiscountbyid?id=7
+
+	params: {
+		id: integer, not null
+	}
+	method:get
+
+-Response
+	-- success
+		{
+		    "status": "success",
+		    "data": [
+		        {
+		            "id": "7",
+		            "title": "test1",
+		            "description": "test1-\r\ndiscount-test-1",
+		            "vendor_id": "6",
+		            "sign_date": "2020-12-04 07:04:21",
+		            "status": "0",
+		            "vendorname": "restaurant",
+		            "location": "restaurant",
+		            "photo": "WmyEdlDnDK52mRGa3O2gybVA5A5yHfXQU71JtDCA.png",
+		            "email": "restaurant@restaurant.com",
+		            "discounts_date": "2020-12-04 07:04:21",
+		            "category_name": "Restaurant"
+		        }
+		    ],
+		    "msg": "Success."
+		}

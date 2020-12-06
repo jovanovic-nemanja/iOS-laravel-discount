@@ -45,7 +45,7 @@
                                             $path = "";
                                         }
                                     ?>
-                                    <td><img src="<?= $path ?>" /></td>
+                                    <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
                                     
                                     <td>{{ $user->birthday }}</td>
                                     <td>{{ $user->address }}</td>
