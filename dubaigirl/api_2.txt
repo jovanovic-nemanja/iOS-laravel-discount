@@ -1,5 +1,132 @@
 /////////////////////////////////////////////
 /////////////////////////////////////////////
+User Login API
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/loginUser?email=a@a.com&password=111111
+
+	params: {
+		email: string : required
+		password: string
+	}
+
+-Response
+	-- success
+		{
+	    	"success": true,
+		    "data": {
+		        "id": 1,
+		        "username": "Admin",
+		        "email": "admin@gmail.com",
+		        "instagram_id": null,
+		        "facebook_id": null,
+		        "google_id": null,
+		        "birthday": "1985-10-19",
+		        "address": "Dubai 11",
+		        "sign_date": "2020-11-14 07:11:36",
+		        "remarks": "administrator2",
+		    }
+		}
+
+		params: {
+			id: integer
+			username: string
+			email: string
+			instagramid: string
+			facebookid: string
+			googleid: string
+			birthday: string
+			address: string
+			signdate: datetime
+			remarks: string
+		}
+
+	-- failed
+		{
+		    "success": false,
+		    "message": "Unauthorized Access, please confirm credentials or verify your email."
+		}
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+User Email Verify API
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/emailverify?email=jova@gmail.com
+
+	params: {
+		email: string : required
+	}
+
+-Response
+	-- success
+		{
+	    	"success": true,
+		    "data": "jova@gmail.com",
+		    "msg": "Successfully registered."
+		}
+
+		params: {
+			email: string
+		}
+
+	-- failed
+		{
+		    "status": "error",
+		    "msg": {
+		        "email": [
+		            "The email field is required."
+		        ]
+		    }
+		}
+
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Validate codes for email API
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/validateCode?email=James@us.com&code=12123123
+
+	params: {
+		email: string : required,
+		code: integer: required,
+	}
+
+-Response
+	-- success
+		{
+		    "status": "success",
+		    "data": "james@gmail.com",
+		    "msg": "Successfully validated now."
+		}
+
+		params: {
+			email: string,
+			code: integer
+		}
+
+	-- failed
+		{
+		    "status": "failed",
+		    "data": "james@gmail.com",
+		    "msg": "Verify codes is failed. "
+		}
+
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
 User register API
 /////////////////////////////////////////////
 /////////////////////////////////////////////
