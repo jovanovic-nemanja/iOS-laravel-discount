@@ -115,7 +115,7 @@ class UsersController extends Controller
             if ($validate->verify_code == $verify_codes) {
                 return response()->json(['status' => "success", 'data' => $useremail, 'msg' => 'Successfully validated now.']);
             }else{
-                $msg = "Verify codes is failed. ";
+                $msg = "Your code is invalid. ";
                 return response()->json(['status' => "failed", 'data' => $useremail, 'msg' => $msg]);
             }
         }else{
