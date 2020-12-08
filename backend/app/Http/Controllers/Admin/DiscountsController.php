@@ -130,7 +130,9 @@ class DiscountsController extends Controller
         if (@$record) {
             $record->title = $request->title;
             $record->description = $request->description;
-            $record->discount_photo = @$request->discount_photo;
+            if (@$request->discount_photo) {
+                $record->discount_photo = $request->discount_photo;
+            }
 
             $record->update();
         }
