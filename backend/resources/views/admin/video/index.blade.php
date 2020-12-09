@@ -4,11 +4,11 @@
 <div class="card">
     <div class="card-body" style="padding: 5%;">
         <div class="row">
-        	@if($video)
-            	   
-            @elseif
-            	<a href="{{ route('video.create') }}" class="btn btn-success">Add Video</a> 
-            @endif
+        	<?php if (@$video) { ?>
+        		# code...
+        	<?php }else{ ?>
+        		<a href="{{ route('video.create') }}" class="btn btn-success">Add Video</a> 
+    		<?php } ?>
         </div>
         <br>
         <div class="row">
