@@ -50,7 +50,6 @@ Route::get('/admin/creatediscounts/{id}', 'Admin\DiscountsController@createdisco
 
 Route::resource('admin/video', 'Admin\VideoController');
 Route::get('/admin/video', 'Admin\VideoController@index')->name('video.index');
-Route::put('/admin/video/update/{video}', 'Admin\VideoController@update')->name('admin.video.update');
 
 
 

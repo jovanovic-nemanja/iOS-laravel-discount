@@ -33,7 +33,7 @@ class VideoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.video.create');
     }
 
     /**
@@ -44,7 +44,28 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'link' => 'required'
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $video = Video::create([
+                'link' => $request['link'],
+                'active' => 1,
+            ]);
+
+            Video::upload_video($video->id);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            throw $e;
+        }  
+
+        return redirect()->route('video.index')->with('flash', 'Successfully added Video.');
     }
 
     /**
@@ -55,7 +76,9 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        //
+        $video = Video::where('id', $id)->first();
+
+        return view('admin.video.edit', compact('video'));
     }
 
     /**
@@ -66,33 +89,20 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $record = Video::where('id', $id)->first();
+        if (@$record) {
+            if (@$request->link) {
+                $record->link = @$request->vendorname;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @since 2020-12-03
-     * @author Nemanja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Video $video) 
-    {
-        try {
-            $this->validate(request(), [
-                'link' => 'required'
-            ]);
-
-            $video->link = request('link');
-            $video->active = 1;
-            $video->save();
-        } catch (Exception $e) {
-            echo $e->getMessage();
+                $record->update();
+            }
+        }
+        
+        if (@$request->link) {
+            Video::upload_video($record->id);
         }
 
-        return back()->with('flash', 'Video Link has been successfully updated.');
+        return redirect()->route('video.index');
     }
 
     /**
@@ -103,6 +113,8 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Video::where('id', $id)->delete();
+        
+        return redirect()->route('video.index');
     }
 }
