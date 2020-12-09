@@ -62,7 +62,7 @@ class UsersController extends Controller
             $messages = $validator->messages();
 
             //pass validator errors as errors object for ajax response
-            return response()->json(['status' => "error", 'msg' => $messages->first()]);
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
         }
 
         DB::beginTransaction();
@@ -148,7 +148,7 @@ class UsersController extends Controller
             $messages = $validator->messages();
 
             //pass validator errors as errors object for ajax response
-            return response()->json(['status' => "error", 'msg' => $messages->first(), 'path' => $path]);
+            return response()->json(['status' => "failed", 'msg' => $messages->first(), 'path' => $path]);
         }
 
         DB::beginTransaction();
@@ -208,7 +208,7 @@ class UsersController extends Controller
             $messages = $validator->messages();
 
             //pass validator errors as errors object for ajax response
-            return response()->json(['status' => "error", 'msg' => $messages->first()]);
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
         }
 
         $credentials = request(['email', 'password']);
