@@ -116,6 +116,8 @@ class SwiftApiController extends Controller
      */
     public function getDiscountlists(Request $request)
     {
+        $arr = [];
+        
         if (@$request->category_id) {
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
