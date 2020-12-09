@@ -5,7 +5,7 @@
     <div class="card-body" style="padding: 5%;">
         <div class="row">
         	<?php if (@$video) { ?>
-        		# code...
+        		
         	<?php }else{ ?>
         		<a href="{{ route('video.create') }}" class="btn btn-success">Add Video</a> 
     		<?php } ?>
