@@ -40,7 +40,7 @@ class SwiftApiController extends Controller
         $result = Video::where('active', 1)->first();
         if (@$result) {
             $status = "success";
-            $link = $result->link;
+            $link = env('APP_URL') . "uploads/" . $result->link;
         }else {
             $status = "success";
             $link = "https://youtu.be/VSo41Y9i2Ug";
