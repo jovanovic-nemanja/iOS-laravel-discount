@@ -23,7 +23,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($videos as $video)
                             <tr>
                                 <td>{{ $video->id }}</td>
                                 <td>{{ $video->link }}</td>
@@ -42,7 +41,6 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
