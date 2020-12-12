@@ -137,7 +137,10 @@ class VendorsController extends Controller
             $record->category_id = $request->category_id;
             $record->phone = $request->phone;
             $record->location = $request->location;
-            $record->photo = @$request->photo;
+            if (@$request->photo) {
+                $record->photo = @$request->photo;
+            }
+            
             $record->instagram_id = @$request->instagram_id;
             $record->facebook_id = @$request->facebook_id;
             $record->remarks_vendor = @$request->remarks_vendor;
