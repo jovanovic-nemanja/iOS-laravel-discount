@@ -134,8 +134,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // print_r($request->photo); exit();
-
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255', //|unique:users
@@ -166,6 +164,8 @@ class UsersController extends Controller
                 'remarks' => @$request['remarks'],
                 'sign_date' => date('Y-m-d h:i:s'),
             ]);
+
+            User::generateuserUniqueID($user->id);
 
             RoleUser::create([
                 'user_id' => $user->id,
@@ -289,6 +289,8 @@ class UsersController extends Controller
 
             $record->update();
         }
+
+        User::generateuserUniqueID($record->id);
 
         if (@$request->photo) {
             User::upload_photo($record->id);

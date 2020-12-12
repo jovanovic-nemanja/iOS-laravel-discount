@@ -75,6 +75,8 @@ class VendorsController extends Controller
                 'sign_date' => date('Y-m-d h:i:s'),
             ]);
 
+            Vendors::generateUniqueID($vendor->id);
+
             Vendors::upload_photo($vendor->id);
 
             DB::commit();
@@ -142,6 +144,8 @@ class VendorsController extends Controller
 
             $record->update();
         }
+
+        Vendors::generateUniqueID($record->id);
         
         if (@$request->photo) {
             Vendors::upload_photo($record->id);

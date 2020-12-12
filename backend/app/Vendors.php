@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendors extends Model
 {
-    public $fillable = ['vendorname', 'email', 'category_id', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'sign_date', 'remarks_vendor'];
+    public $fillable = ['vendorname', 'vendorUniqueId', 'email', 'category_id', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'sign_date', 'remarks_vendor'];
 
     public function getStatus($id) {
         if (@$id) {
@@ -80,5 +80,25 @@ class Vendors extends Model
         }
 
         return $name;
+    }
+
+    /**
+    * generate Unique Vendor ID
+    * @param vendor table id
+    * @return Unique ID
+    * @since 2020-12-12
+    * @author Nemanja
+    */
+    public static function generateUniqueID($id)
+    {
+        if (@$id) {
+            $record = Vendors::where('id', $id)->first();
+            if (@$record) {
+                $record->vendorUniqueId = "20000" . $id;
+                $record->update();
+            }
+        }
+
+        return true;
     }
 }

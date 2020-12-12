@@ -99,4 +99,24 @@ class User extends Authenticatable
             $user->update();
         }
     }
+
+    /**
+    * generate Unique user ID
+    * @param user table id
+    * @return Unique ID
+    * @since 2020-12-12
+    * @author Nemanja
+    */
+    public static function generateuserUniqueID($id)
+    {
+        if (@$id) {
+            $record = User::where('id', $id)->first();
+            if (@$record) {
+                $record->userUniqueId = "10000" . $id;
+                $record->update();
+            }
+        }
+
+        return true;
+    }
 }
