@@ -279,9 +279,10 @@ class UsersController extends Controller
         if (@$record) {
             $record->username = @$request->username;
             $record->email = @$request->email;
-            $record->photo = @$request->photo;
-            // $record->instagram_id = @$request->instagram_id;
-            // $record->password = Hash::make($request->password);
+            if (@$request->photo) {
+                $record->photo = $request->photo;
+            }
+
             $record->block = $request->block;
             $record->birthday = @$request->birthday;
             $record->address = @$request->address;
