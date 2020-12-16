@@ -24,6 +24,7 @@
         .auth .login-half-bg {
             background: url({{ asset('images/logo2.png') }});
             background-size: cover;
+            background-position: center;
         }
         .content-wrapper {
             background: #ecf0f4;
