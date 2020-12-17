@@ -9,15 +9,15 @@
 
 @section('body')
     
-    @if(session('flash'))
-        <div class="alert alert-primary">
-            {{ session('flash') }}
-        </div>
-    @endif
-    
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ route('home') }}"><b>ThatDubaiGirl</b></a>
+
+            @if(session('flash'))
+                <div class="alert alert-primary">
+                    <h4><strong>{{ session('flash') }}</strong></h4>
+                </div>
+            @endif
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
