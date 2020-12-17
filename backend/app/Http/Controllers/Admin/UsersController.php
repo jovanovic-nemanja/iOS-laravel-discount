@@ -131,11 +131,11 @@ class UsersController extends Controller
         $token = substr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", mt_rand(0, 51), 1).substr(md5(time()), 1);
 
         $data = [];
-        $data['name'] = 'Hello!';
+        $data['name'] = 'User!';
         $data['resetLink'] = env('APP_URL') . 'users/resetpwd/' . $token;
         $data['body'] = 'You are receiving this email because we received a password reset request for your account.';
         $data['pre_footer'] = 'If you did not request a password reset, no further action is required. <br> Regards, <br> MamboDubai';
-        $data['footer'] = 'If you’re having trouble clicking the "Reset Password" button, copy and paste the URL below <br> into your web browser: <a href="' . $data['resetLink'] . '" style="text-decoration: none; background-color: #3097d1; border-top: 10px solid #3097d1; border-right: 18px solid #3097d1; border-bottom: 10px solid #3097d1; border-left: 18px solid #3097d1; box-sizing: border-box; border-radius: 3px; color: #fff;" target="_blank">' . $data['resetLink'] . '</a>';
+        $data['footer'] = 'If you’re having trouble clicking the "Reset Password" button, copy and paste the URL below <br> into your web browser: <a href="' . $data['resetLink'] . '" target="_blank">' . $data['resetLink'] . '</a>';
         
         // $data['email'] = $request['email'];
 
