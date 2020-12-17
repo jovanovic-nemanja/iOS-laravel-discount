@@ -27,6 +27,11 @@ Route::POST('/v1/register', 'Admin\UsersController@store');
 Route::POST('/v1/loginUser', 'Admin\UsersController@loginUser');
 Route::POST('/v1/logout', 'Admin\UsersController@logout');
 
+// forgot password
+Route::POST('/v1/forgotpassword', 'Admin\UsersController@forgotpassword');
+
+
+
 // return url for video ads
 Route::get('/v1/getvideolink', 'API\SwiftApiController@getvideolink');
 

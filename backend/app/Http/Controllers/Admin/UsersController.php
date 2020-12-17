@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword']);
     }
 
     /**
@@ -105,6 +105,105 @@ class UsersController extends Controller
         return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully sent now. Please check a code in your email.']);
     }
 
+    /**
+     * Swift API : User forgot password.
+     *
+     * @since 2020-12-17
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function forgotpassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|exists:users'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        DB::beginTransaction();
+
+        $token = substr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", mt_rand(0, 51), 1).substr(md5(time()), 1);
+
+        $data = [];
+        $data['name'] = 'Hello!';
+        $data['resetLink'] = env('APP_URL') . 'users/resetpwd/' . $token;
+        $data['body'] = 'You are receiving this email because we received a password reset request for your account.';
+        $data['pre_footer'] = 'If you did not request a password reset, no further action is required. <br> Regards, <br> MamboDubai';
+        $data['footer'] = 'If you’re having trouble clicking the "Reset Password" button, copy and paste the URL below <br> into your web browser: <a href="' . $data['resetLink'] . '" style="text-decoration: none; background-color: #3097d1; border-top: 10px solid #3097d1; border-right: 18px solid #3097d1; border-bottom: 10px solid #3097d1; border-left: 18px solid #3097d1; box-sizing: border-box; border-radius: 3px; color: #fff;" target="_blank"' . $data['resetLink'] . '</a>';
+        
+        // $data['email'] = $request['email'];
+
+        $useremail = $request['email'];
+        $username = 'That Dubai Girl';
+        $subject = "That Dubai Girl : Reset Password";
+
+        try {
+            Mail::send('frontend.mail.mail_forgotpassword', $data, function($message) use ($username, $useremail, $subject) {
+                $message->to($useremail, $username)->subject($subject);
+                $message->from('mambodubai@solaris.com', 'Administrator');
+            });
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            throw $e;
+        }  
+
+        return response()->json(['status' => "success", 'msg' => 'Successfully sent now. Please check your inbox.']);
+    }
+
+    /**
+     * Resource page render reset password.
+     *
+     * @since 2020-12-17
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetpwd($token)
+    {
+        return view('admin.users.reset', compact('token'));
+    }
+
+    /**
+     * Swift API : Reset password.
+     *
+     * @since 2020-12-17
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetUserpassword(Request $request)
+    {
+        $this->validate(request(), [
+            'email' => 'required|email|exists:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if (@$user) {
+            $user->password = Hash::make(request('password'));
+            $user->save();
+        }
+            
+        return redirect()->route('users.resetpwd', $request->_token)->with('flash', 'Password has been successfully reset.');
+    }
+
+    /**
+     * Swift API : validate verify code.
+     *
+     * @since 2020-11-16
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function validateCode(Request $request)
     {
         $useremail = $request['email'];

@@ -40,6 +40,8 @@ Route::get('/admin/vendor', 'Admin\VendorsController@index')->name('vendor.index
 
 Route::resource('admin/users', 'Admin\UsersController');
 Route::get('/admin/users', 'Admin\UsersController@index')->name('users.index');
+Route::get('/users/resetpwd/{token}', 'Admin\UsersController@resetpwd')->name('users.resetpwd');
+Route::POST('/users/resetUserpassword', 'Admin\UsersController@resetUserpassword')->name('users.resetUserpassword');
 
 
 Route::resource('admin/discounts', 'Admin\DiscountsController');
