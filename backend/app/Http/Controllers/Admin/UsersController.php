@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword', 'updateAccount']);
     }
 
     /**
@@ -194,6 +194,61 @@ class UsersController extends Controller
         }
             
         return redirect()->route('users.resetpwd', $request->_token)->with('flash', 'Password has been successfully reset.');
+    }
+
+    /**
+     * Swift API : Update user account information.
+     *
+     * @since 2020-12-17
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAccount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255',
+            'password' => 'min:6'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if (@$user) {
+            if (@$request->password) {
+                $user->password = Hash::make($request->password);
+            }
+            if (@$request->birthday) {
+                $user->birthday = $request->birthday;
+            }
+            if (@$request->username) {
+                $user->username = $request->username;
+            }
+            if (@$request->photo) {
+                $user->photo = $request->photo;
+            }
+            if (@$request->address) {
+                $user->address = $request->address;
+            }
+
+            $user->save();
+        }
+
+        User::generateuserUniqueID($user->id);
+
+        if (@$request->photo) {
+            User::upload_photo($user->id);
+        }
+
+        $result = [];
+        $result = User::where('id', $user->id)->first();
+            
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully updated your account information.']);
     }
 
     /**

@@ -30,6 +30,9 @@ Route::POST('/v1/logout', 'Admin\UsersController@logout');
 // forgot password
 Route::POST('/v1/forgotpassword', 'Admin\UsersController@forgotpassword');
 
+// update user account information
+Route::POST('/v1/updateAccount', 'Admin\UsersController@updateAccount');
+
 
 
 // return url for video ads
