@@ -8,6 +8,13 @@
 @section('body_class', 'login-page')
 
 @section('body')
+    
+    @if(session('flash'))
+        <div class="alert alert-primary">
+            {{ session('flash') }}
+        </div>
+    @endif
+    
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ route('home') }}"><b>ThatDubaiGirl</b></a>
