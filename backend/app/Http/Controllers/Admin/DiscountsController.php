@@ -70,7 +70,7 @@ class DiscountsController extends Controller
                     'description' => $request['description'],
                     'discount_photo' => $request['discount_photo'],
                     'vendor_id' => $request['vendor_id'],
-                    'status' => 0,
+                    'status' => 1,
                     'sign_date' => date('Y-m-d h:i:s'),
                 ]);
             }
@@ -139,6 +139,56 @@ class DiscountsController extends Controller
 
         if (@$request->discount_photo) {
             Discounts::upload_photo($record->id);
+        }
+        
+        return redirect()->route('discounts.index');
+    }
+
+    /**
+     * Update the status from 1 to 2.
+     * set featured discount by admin
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @author Nemanja
+     * @since 2020-12-19
+     * @return \Illuminate\Http\Response
+     */
+    public function setfeature(Request $request)
+    {
+        $this->validate(request(), [
+            'discountID' => 'required'
+        ]);
+
+        $record = Discounts::where('id', $request->discountID)->first();
+        if (@$record) {
+            $record->status = 2;
+            
+            $record->update();
+        }
+        
+        return redirect()->route('discounts.index');
+    }
+
+    /**
+     * Update the status from 2 to 1.
+     * reset feature discount by admin
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @author Nemanja
+     * @since 2020-12-19
+     * @return \Illuminate\Http\Response
+     */
+    public function resetfeatured(Request $request)
+    {
+        $this->validate(request(), [
+            'discountID' => 'required'
+        ]);
+
+        $record = Discounts::where('id', $request->discountID)->first();
+        if (@$record) {
+            $record->status = 1;
+            
+            $record->update();
         }
         
         return redirect()->route('discounts.index');

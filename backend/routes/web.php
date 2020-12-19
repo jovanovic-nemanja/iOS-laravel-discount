@@ -47,6 +47,8 @@ Route::POST('/users/resetUserpassword', 'Admin\UsersController@resetUserpassword
 Route::resource('admin/discounts', 'Admin\DiscountsController');
 Route::get('/admin/discounts', 'Admin\DiscountsController@index')->name('discounts.index');
 Route::get('/admin/creatediscounts/{id}', 'Admin\DiscountsController@creatediscounts')->name('discounts.creatediscounts');
+Route::POST('/admin/discounts/setfeature', 'Admin\DiscountsController@setfeature')->name('discounts.setfeature');
+Route::POST('/admin/discounts/resetfeatured', 'Admin\DiscountsController@resetfeatured')->name('discounts.resetfeatured');
 
 
 

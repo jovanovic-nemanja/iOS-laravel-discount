@@ -56,4 +56,29 @@ class Discounts extends Model
             $discount->update();
         }
     }
+
+    /**
+    * get status name as string by status id
+    * @param status id as integer
+    * @return status as string
+    * @since 2020-12-19
+    * @author Nemanja
+    */
+    public static function getStatusBystatusID($status)
+    {
+        switch ($status) {
+            case '1':
+                $result = "General Discount";
+                break;
+            case '2':
+                $result = "Featured Discount";
+                break;
+
+            default:
+                $result = "General Discount";
+                break;
+        }
+
+        return $result;
+    }
 }

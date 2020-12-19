@@ -22,6 +22,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Title</th>
+                                    <th>Status</th>
                                     <th>Description</th>
                                     <th>Photo</th>
                                     <th>Vendor</th>
@@ -38,6 +39,7 @@
                                     ?>
                                     <td>{{ $discount->id }}</td>
                                     <td>{{ $discount->title }}</td>
+                                    <td>{{ App\Discounts::getStatusBystatusID($discount->status) }}</td>
                                     <td><?= nl2br($discount->description) ?></td>
                                     <?php 
                                         if(@$discount->discount_photo) {
@@ -50,18 +52,44 @@
                                     <td><?= $vendor_infor->vendorname ?></td>
                                     <td><?= $category ?></td>
                                     <td>
-                                        <a href="{{ route('discounts.show', $discount->id) }}" class="btn btn-primary btn-sm btn-flat">
-                                            <i class="fa fa-edit"></i>
+                                        <a href="{{ route('discounts.show', $discount->id) }}" class="btn btn-primary btn-sm btn-flat" title="Edit">
+                                            <i class="fa fa-edit"></i>Edit
                                         </a>
                                         <a href="" onclick="event.preventDefault();
-                                             document.getElementById('delete-form-{{$discount->id}}').submit();" class="btn btn-danger btn-sm btn-flat">
-                                            <i class="fa fa-trash"></i>
+                                             document.getElementById('delete-form-{{$discount->id}}').submit();" class="btn btn-danger btn-sm btn-flat" title="Delete">
+                                            <i class="fa fa-trash"></i>Delete
                                         </a>
 
                                         <form id="delete-form-{{$discount->id}}" action="{{ route('discounts.destroy', $discount->id) }}" method="POST" style="display: none;">
-                                              <input type="hidden" name="_method" value="delete">
-                                              @csrf
+                                            <input type="hidden" name="_method" value="delete">
+                                            @csrf
                                         </form>
+
+                                        @if($discount->status == 1)
+                                            <a href="" onclick="event.preventDefault();
+                                                 document.getElementById('setfeature-form-{{$discount->id}}').submit();" class="btn btn-success btn-sm btn-flat" title="Set as featured" style="background-color: #6060ff;">
+                                                <i class="fa fa-check"></i>Set as featured
+                                            </a>
+
+                                            <form id="setfeature-form-{{$discount->id}}" action="{{ route('discounts.setfeature') }}" method="POST" style="display: none;">
+                                                <input type="hidden" name="_method" value="POST">
+                                                @csrf
+
+                                                <input type="hidden" name="discountID" value="{{ $discount->id }}">
+                                            </form>
+                                        @elseif($discount->status == 2)
+                                            <a href="" onclick="event.preventDefault();
+                                                 document.getElementById('resetfeatured-form-{{$discount->id}}').submit();" class="btn btn-success btn-sm btn-flat" title="Reset as general" style="background-color: #6060ff;">
+                                                <i class="fa fa-times"></i>Reset as general
+                                            </a>
+
+                                            <form id="resetfeatured-form-{{$discount->id}}" action="{{ route('discounts.resetfeatured') }}" method="POST" style="display: none;">
+                                                <input type="hidden" name="_method" value="POST">
+                                                @csrf
+
+                                                <input type="hidden" name="discountID" value="{{ $discount->id }}">
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
