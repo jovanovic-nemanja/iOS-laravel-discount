@@ -124,14 +124,14 @@ class SwiftApiController extends Controller
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
                             ->where('vendors.category_id', $request->category_id)
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
                             ->get();
         }else{
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
                             ->get();
         }
         
