@@ -207,8 +207,7 @@ class UsersController extends Controller
     public function updateAccount(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255',
-            // 'password' => 'min:6'
+            'username' => 'required'
         ]);
 
         if ($validator->fails()) {
