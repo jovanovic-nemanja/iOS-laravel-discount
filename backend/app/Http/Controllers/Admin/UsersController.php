@@ -236,9 +236,9 @@ class UsersController extends Controller
             }
 
             $user->save();
-        }
 
-        User::generateuserUniqueID($user->id);
+            User::generateuserUniqueID($user->id);
+        }
 
         if (@$request->photo) {
             User::upload_photo($user->id);
