@@ -208,7 +208,7 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
-            'password' => 'min:6'
+            // 'password' => 'min:6'
         ]);
 
         if ($validator->fails()) {
@@ -220,9 +220,9 @@ class UsersController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if (@$user) {
-            if (@$request->password) {
-                $user->password = Hash::make($request->password);
-            }
+            // if (@$request->password) {
+            //     $user->password = Hash::make($request->password);
+            // }
             if (@$request->birthday) {
                 $user->birthday = $request->birthday;
             }
