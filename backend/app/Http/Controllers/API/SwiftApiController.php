@@ -120,20 +120,35 @@ class SwiftApiController extends Controller
     {
         $arr = [];
         
+        /*
+            SELECT discounts.*, vendors.vendorname, vendors.location, vendors.photo, vendors.email, vendors.phone, vendors.instagram_id, discounts.sign_date as discounts_date, categories.category_name, categories.id as category_id, AVG(reviews.mark) as avg_marks, COUNT(reviews.id) as count_reviews
+
+            FROM discounts
+            INNER JOIN vendors ON vendors.id = discounts.vendor_id
+            INNER JOIN categories ON categories.id = vendors.category_id
+            INNER JOIN reviews ON reviews.discount_id = discounts.id
+            WHERE vendors.category_id = 2
+            GROUP BY discounts.id
+        */
+
         if (@$request->category_id) {
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
+                            ->join('reviews', 'reviews.discount_id', '=', 'discounts.id')
                             ->where('vendors.category_id', $request->category_id)
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
+                            ->groupby('discounts.id')
                             ->get();
         }else{
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
+                            ->join('reviews', 'reviews.discount_id', '=', 'discounts.id')
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
+                            ->groupby('discounts.id')
                             ->get();
         }
         
