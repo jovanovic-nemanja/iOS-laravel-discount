@@ -187,6 +187,7 @@ class SwiftApiController extends Controller
                             ->join('users', 'users.id', '=', 'reviews.putter')
                             ->where('reviews.discount_id', $request->id)
                             ->select('reviews.*', 'users.username', 'users.photo')
+                            ->orderBy('reviews.put_date', 'DESC')
                             ->get();
 
             if (@$reviews) {
