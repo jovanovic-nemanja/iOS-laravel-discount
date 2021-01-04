@@ -183,6 +183,16 @@ class SwiftApiController extends Controller
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name')
                             ->get();
 
+            $reviews = DB::table('reviews')
+                            ->join('users', 'users.id', '=', 'reviews.putter')
+                            ->where('reviews.discount_id', $request->id)
+                            ->select('reviews.*', 'users.username', 'users.photo')
+                            ->get();
+
+            if (@$reviews) {
+                $result[0]->reviews = $reviews;
+            }
+
             $status = "success";
             $msg = "Success.";
         }else{
