@@ -57,3 +57,7 @@ Route::get('/v1/callbackfb', 'Auth\LoginController@handleProviderCallbackfaceboo
 //login with google
 Route::get('/v1/redirect', 'Auth\LoginController@redirectToProvidergoogle');
 Route::get('/v1/callback', 'Auth\LoginController@handleProviderCallbackgoogle');
+
+
+// putting review data by API
+Route::POST('/v1/putReviewsbyAPI', 'API\SwiftApiController@putReviewsbyAPI');

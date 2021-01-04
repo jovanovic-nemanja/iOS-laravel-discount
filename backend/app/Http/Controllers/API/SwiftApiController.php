@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Video;
+use App\Reviews;
 use App\Vendors;
 use App\Category;
 use App\Discounts;
@@ -198,5 +200,39 @@ class SwiftApiController extends Controller
         }
 
     	return response()->json(['status' => $status, 'data' => $data]);
+    }
+
+    /**
+     * Swift API: put reviews data by API.
+     *
+     * @since 2021-01-04
+     * @author Nemanja
+     * @return \Illuminate\Http\Response
+     */
+    public function putReviewsbyAPI(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'putter' => 'required',
+            'discount_id' => 'required',
+            'mark' => 'required',
+            'comments' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $reviews = Reviews::create([
+            'putter' => $request['putter'],
+            'discount_id' => $request['discount_id'],
+            'mark' => $request['mark'],
+            'comments' => $request['comments'],
+            'put_date' => date('Y-m-d h:i:s')
+        ]);
+
+        return response()->json(['status' => "success", 'data' => $reviews, 'msg' => 'Successfully putted your reviews.']);
     }
 }
