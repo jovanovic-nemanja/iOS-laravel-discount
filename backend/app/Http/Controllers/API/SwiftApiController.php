@@ -251,13 +251,18 @@ class SwiftApiController extends Controller
             return response()->json(['status' => "failed", 'msg' => $messages->first()]);
         }
 
-        $reviews = Reviews::create([
-            'putter' => $request['putter'],
-            'discount_id' => $request['discount_id'],
-            'mark' => $request['mark'],
-            'comments' => $request['comments'],
-            'put_date' => date('Y-m-d h:i:s')
-        ]);
+        $review = Reviews::where('putter', $request['putter'])->where('discount_id', $request['discount_id'])->first();
+        if (@$review) {
+            # code...
+        }else{
+            $reviews = Reviews::create([
+                'putter' => $request['putter'],
+                'discount_id' => $request['discount_id'],
+                'mark' => $request['mark'],
+                'comments' => $request['comments'],
+                'put_date' => date('Y-m-d h:i:s')
+            ]);
+        }
 
         return response()->json(['status' => "success", 'data' => $reviews, 'msg' => 'Successfully putted your reviews.']);
     }
