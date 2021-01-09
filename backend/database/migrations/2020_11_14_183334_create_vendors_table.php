@@ -17,7 +17,7 @@ class CreateVendorsTable extends Migration
             $table->increments('id');
 
             $table->string('vendorname');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->integer('category_id');
             $table->string('phone');
             $table->integer('status')->defaultValue(0)->nullable();
