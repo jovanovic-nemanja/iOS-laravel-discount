@@ -138,7 +138,7 @@ class SwiftApiController extends Controller
                             ->leftJoin('reviews', 'reviews.discount_id', '=', 'discounts.id')
                             ->where('vendors.category_id', $request->category_id)
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
                             ->groupby('discounts.id')
                             ->get();
         }else{
@@ -147,7 +147,7 @@ class SwiftApiController extends Controller
                             ->join('categories', 'categories.id', '=', 'vendors.category_id')
                             ->leftJoin('reviews', 'reviews.discount_id', '=', 'discounts.id')
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
+                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
                             ->groupby('discounts.id')
                             ->get();
         }

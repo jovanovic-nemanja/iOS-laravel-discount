@@ -30,6 +30,9 @@ class CreateVendorsTable extends Migration
             // Cached from Facebook
             $table->string('facebook_id')->nullable();
 
+            // website link
+            $table->text('website_link')->nullable();
+
             $table->datetime('sign_date');
             $table->string('remarks_vendor')->nullable();
 

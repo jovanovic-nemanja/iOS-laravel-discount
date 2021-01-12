@@ -103,6 +103,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Website Link</label>
+                                    <input type="text" name="website_link" class="form-control" placeholder="Website Link" />
+                                </div>
+
+                                <div class="form-group">
                                     <label>Remarks</label>
                                     <textarea name="remarks_vendor" class="form-control" rows="8"></textarea>
                                 </div>

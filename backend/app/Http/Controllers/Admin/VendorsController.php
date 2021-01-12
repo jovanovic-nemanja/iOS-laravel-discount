@@ -71,6 +71,7 @@ class VendorsController extends Controller
                 'photo' => @$request['photo'],
                 'instagram_id' => @$request['instagram_id'],
                 'facebook_id' => @$request['facebook_id'],
+                'website_link' => @$request['website_link'],
                 'remarks_vendor' => @$request['remarks_vendor'],
                 'sign_date' => date('Y-m-d h:i:s'),
             ]);
@@ -143,6 +144,7 @@ class VendorsController extends Controller
             
             $record->instagram_id = @$request->instagram_id;
             $record->facebook_id = @$request->facebook_id;
+            $record->website_link = @$request->website_link;
             $record->remarks_vendor = @$request->remarks_vendor;
 
             $record->update();

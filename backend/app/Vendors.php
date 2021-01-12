@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendors extends Model
 {
-    public $fillable = ['vendorname', 'vendorUniqueId', 'email', 'category_id', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'sign_date', 'remarks_vendor'];
+    public $fillable = ['vendorname', 'vendorUniqueId', 'email', 'category_id', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'website_link', 'sign_date', 'remarks_vendor'];
 
     public function getStatus($id) {
         if (@$id) {
