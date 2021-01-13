@@ -61,3 +61,6 @@ Route::get('/v1/callback', 'Auth\LoginController@handleProviderCallbackgoogle');
 
 // putting review data by API
 Route::POST('/v1/putReviewsbyAPI', 'API\SwiftApiController@putReviewsbyAPI');
+
+// stripe
+Route::POST('/v1/stripe', 'API\SwiftApiController@stripePost');

@@ -38,6 +38,22 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                                    <label>Category</label>
+                                    <!-- <select class="form-control js-example-basic-multiple" multiple="multiple" required name="category_id[]"> -->
+                                    <select class="form-control" required name="category_id">
+                                        @foreach($categories as $cate)
+                                            <option value="{{ $cate->id }}">{{ $cate->category_name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('category_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('category_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group {{ $errors->has('discount_photo') ? 'has-error' : '' }}">
                                     <label>Photo</label>
                                     <div class="controls">

@@ -24,13 +24,9 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Category</th>
                                     <th>Phone</th>
                                     <th>Location</th>
-                                    <!-- <th>Instagram</th>
-                                    <th>Facebook</th> -->
                                     <th>Photo</th>
-                                    <!-- <th>Date</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +36,7 @@
                                     <td>{{ $vendor->id }}</td>
                                     <td>{{ $vendor->vendorname }}</td>
                                     <td>{{ $vendor->email }}</td>
-                                    <td>{{ App\Vendors::getCategoryNameByID($vendor->category_id) }}</td>
+                                    <!-- <td>{{ App\Vendors::getCategoryNameByID($vendor->category_id) }}</td> -->
                                     <td>{{ $vendor->phone }}</td>
                                     <td>{{ $vendor->location }}</td>
                                     <!-- <td><a href="{{ $vendor->instagram_id }}">{{ $vendor->instagram_id }}</a></td>

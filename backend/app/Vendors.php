@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendors extends Model
 {
-    public $fillable = ['vendorname', 'vendorUniqueId', 'email', 'category_id', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'website_link', 'sign_date', 'remarks_vendor'];
+    public $fillable = ['vendorname', 'vendorUniqueId', 'email', 'phone', 'status', 'location', 'photo', 'instagram_id', 'facebook_id', 'website_link', 'sign_date', 'remarks_vendor'];
 
     public function getStatus($id) {
         if (@$id) {
@@ -69,17 +69,23 @@ class Vendors extends Model
     public static function getCategoryNameByID($cateid)
     {
         if (@$cateid) {
-            $category = Category::where('id', $cateid)->first();
-            if (@$category) {
-                $name = $category->category_name;
-            }else{
-                $name = "";
-            }
+            $diff = explode(',', $cateid);
+            if (@$diff) {
+                $arr = '';
+                for ($i=0; $i < count($diff); $i++) { 
+                    $category = Category::where('id', $diff[$i])->first();
+                    if ($i == 0) {
+                        $arr = $category->category_name;
+                    }else{
+                        $arr = $arr . ", " . $category->category_name;
+                    }
+                }
+            }                    
         }else{
-            $name = "";
+            $arr = "";
         }
 
-        return $name;
+        return $arr;
     }
 
     /**

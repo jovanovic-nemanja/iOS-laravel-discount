@@ -18,7 +18,7 @@ class CreateVendorsTable extends Migration
 
             $table->string('vendorname');
             $table->string('email');
-            $table->integer('category_id');
+            // $table->text('category_id');
             $table->string('phone');
             $table->integer('status')->defaultValue(0)->nullable();
             $table->string('location');

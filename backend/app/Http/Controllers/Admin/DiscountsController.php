@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\User;
 use App\Vendors;
+use App\Category;
 use App\Discounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,9 @@ class DiscountsController extends Controller
      */
     public function creatediscounts($id)
     {
-        return view('admin.discounts.create', compact('id'));
+        $categories = Category::all();
+
+        return view('admin.discounts.create', compact('id', 'categories'));
     }
 
     /**
@@ -57,6 +60,7 @@ class DiscountsController extends Controller
         $this->validate(request(), [
             'title' => 'required|string',
             'description' => 'required|string',
+            'category_id' => 'required',
             'discount_photo' => 'required',
             'vendor_id' => 'required'
         ]);
@@ -69,6 +73,7 @@ class DiscountsController extends Controller
                     'title' => $request['title'],
                     'description' => $request['description'],
                     'discount_photo' => $request['discount_photo'],
+                    'category_id' => $request['category_id'],
                     'vendor_id' => $request['vendor_id'],
                     'status' => 1,
                     'sign_date' => date('Y-m-d h:i:s'),
@@ -95,9 +100,10 @@ class DiscountsController extends Controller
      */
     public function show($id)
     {
+        $categories = Category::all();
         $discount = Discounts::where('id', $id)->first();
 
-        return view('admin.discounts.edit', compact('discount'));
+        return view('admin.discounts.edit', compact('discount', 'categories'));
     }
 
     /**
@@ -123,6 +129,7 @@ class DiscountsController extends Controller
         $this->validate(request(), [
             'title' => 'required|string',
             'description' => 'required|string',
+            'category_id' => 'required',
             'vendor_id' => 'required'
         ]);
 
@@ -130,6 +137,7 @@ class DiscountsController extends Controller
         if (@$record) {
             $record->title = $request->title;
             $record->description = $request->description;
+            $record->category_id = $request->category_id;
             if (@$request->discount_photo) {
                 $record->discount_photo = $request->discount_photo;
             }

@@ -66,12 +66,24 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                                <!-- <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
                                     <label>Category</label>
-                                    <select class="form-control" required name="category_id">
-                                        <option value="">Choose</option>
+                                    <select class="form-control js-example-basic-multiple" multiple="multiple" required name="category_id[]">
                                         @foreach($categories as $cate)
-                                            <option <?php if($cate->id==$vendor->category_id){echo 'selected';} ?> value="{{ $cate->id }}">{{ $cate->category_name }}</option>
+                                            <?php 
+                                                $diff = explode(",", $vendor->category_id);
+                                                if (@$diff) {
+                                                    $arr = [];
+                                                    for ($i=0; $i < count($diff); $i++) { 
+                                                        array_push($arr, $diff[$i]);
+                                                    }
+                                                } ?>
+                                                    @if(in_array($cate->id, $arr))
+                                                        <option value="{{ $cate->id }}" selected>{{ $cate->category_name }}</option>
+                                                    @else
+                                                        <option value="{{ $cate->id }}">{{ $cate->category_name }}</option>
+                                                    @endif
+                                            <?php  ?>
                                         @endforeach
                                     </select>
 
@@ -80,7 +92,7 @@
                                             <strong>{{ $errors->first('category_id') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> -->
 
                                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     <label>Phone</label>

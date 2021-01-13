@@ -54,10 +54,9 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                                <!-- <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
                                     <label>Category</label>
-                                    <select class="form-control" required name="category_id">
-                                        <option value="">Choose</option>
+                                    <select class="form-control js-example-basic-multiple" multiple="multiple" required name="category_id[]">
                                         @foreach($categories as $cate)
                                             <option value="{{ $cate->id }}">{{ $cate->category_name }}</option>
                                         @endforeach
@@ -68,11 +67,11 @@
                                             <strong>{{ $errors->first('category_id') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> -->
 
                                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     <label>Phone</label>
-                                    <input required="" type="text" name="phone" class="form-control" placeholder="Phone" />
+                                    <input required type="text" name="phone" class="form-control" placeholder="Phone" />
 
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
@@ -83,7 +82,7 @@
 
                                 <div class="form-group {{ $errors->has('location') ? 'has-error' : '' }}">
                                     <label>Location</label>
-                                    <input required="" type="text" name="location" class="form-control" placeholder="Location" />
+                                    <input required type="text" name="location" class="form-control" placeholder="Location" />
 
                                     @if ($errors->has('location'))
                                         <span class="help-block">

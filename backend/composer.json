@@ -14,7 +14,8 @@
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.2.0",
         "laravel/tinker": "^1.0",
-        "socialiteproviders/instagram": "^3.0"
+        "socialiteproviders/instagram": "^3.0",
+        "stripe/stripe-php": "^7.67"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

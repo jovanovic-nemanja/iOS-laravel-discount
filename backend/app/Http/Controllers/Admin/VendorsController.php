@@ -50,10 +50,12 @@ class VendorsController extends Controller
      */
     public function store(Request $request)
     {
+        // $values;
+
         $this->validate(request(), [
             'vendorname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
             'phone' => 'required|string|max:32',
             'location' => 'required|string'
         ]);
@@ -61,10 +63,18 @@ class VendorsController extends Controller
         DB::beginTransaction();
 
         try {
+            // foreach ($request->category_id as $key => $value) {
+            //     if ($key == 0) {
+            //         $values = $value;
+            //     }else{
+            //         $values .= ', '.$value;
+            //     }
+            // }
+
             $vendor = Vendors::create([
                 'vendorname' => $request['vendorname'],
                 'email' => $request['email'],
-                'category_id' => $request['category_id'],
+                // 'category_id' => $values,
                 'status' => 0,
                 'phone' => $request['phone'],
                 'location' => $request['location'],
@@ -124,18 +134,29 @@ class VendorsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $values;
+
         $this->validate(request(), [
             'vendorname' => 'required|string|max:255',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
             'phone' => 'required|string|max:32',
             'location' => 'required|string'
         ]);
 
         $record = Vendors::where('id', $id)->first();
+        
+        // foreach ($request->category_id as $key => $value) {
+        //     if ($key == 0) {
+        //         $values = $value;
+        //     }else{
+        //         $values .= ', '.$value;
+        //     }
+        // }
+
         if (@$record) {
             $record->vendorname = $request->vendorname;
             $record->email = $request->email;
-            $record->category_id = $request->category_id;
+            // $record->category_id = $values;
             $record->phone = $request->phone;
             $record->location = $request->location;
             if (@$request->photo) {

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
+use Stripe;
 use App\User;
 use App\Video;
 use App\Reviews;
@@ -134,9 +135,9 @@ class SwiftApiController extends Controller
         if (@$request->category_id) {
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
-                            ->join('categories', 'categories.id', '=', 'vendors.category_id')
+                            ->join('categories', 'categories.id', '=', 'discounts.category_id')
                             ->leftJoin('reviews', 'reviews.discount_id', '=', 'discounts.id')
-                            ->where('vendors.category_id', $request->category_id)
+                            ->where('discounts.category_id', $request->category_id)
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
                             ->groupby('discounts.id')
@@ -144,7 +145,7 @@ class SwiftApiController extends Controller
         }else{
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
-                            ->join('categories', 'categories.id', '=', 'vendors.category_id')
+                            ->join('categories', 'categories.id', '=', 'discounts.category_id')
                             ->leftJoin('reviews', 'reviews.discount_id', '=', 'discounts.id')
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
@@ -178,7 +179,7 @@ class SwiftApiController extends Controller
         if (@$request->id) {
             $result = DB::table('discounts')
                             ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
-                            ->join('categories', 'categories.id', '=', 'vendors.category_id')
+                            ->join('categories', 'categories.id', '=', 'discounts.category_id')
                             ->where('discounts.id', $request->id)
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
                             ->get();
@@ -265,5 +266,26 @@ class SwiftApiController extends Controller
         }
 
         return response()->json(['status' => "success", 'data' => $reviews, 'msg' => 'Successfully putted your reviews.']);
+    }
+
+    /**
+     * success response method.
+     * stripe 
+     * @author Nemanja
+     * @since 2021-01-13
+     * @return \Illuminate\Http\Response
+     */
+    public function stripePost(Request $request)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        Stripe\Charge::create ([
+            "amount" => $request->amount,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Test payment from itsolutionstuff.com." 
+        ]);
+          
+        return response()->json(['status' => "success", 'data' => '', 'msg' => 'Successfully made a payment.']);
     }
 }

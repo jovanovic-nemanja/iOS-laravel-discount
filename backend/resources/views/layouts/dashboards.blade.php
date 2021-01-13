@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/jquery-toast-plugin/jquery.toast.min.css') }}">
     <script src="{{ asset('demo_admin_assets/js/jquery-1.11.2.min.js') }}"></script>
@@ -65,7 +64,7 @@
             <nav class="bottom-navbar">
                 <div class="container">
                     <ul class="nav page-navigation">
-                        <li class="nav-item <?= ($menu == 'vendor_create' || $menu == 'vendors' || $menu == 'discounts') ? "active" : "" ?>">
+                        <li class="nav-item <?= ($menu == 'vendor_create' || $menu == 'vendors' || $menu == 'discounts' || $menu == 'membership') ? "active" : "" ?>">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-shopping-cart menu-icon"></i>
                                 <span class="menu-title">Vendors</span>
@@ -124,6 +123,13 @@
                                 <span class="menu-title">Video</span>
                             </a>
                         </li>
+
+                        <!-- <li class="nav-item <?= ($menu == 'membership') ? "active" : "" ?>">
+                            <a href="{{ route('video.index') }}" class="nav-link">
+                                <i class="fa fa-shopping-cart"></i>&nbsp;
+                                <span class="menu-title">Membership</span>
+                            </a>
+                        </li> -->
                     </ul>
                 </div>
             </nav>

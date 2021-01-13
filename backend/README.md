@@ -1,8 +1,8 @@
-# L-Commerce
-Laravel Multivendor Marketplace Script
+# That Dubai Girl
+Laravel backend and API for frontend
 
 1,   .env
-2,   composer install
+2,   composer install, composer require stripe/stripe-php
 3,   php artisan migrate --seed
 4,   npm install laravel-mix --save-dev
 	npm install vuex --save

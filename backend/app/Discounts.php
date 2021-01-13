@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Vendors;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ class Discounts extends Model
 {
 	public $table = "discounts";
 
-    public $fillable = ['title', 'description', 'discount_photo', 'vendor_id', 'sign_date', 'status'];
+    public $fillable = ['title', 'description', 'category_id', 'discount_photo', 'vendor_id', 'sign_date', 'status'];
 
     public static function getVendorInformationByID($id)
     {
@@ -80,5 +81,21 @@ class Discounts extends Model
         }
 
         return $result;
+    }
+
+    public static function getCategoryNameByID($cateid)
+    {
+        if (@$cateid) {
+            $category = Category::where('id', $cateid)->first();
+            if (@$category) {
+                $arr = $category->category_name;
+            }else{
+                $arr = '';
+            }
+        }else{
+            $arr = "";
+        }
+
+        return $arr;
     }
 }
