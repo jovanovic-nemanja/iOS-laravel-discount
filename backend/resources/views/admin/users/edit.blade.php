@@ -94,6 +94,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Apple</label>
+                                    <input type="text" name="apple_id" class="form-control" value="{{ $user->apple_id }}" disabled readonly />
+                                </div>
+
+                                <div class="form-group">
                                     <label>Block</label>
                                     <select class="form-control" name="block">
                                         <option value="-1">Normal</option>

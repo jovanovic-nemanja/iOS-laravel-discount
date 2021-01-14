@@ -27,7 +27,6 @@
                                     <th>Photo</th>
                                     <th>Birthday</th>
                                     <th>Address</th>
-                                    <th>Instagram</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -49,7 +48,6 @@
                                     
                                     <td>{{ $user->birthday }}</td>
                                     <td>{{ $user->address }}</td>
-                                    <td>{{ $user->instagram_id }}</td>
                                     <td>{{ $user->sign_date }}</td>
                                     <td>
                                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-primary btn-sm btn-flat">

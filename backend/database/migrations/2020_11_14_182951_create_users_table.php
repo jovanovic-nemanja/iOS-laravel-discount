@@ -15,8 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
-            $table->string('email')->unique();
+            $table->string('username')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->text('photo')->nullable();
 
             // Cached from Instagram
@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('facebook_id')->nullable();
             // Cached from Google
             $table->string('google_id')->nullable();
+            // Cached from Apple
+            $table->string('apple_id')->nullable();
 
             $table->integer('email_verified_at')->nullable();
             $table->string('password')->nullable();

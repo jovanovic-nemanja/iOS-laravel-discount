@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword', 'updateAccount']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword', 'updateAccount', 'loginUserwithApple']);
     }
 
     /**
@@ -375,6 +375,57 @@ class UsersController extends Controller
         $user = $request->user();
         
         return response()->json(['status' => 'success', 'data' => $user, 'msg' => 'Successfully Logged In.']);
+    }
+
+    /**
+     * Swift API : User login by apple device.
+     *
+     * @since 2020-11-16
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loginUserwithApple(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'apple_id' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $apple_id = $request->apple_id;
+        $user = User::where('apple_id', $apple_id)->first();
+        $result = [];
+
+        if (!$user) {   //register
+            $user = User::create([
+                'block' => 0,
+                'apple_id' => $request['apple_id'],
+                'sign_date' => date('Y-m-d h:i:s'),
+            ]);
+
+            User::generateuserUniqueID($user->id);
+
+            RoleUser::create([
+                'user_id' => $user->id,
+                'role_id' => 3,
+            ]);
+            
+            $result = User::where('id', $user->id)->first();
+            $msg = 'Successfully Logged In.';
+            $newUser = 1;
+        }else{
+            $result = $user;
+            $msg = 'Successfully Logged In.';
+            $newUser = 0;
+        }
+
+        return response()->json(['status' => 'success', 'data' => $result, 'msg' => $msg, 'isnewUser' => $newUser]);
     }
     
     /**
