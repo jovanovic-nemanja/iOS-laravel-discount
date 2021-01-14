@@ -406,6 +406,8 @@ class UsersController extends Controller
             $user = User::create([
                 'block' => 0,
                 'apple_id' => $request['apple_id'],
+                'email' => @$request['user_mail'],
+                'username' => @$request['user_name'],
                 'sign_date' => date('Y-m-d h:i:s'),
             ]);
 
