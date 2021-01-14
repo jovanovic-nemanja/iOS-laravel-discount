@@ -251,6 +251,60 @@ class UsersController extends Controller
     }
 
     /**
+     * Swift API : Update user account information by apple.
+     *
+     * @since 2021-01-14
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAppleAccount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'apple_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $user = User::where('apple_id', $request->apple_id)->first();
+        if (@$user) {
+            // if (@$request->password) {
+            //     $user->password = Hash::make($request->password);
+            // }
+            if (@$request->birthday) {
+                $user->birthday = $request->birthday;
+            }
+            if (@$request->username) {
+                $user->username = $request->username;
+            }
+            if (@$request->photo) {
+                $user->photo = $request->photo;
+            }
+            if (@$request->address) {
+                $user->address = $request->address;
+            }
+
+            $user->save();
+
+            User::generateuserUniqueID($user->id);
+        }
+
+        if (@$request->photo) {
+            User::upload_photo($user->id);
+        }
+
+        $result = [];
+        $result = User::where('id', $user->id)->first();
+            
+        return response()->json(['status' => "success", 'data' => $result, 'msg' => 'Successfully updated your account information.']);
+    }
+
+    /**
      * Swift API : validate verify code.
      *
      * @since 2020-11-16

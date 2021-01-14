@@ -34,6 +34,9 @@ Route::POST('/v1/forgotpassword', 'Admin\UsersController@forgotpassword');
 // update user account information
 Route::POST('/v1/updateAccount', 'Admin\UsersController@updateAccount');
 
+// update user account information by apple id
+Route::POST('/v1/updateAppleAccount', 'Admin\UsersController@updateAppleAccount');
+
 
 
 // return url for video ads
