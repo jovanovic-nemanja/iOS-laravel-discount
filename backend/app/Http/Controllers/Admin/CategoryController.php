@@ -79,9 +79,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->category_name = $request->category_name;
-        $category->category_photo = @$request->category_photo;
-        $category->save();
+        $category->category_name = $request->category_name;.
+        if (@$request->category_photo) {
+            $category->category_photo = $request->category_photo;
+        }
+        $category->update();
 
         if (@$request->category_photo) {
             Category::upload_photo($category->id);
