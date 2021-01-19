@@ -27,6 +27,7 @@
                                     <th>Photo</th>
                                     <th>Vendor</th>
                                     <th>Category</th>
+                                    <th>Coupon</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,7 @@
                                     <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
                                     <td><?= $vendor_infor->vendorname ?></td>
                                     <td>{{ App\Discounts::getCategoryNameByID($discount->category_id) }}</td>
+                                    <td>{{ $discount->coupon }}</td>
                                     <td>
                                         <a href="{{ route('discounts.show', $discount->id) }}" class="btn btn-primary btn-sm btn-flat" title="Edit">
                                             <i class="fa fa-edit"></i>Edit

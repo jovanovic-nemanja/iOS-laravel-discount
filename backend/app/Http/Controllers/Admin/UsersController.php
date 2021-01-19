@@ -347,6 +347,16 @@ class UsersController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]);
 
+        if(@$request->birthday) {
+            $current_year = date('Y');
+            $dt = date('Y', strtotime($request->birthday));
+            $diff = $current_year - $dt;
+            if($diff < 18) {   //18years-
+                $msg = "Unfortunately, Your age is not 18 years over. You can't signup to our app now.";
+                return response()->json(['status' => "failed", 'msg' => $msg]);    
+            }
+        }
+
         $path = env('APP_URL')."uploads/";
 
         if ($validator->fails()) {

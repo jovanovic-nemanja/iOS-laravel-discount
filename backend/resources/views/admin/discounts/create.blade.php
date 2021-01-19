@@ -69,6 +69,17 @@
                                         </span>
                                     @endif
                                 </div>
+                                
+                                <div class="form-group {{ $errors->has('coupon') ? 'has-error' : '' }}">
+                                    <label>Coupon</label>
+                                    <input type='text' class="form-control" name="coupon">
+
+                                    @if ($errors->has('coupon'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('coupon') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
 
                                 <br>
                                 <input type="hidden" name="vendor_id" value="{{ $id }}" class="form-control" />

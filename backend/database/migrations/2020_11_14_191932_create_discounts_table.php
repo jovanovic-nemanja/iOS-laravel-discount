@@ -21,6 +21,7 @@ class CreateDiscountsTable extends Migration
             $table->integer('category_id');
             $table->text('discount_photo');
             $table->integer('vendor_id');
+            $table->text('coupon')->nullable();
             $table->datetime('sign_date');
             $table->integer('status')->nullable();
 

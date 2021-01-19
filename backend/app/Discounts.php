@@ -13,7 +13,7 @@ class Discounts extends Model
 {
 	public $table = "discounts";
 
-    public $fillable = ['title', 'description', 'category_id', 'discount_photo', 'vendor_id', 'sign_date', 'status'];
+    public $fillable = ['title', 'description', 'category_id', 'discount_photo', 'vendor_id', 'coupon', 'sign_date', 'status'];
 
     public static function getVendorInformationByID($id)
     {

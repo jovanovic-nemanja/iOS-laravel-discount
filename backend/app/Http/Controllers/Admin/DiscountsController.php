@@ -75,6 +75,7 @@ class DiscountsController extends Controller
                     'discount_photo' => $request['discount_photo'],
                     'category_id' => $request['category_id'],
                     'vendor_id' => $request['vendor_id'],
+                    'coupon' => @$request['coupon'],
                     'status' => 1,
                     'sign_date' => date('Y-m-d h:i:s'),
                 ]);
@@ -142,6 +143,7 @@ class DiscountsController extends Controller
                 $record->discount_photo = $request->discount_photo;
             }
             $record->status = 1;
+            $record->coupon = $request->coupon;
 
             $record->update();
         }
