@@ -141,6 +141,7 @@ class SwiftApiController extends Controller
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
                             ->groupby('discounts.id')
+                            ->orderBy('avg_marks', 'DESC')
                             ->get();
         }else{
             $result = DB::table('discounts')
@@ -150,6 +151,7 @@ class SwiftApiController extends Controller
                             ->where('vendors.vendorname', 'like', '%'.$request->vendor_name.'%')
                             ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'vendors.phone', 'vendors.instagram_id', 'vendors.website_link', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id', DB::raw('avg(reviews.mark) AS avg_marks'), DB::raw('COUNT(reviews.id) AS count_reviews'))
                             ->groupby('discounts.id')
+                            ->orderBy('avg_marks', 'DESC')
                             ->get();
         }
         
