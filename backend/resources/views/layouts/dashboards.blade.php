@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/jquery-toast-plugin/jquery.toast.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/jquery-bar-rating/bootstrap-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/jquery-bar-rating/fontawesome-stars-o.css') }}">
+    <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/jquery-bar-rating/fontawesome-stars.css') }}">
+
     <script src="{{ asset('demo_admin_assets/js/jquery-1.11.2.min.js') }}"></script>
 </head>
 <body>
@@ -124,6 +130,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item <?= ($menu == 'reviews') ? "active" : "" ?>">
+                            <a href="{{ route('reviews.index') }}" class="nav-link">
+                                <i class="fa fa-comments"></i>&nbsp;
+                                <span class="menu-title">Reviews</span>
+                            </a>
+                        </li>
+
                         <!-- <li class="nav-item <?= ($menu == 'membership') ? "active" : "" ?>">
                             <a href="{{ route('video.index') }}" class="nav-link">
                                 <i class="fa fa-shopping-cart"></i>&nbsp;
@@ -150,6 +163,7 @@
     <script src="{{ asset('demo_admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('demo_admin_assets/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/data-table.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -178,6 +192,10 @@
     <script src="{{ asset('demo_admin_assets/js/select2.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/form-validation.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/bt-maxLength.js') }}"></script>
+
+    <script src="{{ asset('demo_admin_assets/js/formpickers.js') }}"></script>
+    <script src="{{ asset('demo_admin_assets/js/form-addons.js') }}"></script>
+    
     <script src="{{ asset('js/myFunction.js') }}"></script>
 
     @yield('script')
