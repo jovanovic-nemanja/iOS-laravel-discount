@@ -70,7 +70,7 @@ class UsersController extends Controller
         $str = rand(100000, 999999);
         $data = [];
         $data['name'] = 'Welcome User,';
-        $data['body'] = 'Thank you for registering with us. <br> To complete your registration, please verify your email by entering the following code '.$str;
+        $data['body'] = 'Hello! Welcome to That Dubai Girl. Thank you for registering with us. To complete your sign up process please verify your email address by entering the following code (' . $str . ') on the home screen.';
 
         $useremail = $request['email'];
         $username = 'That Dubai Girl';
