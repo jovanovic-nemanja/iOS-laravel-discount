@@ -58,7 +58,7 @@
         hoverState: false
       });
 
-      $('#example-fontawesome_1').barrating({
+      $('.test_star').barrating({
         theme: 'fontawesome-stars',
         showSelectedRating: false,
         hoverState: false,
