@@ -68,7 +68,7 @@
                                                         break;
                                                 }
                                             ?>
-                                            <select id="example-fontawesome_1" name="rating">
+                                            <select id="example-fontawesome" name="rating">
                                                 <option value="1" <?= $selected1; ?>>1</option>
                                                 <option value="2" <?= $selected2; ?>>2</option>
                                                 <option value="3" <?= $selected3; ?>>3</option>
