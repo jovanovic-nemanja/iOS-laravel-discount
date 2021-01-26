@@ -58,8 +58,8 @@ class DiscountsController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'required',
+            'description' => 'required',
             'category_id' => 'required',
             'discount_photo' => 'required',
             'coupon' => 'string|max:32',
@@ -129,8 +129,8 @@ class DiscountsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'required',
+            'description' => 'required',
             'category_id' => 'required',
             'coupon' => 'string|max:32',
             'vendor_id' => 'required'
