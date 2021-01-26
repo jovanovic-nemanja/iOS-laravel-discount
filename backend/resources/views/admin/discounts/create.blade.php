@@ -72,7 +72,7 @@
                                 
                                 <div class="form-group {{ $errors->has('coupon') ? 'has-error' : '' }}">
                                     <label>Coupon</label>
-                                    <input type='text' class="form-control" name="coupon">
+                                    <input type='text' class="form-control" name="coupon" maxlength="10">
 
                                     @if ($errors->has('coupon'))
                                         <span class="help-block">

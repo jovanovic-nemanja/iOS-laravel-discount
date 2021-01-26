@@ -62,7 +62,7 @@ class DiscountsController extends Controller
             'description' => 'required',
             'category_id' => 'required',
             'discount_photo' => 'required',
-            'coupon' => 'string|max:32',
+            // 'coupon' => 'string|max:32',
             'vendor_id' => 'required'
         ]);
 
@@ -132,7 +132,7 @@ class DiscountsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-            'coupon' => 'string|max:32',
+            // 'coupon' => 'string|max:32',
             'vendor_id' => 'required'
         ]);
 
