@@ -81,8 +81,8 @@
                                 </div>
 
                                 <div class="form-group {{ $errors->has('coupon') ? 'has-error' : '' }}">
-                                    <label>Coupon</label>
-                                    <input type='text' class="form-control" name="coupon" value="{{ $discount->coupon }}" maxlength="10">
+                                    <label>Coupon<span style="color: red;"> 32 characters</span></label>
+                                    <input type='text' class="form-control" name="coupon" value="{{ $discount->coupon }}" maxlength="32">
 
                                     @if ($errors->has('coupon'))
                                         <span class="help-block">
