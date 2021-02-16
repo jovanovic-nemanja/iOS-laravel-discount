@@ -45,7 +45,7 @@
                             </div>
                         <?php } ?>
                         <div class="brand-logo">
-                            <img src="{{ asset('images/logo.png') }}" alt="logo">
+                            <img src="{{ asset('images/logo1.png') }}" alt="logo">
                         </div>
                         <h4>Welcome!</h4>
                         <h6 class="font-weight-light">Happy to see you again!</h6>
