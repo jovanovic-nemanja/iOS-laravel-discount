@@ -651,3 +651,9 @@ Put review about discount
 	    "status": "failed",
 	    "msg": "The putter field is required."
 	}
+
+	{
+	    "status": "failed",
+	    "data": "",
+	    "msg": "You can't write a review to that discount offer."
+	}
