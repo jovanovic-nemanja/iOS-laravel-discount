@@ -112,7 +112,7 @@ class User extends Authenticatable
         if (@$id) {
             $record = User::where('id', $id)->first();
             if (@$record) {
-                $record->userUniqueId = "10000" . $id;
+                $record->userUniqueId = "7" . $id;
                 $record->update();
             }
         }
