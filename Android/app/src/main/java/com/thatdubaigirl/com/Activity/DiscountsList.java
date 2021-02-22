@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +33,7 @@ import com.thatdubaigirl.com.Adapter.Cat_Adapter;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.Api;
+import com.thatdubaigirl.com.Utils.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +45,10 @@ public class DiscountsList extends AppCompatActivity {
     HomeCategoryHorizontalRecycleAdapter bAdapter;
     private ArrayList<Categori_Model> productlist = new ArrayList<>();
     public static int tab_value;
-    String Path_img;
+    String Path_img, Cat_id;
     EditText etSearchId;
     Adapter_Offer_List adapter_offer_list;
+    SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,19 @@ public class DiscountsList extends AppCompatActivity {
         dialog.setCancelable(false);
         subcatlist = findViewById(R.id.subcatlist);
         recymainCat = findViewById(R.id.recymainCat);
-
+        pullToRefresh = findViewById(R.id.pullToRefresh);
         etSearchId = findViewById(R.id.etSearchId);
-
         Intent intent = getIntent();
         tab_value = intent.getIntExtra("layout", 0);
         categories(tab_value);
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDiscountlists(Cat_id);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
 
         etSearchId.addTextChangedListener(new TextWatcher() {
             @Override
@@ -105,10 +115,10 @@ public class DiscountsList extends AppCompatActivity {
 //                        main_cat_list = response.body().getData();
                         for (int i = -1; i < response.body().getData().size(); i++) {
                             Categori_Model m2 = new Categori_Model();
-                            if (i==-1){
+                            if (i == -1) {
                                 m2.setId("0");
-                                m2.setCategory_name("All");
-                            }else {
+                                m2.setCategory_name("   All   ");
+                            } else {
                                 m2.setCategory_name(response.body().getData().get(i).getCategory_name());
                                 m2.setId(response.body().getData().get(i).getId());
                             }
@@ -119,8 +129,9 @@ public class DiscountsList extends AppCompatActivity {
                         bAdapter = new HomeCategoryHorizontalRecycleAdapter(DiscountsList.this, main_cat_list);
                         recymainCat.setAdapter(bAdapter);
                         bAdapter.notifyDataSetChanged();
-                        recymainCat.scrollToPosition(tab_value+1);
-                        getDiscountlists(main_cat_list.get(tab_value+1).getId());
+                        recymainCat.scrollToPosition(tab_value);
+                        Cat_id = main_cat_list.get(tab_value).getId();
+                        getDiscountlists11(Cat_id);
                     } else {
                     }
                 }
@@ -136,8 +147,8 @@ public class DiscountsList extends AppCompatActivity {
 
     /*get getDiscountlists APi*/
     public void getDiscountlists(String category_id) {
-//        productlist.clear();
-//        dialog.show();
+        productlist = new ArrayList<>();
+        dialog.show();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.commn_url))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -154,7 +165,7 @@ public class DiscountsList extends AppCompatActivity {
                         productlist = response.body().getData();
                         Path_img = response.body().getPath();
                         if (productlist.size() > 0) {
-                            adapter_offer_list = new Adapter_Offer_List(DiscountsList.this, productlist, Path_img);
+                            adapter_offer_list = new Adapter_Offer_List(DiscountsList.this, productlist, Path_img,category_id);
                             subcatlist.setAdapter(adapter_offer_list);
                             subcatlist.setVisibility(View.VISIBLE);
                             adapter_offer_list.notifyDataSetChanged();
@@ -176,7 +187,6 @@ public class DiscountsList extends AppCompatActivity {
         });
     }
 
-
     public void back(View view) {
         onBackPressed();
     }
@@ -195,7 +205,6 @@ public class DiscountsList extends AppCompatActivity {
         int myPos = tab_value;
         ProgressDialog dialog;
         String Path_img;
-
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             TextView title;
@@ -257,51 +266,25 @@ public class DiscountsList extends AppCompatActivity {
                 public void onClick(View view) {
                     myPos = position;
                     notifyDataSetChanged();
+                    Cat_id = OfferList.get(position).getId();
                     getDiscountlists(OfferList.get(position).getId());
                 }
             });
+
         }
 
         /*get getDiscountlists APi*/
         public void getDiscountlists(String category_id) {
-//        productlist.clear();
-            dialog.show();
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(context.getString(R.string.commn_url))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            Api loginservice = retrofit.create(Api.class);
-            Call<Categori_Model> call = loginservice.getDiscountlists(category_id, "");
-            call.enqueue(new Callback<Categori_Model>() {
-                @Override
-                public void onResponse(Call<Categori_Model> call, Response<Categori_Model> response) {
-                    if (response.code() == 200) {
-                        dialog.dismiss();
-                        Log.e("adffadada", "" + response.toString());
-                        if (response.body().getStatus().equalsIgnoreCase("success")) {
-                            productlist = response.body().getData();
-                            Path_img = response.body().getPath();
-                            if (productlist.size() > 0) {
-                                adapter_offer_list = new Adapter_Offer_List(context, productlist, Path_img);
-                                subcatlist.setAdapter(adapter_offer_list);
-                                subcatlist.setVisibility(View.VISIBLE);
-                                adapter_offer_list.notifyDataSetChanged();
-                            } else {
-                                subcatlist.setVisibility(View.GONE);
-                            }
-
-                        } else {
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Categori_Model> call, Throwable t) {
-                    dialog.dismiss();
-                }
-
-            });
+            productlist = Const.product_list;
+            Path_img = Const.path_img;
+            if (productlist.size() > 0) {
+                adapter_offer_list = new Adapter_Offer_List(context, productlist, Path_img,category_id);
+                subcatlist.setAdapter(adapter_offer_list);
+                subcatlist.setVisibility(View.VISIBLE);
+                adapter_offer_list.notifyDataSetChanged();
+            } else {
+                subcatlist.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -311,5 +294,17 @@ public class DiscountsList extends AppCompatActivity {
 
 
     }
-
+    /*get getDiscountlists APi*/
+    public void getDiscountlists11(String category_id) {
+        productlist = Const.product_list;
+        Path_img = Const.path_img;
+        if (productlist.size() > 0) {
+            adapter_offer_list = new Adapter_Offer_List(DiscountsList.this, productlist, Path_img,category_id);
+            subcatlist.setAdapter(adapter_offer_list);
+            subcatlist.setVisibility(View.VISIBLE);
+            adapter_offer_list.notifyDataSetChanged();
+        } else {
+            subcatlist.setVisibility(View.GONE);
+        }
+    }
 }

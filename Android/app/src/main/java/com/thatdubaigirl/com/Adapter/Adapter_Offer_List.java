@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -27,12 +28,13 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
     private Activity context;
     private ArrayList<Categori_Model> Product_models;
     ArrayList<Categori_Model> array_b;
-    String path_img;
+    String path_img, cat_id;
 
-    public Adapter_Offer_List(Activity context, ArrayList<Categori_Model> product_models, String path_img) {
+    public Adapter_Offer_List(Activity context, ArrayList<Categori_Model> product_models, String path_img, String cat_id) {
         this.context = context;
         this.Product_models = product_models;
         this.path_img = path_img;
+        this.cat_id = cat_id;
         this.array_b = new ArrayList<>();
         this.array_b.addAll(product_models);
     }
@@ -51,15 +53,24 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
         holder.txtdescription.setText("" + Product_models.get(position).getDescription());
         holder.txtcatname.setText("" + Product_models.get(position).getCategory_name());
         holder.txtvendername.setText("" + Product_models.get(position).getVendorname());
-        if (Product_models.get(position).getStatus().equalsIgnoreCase("1")){
+        if (Product_models.get(position).getStatus().equalsIgnoreCase("1")) {
             holder.ivbanner.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.ivbanner.setVisibility(View.VISIBLE);
+        }
+        if (cat_id.equalsIgnoreCase("0")){
+            holder.card.setVisibility(View.VISIBLE);
+        }else {
+            if (cat_id.equalsIgnoreCase(Product_models.get(position).getCategory_id())) {
+                holder.card.setVisibility(View.VISIBLE);
+            } else {
+                holder.card.setVisibility(View.GONE);
+            }
         }
         try {
             if (Product_models.get(position).getAvg_marks() == null) {
                 holder.headerrate.setVisibility(View.GONE);
-            }else {
+            } else {
                 holder.headerrate.setVisibility(View.VISIBLE);
                 holder.headerrate.setRating(Float.parseFloat("" + Product_models.get(position).getAvg_marks()));
             }
@@ -72,7 +83,7 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
         holder.card.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                context.startActivity(new Intent(context, DetalisPage.class).putExtra("data",Product_models.get(position)).putExtra("path_img",path_img));
+                context.startActivity(new Intent(context, DetalisPage.class).putExtra("data", Product_models.get(position)).putExtra("path_img", path_img));
                 context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
@@ -88,11 +99,12 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
     }
 
     class Holder extends RecyclerView.ViewHolder {
-        ImageView icon,ivbanner;
+        ImageView icon, ivbanner;
         CircleImageView ivimage;
         TextView name, txtdescription, txtvendername, txtcatname;
         CardView card;
         RatingBar headerrate;
+        LinearLayout liner;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +117,7 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
             ivimage = itemView.findViewById(R.id.ivimage);
             card = itemView.findViewById(R.id.card);
             headerrate = itemView.findViewById(R.id.headerrate);
+            liner = itemView.findViewById(R.id.liner);
         }
     }
 

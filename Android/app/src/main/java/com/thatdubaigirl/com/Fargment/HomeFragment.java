@@ -29,6 +29,7 @@ import com.thatdubaigirl.com.Adapter.Adapter_Offer_List;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.Api;
+import com.thatdubaigirl.com.Utils.Const;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     RecyclerView rlyofferlist;
-    ArrayList<Categori_Model> productlist = new ArrayList<>();
+    ArrayList<Categori_Model> productlist;
     String Path_img;
     Adapter_Home_Offer_List adapter_home_offer_list;
     ProgressDialog dialog;
@@ -57,7 +58,19 @@ public class HomeFragment extends Fragment {
         dialog.setCancelable(false);
         rlyofferlist = v.findViewById(R.id.rlyofferlist);
         pullToRefresh = v.findViewById(R.id.pullToRefresh);
-        getDiscountlists();
+        if (Const.Home_page.equalsIgnoreCase("0")) {
+            getDiscountlists();
+        } else {
+            if (Const.home_list.size() > 0) {
+                adapter_home_offer_list = new Adapter_Home_Offer_List(getActivity(), Const.home_list, Const.path_img);
+                rlyofferlist.setAdapter(adapter_home_offer_list);
+                adapter_home_offer_list.notifyDataSetChanged();
+                rlyofferlist.setVisibility(View.VISIBLE);
+            } else {
+                rlyofferlist.setVisibility(View.GONE);
+            }
+        }
+
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,46 +82,6 @@ public class HomeFragment extends Fragment {
     }
 
     /*get getDiscountlists APi*/
-//    public void getDiscountlists() {
-//        dialog.show();
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(getString(R.string.commn_url))
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        Api loginservice = retrofit.create(Api.class);
-//        Call<Categori_Model> call = loginservice.getDiscountlists("", "");
-//        call.enqueue(new Callback<Categori_Model>() {
-//            @Override
-//            public void onResponse(Call<Categori_Model> call, Response<Categori_Model> response) {
-//                if (response.code() == 200) {
-//                    dialog.dismiss();
-//                    Log.e("adffadada", "" + response.toString());
-//                    if (response.body().getStatus().equalsIgnoreCase("success")) {
-//                        productlist = response.body().getData();
-//                        Path_img = response.body().getPath();
-//                        if (productlist.size() > 0) {
-//                            adapter_home_offer_list = new Adapter_Home_Offer_List(getActivity(), productlist, Path_img);
-//                            rlyofferlist.setAdapter(adapter_home_offer_list);
-//                            adapter_home_offer_list.notifyDataSetChanged();
-//                            rlyofferlist.setVisibility(View.VISIBLE);
-//                        } else {
-//                            rlyofferlist.setVisibility(View.GONE);
-//                        }
-//
-//                    } else {
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Categori_Model> call, Throwable t) {
-//                dialog.dismiss();
-//            }
-//
-//        });
-//    }
-
     public void getDiscountlists() {
         productlist = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -155,10 +128,13 @@ public class HomeFragment extends Fragment {
                             } else {
                                 productlist.remove(m);
                             }
-
                         }
                         Path_img = response.getString("path");
                         Log.e("safgsfgsahsa", "" + productlist.size() + "   " + Path_img);
+                        Const.Home_page = "1";
+                        Const.home_list = productlist;
+                        Const.path_img = Path_img;
+
                         if (productlist.size() > 0) {
                             adapter_home_offer_list = new Adapter_Home_Offer_List(getActivity(), productlist, Path_img);
                             rlyofferlist.setAdapter(adapter_home_offer_list);

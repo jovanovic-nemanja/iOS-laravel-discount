@@ -50,7 +50,7 @@ public class Cat_Adapter extends RecyclerView.Adapter<Cat_Adapter.Holder> {
         holder.linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, DiscountsList.class).putExtra("layout", position + 1));
+                context.startActivity(new Intent(context, DiscountsList.class).putExtra("layout", position+1));
                 context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
