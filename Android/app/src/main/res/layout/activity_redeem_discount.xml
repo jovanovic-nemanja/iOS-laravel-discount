@@ -63,9 +63,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="60dp"
                 android:background="@drawable/signup_button_a"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,11 +92,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/tofino_medium"
                     android:gravity="center"
                     android:text="Discounts"
-                    android:layout_marginTop="20dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -111,6 +112,7 @@
                     android:text="Membership"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
+
                 <TextView
                     android:id="@+id/txtmembernumber"
                     android:layout_width="match_parent"
