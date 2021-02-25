@@ -543,7 +543,7 @@ Login with Google
 		user_name: John Smith
 		user_mail: test@test.com
 	}
-	method:POST
+	method:POST,
 
 	- Success 
 	{
