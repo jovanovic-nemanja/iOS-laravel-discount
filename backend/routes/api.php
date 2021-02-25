@@ -26,6 +26,7 @@ Route::POST('/v1/validateCode', 'Admin\UsersController@validateCode');
 Route::POST('/v1/register', 'Admin\UsersController@store');
 Route::POST('/v1/loginUser', 'Admin\UsersController@loginUser');
 Route::POST('/v1/loginwithApple', 'Admin\UsersController@loginUserwithApple');
+Route::POST('/v1/loginwithGoogle', 'Admin\UsersController@loginUserwithGoogle');
 Route::POST('/v1/logout', 'Admin\UsersController@logout');
 
 // forgot password

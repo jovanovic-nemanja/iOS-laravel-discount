@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function __construct(){
-        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword', 'updateAccount', 'loginUserwithApple', 'updateAppleAccount']);
+        $this->middleware(['auth', 'admin'])->except(['store', 'loginUser', 'logout', 'emailverify', 'validateCode', 'forgotpassword', 'resetpwd', 'resetUserpassword', 'updateAccount', 'loginUserwithApple', 'loginUserwithGoogle', 'updateAppleAccount']);
     }
 
     /**
@@ -470,6 +470,59 @@ class UsersController extends Controller
             $user = User::create([
                 'block' => 0,
                 'apple_id' => $request['apple_id'],
+                'email' => @$request['user_mail'],
+                'username' => @$request['user_name'],
+                'sign_date' => date('Y-m-d h:i:s'),
+            ]);
+
+            User::generateuserUniqueID($user->id);
+
+            RoleUser::create([
+                'user_id' => $user->id,
+                'role_id' => 3,
+            ]);
+            
+            $result = User::where('id', $user->id)->first();
+            $msg = 'Successfully Logged In.';
+            $newUser = 1;
+        }else{
+            $result = $user;
+            $msg = 'Successfully Logged In.';
+            $newUser = 0;
+        }
+
+        return response()->json(['status' => 'success', 'data' => $result, 'msg' => $msg, 'isnewUser' => $newUser]);
+    }
+
+    /**
+     * Swift API : User login by Google.
+     *
+     * @since 2021-02-25
+     * @author Nemanja
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loginUserwithGoogle(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'google_id' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $google_id = $request->google_id;
+        $user = User::where('google_id', $google_id)->first();
+        $result = [];
+
+        if (!$user) {   //register
+            $user = User::create([
+                'block' => 0,
+                'google_id' => $request['google_id'],
                 'email' => @$request['user_mail'],
                 'username' => @$request['user_name'],
                 'sign_date' => date('Y-m-d h:i:s'),

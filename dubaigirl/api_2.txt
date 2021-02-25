@@ -497,7 +497,9 @@ Login with Apple
 - Request
 	https://tdguae.com/api/v1/loginwithApple
 	params: {
-		apple_id: integer, not null
+		apple_id: text, not null
+		user_name: John Smith
+		user_mail: test@test.com
 	}
 	method:POST
 
@@ -525,6 +527,48 @@ Login with Apple
 	{
 	    "status": "failed",
 	    "msg": "The apple id field is required."
+	}
+
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+Login with Google
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+- Request
+	https://tdguae.com/api/v1/loginwithGoogle
+	params: {
+		google_id: string, not null
+		user_name: John Smith
+		user_mail: test@test.com
+	}
+	method:POST
+
+	- Success 
+	{
+	    "status": "success",
+	    "data": {
+	        "id": 1250,
+	        "username": John Smith,
+	        "userUniqueId": "71250",
+	        "email": "test@test.com",
+	        "photo": null,
+	        "instagram_id": null,
+	        "facebook_id": null,
+	        "google_id": "k766654",
+	        "apple_id": "",
+	        "birthday": null,
+	        "address": null
+	    },
+	    "msg": "Successfully Logged In.",
+	    "isnewUser": 1
+	}
+
+	- failed
+	{
+	    "status": "failed",
+	    "msg": "The google id field is required."
 	}
 
 
