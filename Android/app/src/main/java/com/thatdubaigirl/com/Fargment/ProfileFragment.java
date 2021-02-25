@@ -92,9 +92,13 @@ public class ProfileFragment extends Fragment {
         ivimage = v.findViewById(R.id.ivimage);
 
         edname.setText("" + sp.getString("username", ""));
-        edaddess.setText("" + sp.getString("address", ""));
         txtmembernumber.setText("Membership Number: " + sp.getString("userUniqueId", ""));
+        if (sp.getString("address","").equalsIgnoreCase("null")){
+            edaddess.setText("");
 
+        }else {
+            edaddess.setText("" + sp.getString("address", ""));
+        }
         try {
             String date = sp.getString("birthday", "");
             SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd");

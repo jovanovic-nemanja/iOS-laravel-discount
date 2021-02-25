@@ -13,10 +13,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -44,6 +47,7 @@ public class HomeFragment extends Fragment {
     Adapter_Home_Offer_List adapter_home_offer_list;
     ProgressDialog dialog;
     SwipeRefreshLayout pullToRefresh;
+    EditText etSearchId;
 
     public HomeFragment() {
     }
@@ -58,6 +62,8 @@ public class HomeFragment extends Fragment {
         dialog.setCancelable(false);
         rlyofferlist = v.findViewById(R.id.rlyofferlist);
         pullToRefresh = v.findViewById(R.id.pullToRefresh);
+        etSearchId = v.findViewById(R.id.etSearchId);
+
         if (Const.Home_page.equalsIgnoreCase("0")) {
             getDiscountlists();
         } else {
@@ -70,6 +76,28 @@ public class HomeFragment extends Fragment {
                 rlyofferlist.setVisibility(View.GONE);
             }
         }
+
+        etSearchId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                try {
+                    if (s == null) {
+                    } else {
+                        adapter_home_offer_list.filter(s.toString());
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

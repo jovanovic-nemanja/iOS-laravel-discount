@@ -63,4 +63,7 @@ public interface Api {
 
     @POST("putReviewsbyAPI")
     Call<Common_Model> putReviewsbyAPI(@Query("putter") String putter, @Query("discount_id") String discount_id, @Query("mark") String mark, @Query("comments") String comments);
+
+  @POST("loginwithGoogle")
+    Call<Common_Model> loginwithGoogle(@Query("google_id") String google_id, @Query("user_name") String user_name, @Query("user_mail") String user_mail);
 }

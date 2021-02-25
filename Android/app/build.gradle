@@ -56,4 +56,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.blennerSilva:AwesomeDialog:2.0.1'
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.16'
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
+    implementation 'com.google.android.gms:play-services:11.8.0'
+    implementation 'com.google.gms:google-services:4.0.1'
 }

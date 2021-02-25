@@ -50,6 +50,12 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAshvVAsNdgJkKRiLpwU7ulX4XHZl7GKAo" />
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -18,6 +18,7 @@ import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,11 +29,13 @@ public class Adapter_Home_Offer_List extends RecyclerView.Adapter<Adapter_Home_O
     private Activity context;
     private ArrayList<Categori_Model> Product_models;
     String path_img;
-
+    ArrayList<Categori_Model> array_b;
     public Adapter_Home_Offer_List(Activity context, ArrayList<Categori_Model> product_models, String path_img) {
         this.context = context;
         this.Product_models = product_models;
         this.path_img = path_img;
+        this.array_b = new ArrayList<>();
+        this.array_b.addAll(product_models);
     }
 
     @NonNull
@@ -109,4 +112,18 @@ public class Adapter_Home_Offer_List extends RecyclerView.Adapter<Adapter_Home_O
         }
     }
 
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        Product_models = new ArrayList<>();
+        if (charText.length() == 0) {
+            Product_models.addAll(array_b);
+        } else {
+            for (Categori_Model wp : array_b) {
+                if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    Product_models.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }
