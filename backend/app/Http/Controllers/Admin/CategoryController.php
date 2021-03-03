@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -67,7 +68,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.category.edit', compact('category'));
+        $size = Storage::disk('public_local')->size('uploads/'.$category->category_photo);
+        
+        return view('admin.category.edit', compact('category', 'size'));
     }
 
     /**

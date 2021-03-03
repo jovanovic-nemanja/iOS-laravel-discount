@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class VendorsController extends Controller
 {
@@ -110,8 +111,9 @@ class VendorsController extends Controller
     {
         $vendor = Vendors::where('id', $id)->first();
         $categories = Category::all();
+        $size = Storage::disk('public_local')->size('uploads/'.$vendor->photo);
 
-        return view('admin.vendors.edit', compact('vendor', 'categories'));
+        return view('admin.vendors.edit', compact('vendor', 'categories', 'size'));
     }
 
     /**

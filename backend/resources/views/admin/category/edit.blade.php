@@ -15,8 +15,10 @@
 						<div class="box-body">
 							<div class="form-group">
 								<label>Name</label>
-								<input required type="text" name="category_name" class="form-control" placeholder="Name" value="{{ $category->category_name }}" />
+								<input required type="text" name="category_name" class="form-control category_name" placeholder="Name" value="{{ $category->category_name }}" />
 							</div>
+
+                            <input type="text" value="<?= $size ?>" id="hidden_img" style="display: none;" />
 
 							<div class="form-group {{ $errors->has('category_photo') ? 'has-error' : '' }}">
                                 <label>Photo</label>
@@ -46,10 +48,14 @@
 						</div>
 
 						<div class="box-footer">
-							<button class="btn btn-success pull-right">Update Category</button>
+							<button class="btn btn-success pull-right submit_category" style="display: none;">Update Category</button>
 						</div>
 					</div>
 				</form>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success pull-right submit_category_edit">Save Category</button>
+                </div>
           	</div>
       	</div>
   	</div>

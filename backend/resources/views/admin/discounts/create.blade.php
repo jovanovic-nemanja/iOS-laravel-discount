@@ -148,5 +148,20 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        // $('#file').bind('change', function() {
+        //     //this.files[0].size gets the size of your file.
+        //     var file_size = this.files[0].size;
+        //     if (file_size > 400000) {
+        //         $.toast({
+        //             heading: 'Error',
+        //             text: "Please choose the photo size as than 400 KB smaller.",
+        //             position: String("top-right"),
+        //             icon: 'error',
+        //             stack: false,
+        //             loaderBg: '#f96868'
+        //         });
+        //     }
+        // });
     </script>
 @endsection

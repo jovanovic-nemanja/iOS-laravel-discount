@@ -13,7 +13,7 @@
 						<div class="box-body">
 							<div class="form-group">
 								<label>Name</label>
-								<input required type="text" name="category_name" class="form-control" placeholder="Name" />
+								<input required type="text" name="category_name" class="form-control category_name" placeholder="Name" />
 							</div>
 
 							<div class="form-group {{ $errors->has('category_photo') ? 'has-error' : '' }}">
@@ -34,10 +34,14 @@
 						</div>
 
 						<div class="box-footer">
-							<button class="btn btn-success pull-right">Save Category</button>
+							<button class="btn btn-success pull-right submit_category" style="display: none;">Save Category</button>
 						</div>
 					</div>
 				</form>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success pull-right submit_category_h">Save Category</button>
+                </div>
           	</div>
       	</div>
   	</div>

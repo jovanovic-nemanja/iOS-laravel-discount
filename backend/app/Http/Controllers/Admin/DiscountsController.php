@@ -9,6 +9,7 @@ use App\Discounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class DiscountsController extends Controller
 {
@@ -104,8 +105,9 @@ class DiscountsController extends Controller
     {
         $categories = Category::all();
         $discount = Discounts::where('id', $id)->first();
+        $size = Storage::disk('public_local')->size('uploads/'.$discount->discount_photo);
 
-        return view('admin.discounts.edit', compact('discount', 'categories'));
+        return view('admin.discounts.edit', compact('discount', 'categories', 'size'));
     }
 
     /**

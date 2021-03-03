@@ -20,7 +20,7 @@
                             <div class="box-body">
                                 <div class="form-group {{ $errors->has('vendorname') ? 'has-error' : '' }}">
                                     <label>Name</label>
-                                    <input required value="{{ $vendor->vendorname }}" type="text" name="vendorname" class="form-control" placeholder="Name" />
+                                    <input required value="{{ $vendor->vendorname }}" type="text" name="vendorname" class="form-control vendorname" placeholder="Name" />
 
                                     @if ($errors->has('vendorname'))
                                         <span class="help-block">
@@ -29,11 +29,13 @@
                                     @endif
                                 </div>
 
+                                <input type="text" value="<?= $size ?>" id="hidden_img" style="display: none;" />
+
                                 <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
                                     <label>Profile photo</label>
                                     <div class="controls">
                                         <span>
-                                            <input type="file" name="photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile">
+                                            <input type="file" name="photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile photo">
                                             <?php 
                                                 if(@$vendor->photo) {
                                                     $path = asset('uploads/') . "/" . $vendor->photo;
@@ -57,7 +59,7 @@
 
                                 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <label>Email</label>
-                                    <input required="" type="email" name="email" class="form-control" placeholder="Email" value="{{ $vendor->email }}" />
+                                    <input required="" type="email" name="email" class="form-control email" placeholder="Email" value="{{ $vendor->email }}" />
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -96,7 +98,7 @@
 
                                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     <label>Phone</label>
-                                    <input required="" type="text" name="phone" class="form-control" placeholder="Phone" value="{{ $vendor->phone }}" />
+                                    <input required="" type="text" name="phone" class="form-control phone" placeholder="Phone" value="{{ $vendor->phone }}" />
 
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
@@ -107,7 +109,7 @@
 
                                 <div class="form-group {{ $errors->has('location') ? 'has-error' : '' }}">
                                     <label>Location</label>
-                                    <input required="" type="text" name="location" class="form-control" placeholder="Location" value="{{ $vendor->location }}" />
+                                    <input required="" type="text" name="location" class="form-control location" placeholder="Location" value="{{ $vendor->location }}" />
 
                                     @if ($errors->has('location'))
                                         <span class="help-block">
@@ -138,10 +140,14 @@
                             </div>
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-success pull-right">Save Vendor</button>
+                                <button type="submit" class="btn btn-success pull-right submit_vendor" style="display: none;">Save Vendor</button>
                             </div>
                         </div>
                     </form>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right submit_vendor_edit">Save Vendor</button>
+                    </div>
                 </div>
             </div>
         </div>

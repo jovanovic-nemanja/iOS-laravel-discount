@@ -19,7 +19,7 @@
                             <div class="box-body">
                                 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                                     <label>Title</label>
-                                    <input required value="{{ $discount->title }}" type="text" name="title" class="form-control" placeholder="Title" />
+                                    <input required value="{{ $discount->title }}" type="text" name="title" class="form-control title" placeholder="Title" />
 
                                     @if ($errors->has('title'))
                                         <span class="help-block">
@@ -30,7 +30,7 @@
 
                                 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
                                     <label>Description</label>
-                                    <textarea required class="form-control" name="description" rows="8">{{ $discount->description }}</textarea>
+                                    <textarea required class="form-control description" name="description" rows="8">{{ $discount->description }}</textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
@@ -54,18 +54,21 @@
                                     @endif
                                 </div>
 
+                                <?php 
+                                    if(@$discount->discount_photo) {
+                                        $path = asset('uploads/') . "/" . $discount->discount_photo;
+                                    }else{
+                                        $path = "";
+                                    }
+                                ?>
+
+                                <input type="text" value="<?= $size ?>" id="hidden_img" style="display: none;" />
+
                                 <div class="form-group {{ $errors->has('discount_photo') ? 'has-error' : '' }}">
                                     <label>Photo</label>
                                     <div class="controls">
                                         <span>
                                             <input type="file" name="discount_photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile discount_photo">
-                                            <?php 
-                                                if(@$discount->discount_photo) {
-                                                    $path = asset('uploads/') . "/" . $discount->discount_photo;
-                                                }else{
-                                                    $path = "";
-                                                }
-                                            ?>
 
                                             <label for="file" @click="onClick" inputId="1" style="background-image: url(<?= $path ?>);" id='preview_img'>
                                                 <i class="fa fa-plus-circle"></i>
@@ -95,10 +98,14 @@
                             </div>
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-success pull-right">Save Discount</button>
+                                <button style="display: none;" type="submit" class="btn btn-success pull-right submit_discount">Save Discount</button>
                             </div>
                         </div>
                     </form>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right submit_discount_edit">Save Discount</button>
+                    </div>
                 </div>
             </div>
         </div>

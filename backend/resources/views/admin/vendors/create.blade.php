@@ -18,7 +18,7 @@
                             <div class="box-body">
                                 <div class="form-group {{ $errors->has('vendorname') ? 'has-error' : '' }}">
                                     <label>Name</label>
-                                    <input required="" type="text" name="vendorname" class="form-control" placeholder="Name" />
+                                    <input required="" type="text" name="vendorname" class="form-control vendorname" placeholder="Name" />
 
                                     @if ($errors->has('vendorname'))
                                         <span class="help-block">
@@ -31,7 +31,7 @@
                                     <label>Profile photo</label>
                                     <div class="controls">
                                         <span>
-                                            <input type="file" name="photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile" required>
+                                            <input type="file" name="photo" id="file" onchange="loadPreview(this, 'preview_img');" class="inputfile photo" required>
                                             <label for="file" @click="onClick" inputId="1" style="" id='preview_img'><i class="fa fa-plus-circle"></i></label>
                                         </span>
                                     </div>
@@ -45,7 +45,7 @@
 
                                 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <label>Email</label>
-                                    <input required="" type="email" name="email" class="form-control" placeholder="Email" />
+                                    <input required="" type="email" name="email" class="form-control email" placeholder="Email" />
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -54,24 +54,9 @@
                                     @endif
                                 </div>
 
-                                <!-- <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
-                                    <label>Category</label>
-                                    <select class="form-control js-example-basic-multiple" multiple="multiple" required name="category_id[]">
-                                        @foreach($categories as $cate)
-                                            <option value="{{ $cate->id }}">{{ $cate->category_name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @if ($errors->has('category_id'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('category_id') }}</strong>
-                                        </span>
-                                    @endif
-                                </div> -->
-
                                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     <label>Phone</label>
-                                    <input required type="text" name="phone" class="form-control" placeholder="Phone" />
+                                    <input required type="text" name="phone" class="form-control phone" placeholder="Phone" />
 
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
@@ -82,7 +67,7 @@
 
                                 <div class="form-group {{ $errors->has('location') ? 'has-error' : '' }}">
                                     <label>Location</label>
-                                    <input required type="text" name="location" class="form-control" placeholder="Location" />
+                                    <input required type="text" name="location" class="form-control location" placeholder="Location" />
 
                                     @if ($errors->has('location'))
                                         <span class="help-block">
@@ -113,10 +98,14 @@
                             </div>
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-success pull-right">Save Vendor</button>
+                                <button type="submit" class="btn btn-success pull-right submit_vendor" style="display: none;">Save Vendor</button>
                             </div>
                         </div>
                     </form>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success pull-right submit_vendor_h">Save Vendor</button>
+                    </div>
                 </div>
             </div>
         </div>
