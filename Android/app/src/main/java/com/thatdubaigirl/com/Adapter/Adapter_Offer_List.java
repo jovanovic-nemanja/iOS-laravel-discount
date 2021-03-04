@@ -51,7 +51,7 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
 
         holder.name.setText("" + Product_models.get(position).getTitle());
         holder.txtdescription.setText("" + Product_models.get(position).getDescription());
-        holder.txtcatname.setText("" + Product_models.get(position).getCategory_name());
+        holder.txtcatname.setText("" + Product_models.get(position).getVendorlocationName());
         holder.txtvendername.setText("" + Product_models.get(position).getVendorname());
         if (Product_models.get(position).getStatus().equalsIgnoreCase("1")) {
             holder.ivbanner.setVisibility(View.GONE);

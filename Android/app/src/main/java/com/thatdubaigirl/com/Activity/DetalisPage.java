@@ -88,7 +88,6 @@ public class DetalisPage extends AppCompatActivity {
         name.setText("" + categori_model.getTitle());
         txtvendername.setText("" + categori_model.getVendorname());
         txtcatname.setText("" + categori_model.getLocation());
-//        txtdescription.setText("" + Html.fromHtml(categori_model.getDescription()));
         txtdescription.setText("" + categori_model.getDescription());
         if (categori_model.getStatus().equalsIgnoreCase("2")) {
             ivbanner.setVisibility(View.VISIBLE);

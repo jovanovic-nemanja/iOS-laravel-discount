@@ -51,7 +51,7 @@ public class Adapter_Home_Offer_List extends RecyclerView.Adapter<Adapter_Home_O
 
         holder.name.setText("" + Product_models.get(position).getTitle());
         holder.txtdescription.setText("" + Product_models.get(position).getDescription());
-        holder.txtcatname.setText("" + Product_models.get(position).getCategory_name());
+        holder.txtcatname.setText("" + Product_models.get(position).getVendorlocationName());
         holder.txtvendername.setText("" + Product_models.get(position).getVendorname());
         Log.e("dsfddfsafd",""+Product_models.get(position).getAvg_marks());
 
