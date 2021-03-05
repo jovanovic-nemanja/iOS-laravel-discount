@@ -505,7 +505,8 @@ class UsersController extends Controller
     public function loginUserwithGoogle(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'google_id' => 'required|string'
+            'google_id' => 'required|string',
+            'user_mail' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -539,11 +540,11 @@ class UsersController extends Controller
             $result = User::where('id', $user->id)->first();
             $msg = 'Successfully Logged In.';
             $newUser = 1;
-        }else if ($user) {
+        } if ($user) {
             $result = $user;
             $msg = 'Successfully Logged In.';
             $newUser = 0;
-        }else if ($user_by_email) {
+        } if ($user_by_email) {
             $result = $user_by_email;
             $msg = 'Successfully Logged In.';
             $newUser = 0;
