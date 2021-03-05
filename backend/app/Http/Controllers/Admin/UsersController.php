@@ -506,6 +506,7 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'google_id' => 'required|string',
+            'user' => "required",
             'user_mail' => 'required'
         ]);
 
