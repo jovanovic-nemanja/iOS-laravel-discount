@@ -505,9 +505,7 @@ class UsersController extends Controller
     public function loginUserwithGoogle(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'google_id' => 'required|string',
-            'user' => "required",
-            'user_mail' => 'required'
+            'google_id' => 'required|string'
         ]);
 
         if ($validator->fails()) {
