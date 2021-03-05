@@ -33,7 +33,7 @@ public class WriteReview extends AppCompatActivity {
     ProgressDialog dialog;
     SharedPreferences sp;
     SharedPreferences.Editor ed;
-    Categori_Model categori_model;
+//    Categori_Model categori_model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class WriteReview extends AppCompatActivity {
         dialog.setCancelable(false);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         ed = sp.edit();
-        categori_model = (Categori_Model) getIntent().getSerializableExtra("data");
+//        categori_model = (Categori_Model) getIntent().getSerializableExtra("data");
         comment_rating = findViewById(R.id.comment_rating);
         edReview = findViewById(R.id.edReview);
         txtcancel = findViewById(R.id.txtcancel);
@@ -63,7 +63,7 @@ public class WriteReview extends AppCompatActivity {
                 if (edReview.getText().toString().length() == 0) {
                     Toast.makeText(WriteReview.this, "Please enter review", Toast.LENGTH_SHORT).show();
                 } else {
-                    putReviewsbyAPI(categori_model.getId(), String.valueOf(comment_rating.getRating()));
+                    putReviewsbyAPI(getIntent().getStringExtra("Id"), String.valueOf(comment_rating.getRating()));
                 }
 
             }

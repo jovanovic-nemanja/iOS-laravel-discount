@@ -20,7 +20,7 @@
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/logo" />
 
         <androidx.core.widget.NestedScrollView
@@ -103,15 +103,15 @@
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/tofino_regular"
                     android:gravity="center"
-                    android:hint="Log In"
+                    android:hint="Sign In"
                     android:paddingTop="@dimen/dp8"
                     android:paddingBottom="@dimen/dp8"
                     android:singleLine="true"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textColorHint="@color/black"
-                    android:textSize="@dimen/dp15" />
+                    android:textSize="@dimen/dp15"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/forgot"

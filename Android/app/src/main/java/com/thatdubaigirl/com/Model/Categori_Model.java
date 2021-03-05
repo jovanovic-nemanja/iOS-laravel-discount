@@ -194,14 +194,6 @@ public class Categori_Model implements Serializable {
         return category_name;
     }
 
-    public String getVendorlocationName() {
-        return location;
-    }
-
-    public void setVendorlocationName(String location) {
-        this.location = location;
-    }
-
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
     }

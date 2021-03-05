@@ -517,9 +517,10 @@ class UsersController extends Controller
 
         $google_id = $request->google_id;
         $user = User::where('google_id', $google_id)->first();
+        $user_by_email = User::where('email', $request->user_mail)->first();
         $result = [];
 
-        if (!$user) {   //register
+        if (!$user && !$user_by_email) {   //register
             $user = User::create([
                 'block' => 0,
                 'google_id' => $request['google_id'],
@@ -538,8 +539,12 @@ class UsersController extends Controller
             $result = User::where('id', $user->id)->first();
             $msg = 'Successfully Logged In.';
             $newUser = 1;
-        }else{
+        }else if ($user) {
             $result = $user;
+            $msg = 'Successfully Logged In.';
+            $newUser = 0;
+        }else if ($user_by_email) {
+            $result = $user_by_email;
             $msg = 'Successfully Logged In.';
             $newUser = 0;
         }

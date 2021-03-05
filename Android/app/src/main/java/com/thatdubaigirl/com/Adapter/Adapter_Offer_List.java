@@ -28,13 +28,12 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
     private Activity context;
     private ArrayList<Categori_Model> Product_models;
     ArrayList<Categori_Model> array_b;
-    String path_img, cat_id;
+    String path_img;
 
-    public Adapter_Offer_List(Activity context, ArrayList<Categori_Model> product_models, String path_img, String cat_id) {
+    public Adapter_Offer_List(Activity context, ArrayList<Categori_Model> product_models, String path_img) {
         this.context = context;
         this.Product_models = product_models;
         this.path_img = path_img;
-        this.cat_id = cat_id;
         this.array_b = new ArrayList<>();
         this.array_b.addAll(product_models);
     }
@@ -51,22 +50,14 @@ public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.
 
         holder.name.setText("" + Product_models.get(position).getTitle());
         holder.txtdescription.setText("" + Product_models.get(position).getDescription());
-        holder.txtcatname.setText("" + Product_models.get(position).getVendorlocationName());
+        holder.txtcatname.setText("" + Product_models.get(position).getLocation());
         holder.txtvendername.setText("" + Product_models.get(position).getVendorname());
         if (Product_models.get(position).getStatus().equalsIgnoreCase("1")) {
             holder.ivbanner.setVisibility(View.GONE);
         } else {
             holder.ivbanner.setVisibility(View.VISIBLE);
         }
-        if (cat_id.equalsIgnoreCase("0")){
-            holder.card.setVisibility(View.VISIBLE);
-        }else {
-            if (cat_id.equalsIgnoreCase(Product_models.get(position).getCategory_id())) {
-                holder.card.setVisibility(View.VISIBLE);
-            } else {
-                holder.card.setVisibility(View.GONE);
-            }
-        }
+
         try {
             if (Product_models.get(position).getAvg_marks() == null) {
                 holder.headerrate.setVisibility(View.GONE);

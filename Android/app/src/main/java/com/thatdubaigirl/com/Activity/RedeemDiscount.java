@@ -20,7 +20,7 @@ public class RedeemDiscount extends AppCompatActivity {
     TextView txtusername, txtmembernumber, txttitle;
     SharedPreferences sp;
     SharedPreferences.Editor ed;
-    Categori_Model categori_model;
+//    Categori_Model categori_model;
     String path_img;
 
 
@@ -31,7 +31,7 @@ public class RedeemDiscount extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(RedeemDiscount.this);
         ed = sp.edit();
 
-        categori_model = (Categori_Model) getIntent().getSerializableExtra("data");
+//        categori_model = (Categori_Model) getIntent().getSerializableExtra("data");
         path_img = getIntent().getStringExtra("path_img");
 
         ivprofile = findViewById(R.id.ivprofile);
@@ -42,10 +42,10 @@ public class RedeemDiscount extends AppCompatActivity {
 
         txtusername.setText("" + sp.getString("username", ""));
         txtmembernumber.setText("" + sp.getString("userUniqueId", ""));
-        txttitle.setText("" + categori_model.getTitle());
+        txttitle.setText("" +getIntent().getStringExtra("Title"));
         try {
             Picasso.with(RedeemDiscount.this).load("" + path_img + sp.getString("photo", "")).error(R.drawable.profile).into(ivprofile);
-            Picasso.with(RedeemDiscount.this).load("" + path_img + categori_model.getPhoto()).error(R.drawable.slider).into(ivimage);
+            Picasso.with(RedeemDiscount.this).load("" + path_img + getIntent().getStringExtra("Photo")).error(R.drawable.slider).into(ivimage);
         } catch (Exception e) {
         }
     }

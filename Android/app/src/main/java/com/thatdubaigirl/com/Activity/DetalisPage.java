@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Adapter.Adapter_Home_Offer_List;
 import com.thatdubaigirl.com.Adapter.ReviewRate_Adapter;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
@@ -88,7 +87,7 @@ public class DetalisPage extends AppCompatActivity {
         name.setText("" + categori_model.getTitle());
         txtvendername.setText("" + categori_model.getVendorname());
         txtcatname.setText("" + categori_model.getLocation());
-        txtdescription.setText("" + categori_model.getDescription());
+        txtdescription.setText("" + Html.fromHtml(categori_model.getDescription()));
         if (categori_model.getStatus().equalsIgnoreCase("2")) {
             ivbanner.setVisibility(View.VISIBLE);
         } else {
@@ -165,11 +164,16 @@ public class DetalisPage extends AppCompatActivity {
             @Override
             public void onSingleClick(View v) {
                 if (txtbtn.getText().toString().equalsIgnoreCase("Redeem Discount")) {
-                    startActivity(new Intent(DetalisPage.this, RedeemDiscount.class).putExtra("data", categori_model).putExtra("path_img", path_img));
+                    startActivity(new Intent(DetalisPage.this, RedeemDiscount.class)
+                            .putExtra("Photo", categori_model.getPhoto())
+                            .putExtra("Title", categori_model.getTitle())
+                            .putExtra("path_img", path_img));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
                     if (Const.review_type_a.equalsIgnoreCase("0")) {
-                        startActivity(new Intent(DetalisPage.this, WriteReview.class).putExtra("data", categori_model).putExtra("path_img", path_img));
+                        startActivity(new Intent(DetalisPage.this, WriteReview.class)
+                                .putExtra("Id", categori_model.getId())
+                                .putExtra("path_img", path_img));
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }else {
                         Toast.makeText(DetalisPage.this, "You have already left a review.", Toast.LENGTH_SHORT).show();
