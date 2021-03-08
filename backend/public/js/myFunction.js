@@ -8,11 +8,11 @@ $(function() {
         var discount_photo = $('.discount_photo').val();
         var image = $('#file');
         if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
+            // var file_size = image[0].files[0].size;
+            // if (file_size > 400000) {
+            //     Notificationsystem(2);
+            //     return;
+            // }
         }
 
         if (!title1 || !description1 || !discount_photo)
@@ -27,19 +27,19 @@ $(function() {
         var title1 = $('.title').val();
         var description1 = $('.description').val();
         var image = $('#file');
-        if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }else{
-            var file_size = $('#hidden_img').val(); //or  document.images[i].src;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }
+        // if (image[0].files.length > 0) {
+        //     var file_size = image[0].files[0].size;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }else{
+        //     var file_size = $('#hidden_img').val(); //or  document.images[i].src;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }
 
         if (!title1 || !description1)
         {
@@ -59,13 +59,13 @@ $(function() {
         var photo = $('.photo').val();
 
         var image = $('#file');
-        if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }
+        // if (image[0].files.length > 0) {
+        //     var file_size = image[0].files[0].size;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }
 
         if (!vendorname || !email || !phone || !location || !photo)
         {
@@ -82,19 +82,19 @@ $(function() {
         var location = $('.location').val();
 
         var image = $('#file');
-        if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }else{
-            var file_size = $('#hidden_img').val(); //or  document.images[i].src;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }
+        // if (image[0].files.length > 0) {
+        //     var file_size = image[0].files[0].size;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }else{
+        //     var file_size = $('#hidden_img').val(); //or  document.images[i].src;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }
 
         if (!vendorname || !email || !phone || !location)
         {
@@ -111,13 +111,13 @@ $(function() {
         var category_photo = $('.category_photo').val();
 
         var image = $('#file');
-        if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }
+        // if (image[0].files.length > 0) {
+        //     var file_size = image[0].files[0].size;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }
 
         if (!category_name || !category_photo)
         {
@@ -131,19 +131,19 @@ $(function() {
         var category_name = $('.category_name').val();
 
         var image = $('#file');
-        if (image[0].files.length > 0) {
-            var file_size = image[0].files[0].size;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }else{
-            var file_size = $('#hidden_img').val(); //or  document.images[i].src;
-            if (file_size > 400000) {
-                Notificationsystem(2);
-                return;
-            }
-        }
+        // if (image[0].files.length > 0) {
+        //     var file_size = image[0].files[0].size;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }else{
+        //     var file_size = $('#hidden_img').val(); //or  document.images[i].src;
+        //     if (file_size > 400000) {
+        //         Notificationsystem(2);
+        //         return;
+        //     }
+        // }
 
         if (!category_name)
         {
