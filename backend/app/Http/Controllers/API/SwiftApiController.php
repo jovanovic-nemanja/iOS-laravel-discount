@@ -254,11 +254,21 @@ class SwiftApiController extends Controller
             return response()->json(['status' => "failed", 'msg' => $messages->first()]);
         }
 
-        $review = Reviews::where('putter', $request['putter'])->where('discount_id', $request['discount_id'])->first();
-        if (@$review) {
-            $data = '';
-            $msg = "You can't write a review to that discount offer.";
-            $status = 'failed';
+        if (@$request->review_id) {
+            $review = Reviews::where('id', $request['review_id'])->first();
+            if (@$review) {
+                $review->mark = $request->mark;
+                $review->comments = $request->comments;
+                $review->update();
+
+                $data = $review;
+                $msg = "Successfully updated your review.";
+                $status = 'success';
+            }else{
+                $data = "";
+                $msg = "Can't find your review.";
+                $status = "failed";
+            }
         }else{
             $reviews = Reviews::create([
                 'putter' => $request['putter'],
@@ -268,7 +278,7 @@ class SwiftApiController extends Controller
                 'put_date' => date('Y-m-d h:i:s')
             ]);
             $data = $reviews;
-            $msg = "Successfully putted your reviews.";
+            $msg = "Successfully putted your review.";
             $status = 'success';
         }
 

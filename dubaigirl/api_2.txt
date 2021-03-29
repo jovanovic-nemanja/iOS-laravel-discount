@@ -670,7 +670,8 @@ Put review about discount
 		putter: string, not null(who putted)
 		discount_id: string, not null(to which discount?)
 		mark: integer, not null (4, 5, 3, 2, 1)
-		comments: string, not null
+		comments: string, not null,
+		review_id: integer. Null able
 	}
 	method:POST
 
@@ -687,17 +688,11 @@ Put review about discount
 	        "created_at": "2021-02-12 13:54:48",
 	        "id": 37
 	    },
-	    "msg": "Successfully putted your reviews."
+	    "msg": "Successfully putted your review."
 	}
 
 	- failed
 	{
 	    "status": "failed",
 	    "msg": "The putter field is required."
-	}
-
-	{
-	    "status": "failed",
-	    "data": "",
-	    "msg": "You can't write a review to that discount offer."
 	}
