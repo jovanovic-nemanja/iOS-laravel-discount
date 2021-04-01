@@ -31,9 +31,16 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="lightgallery" class="lightGallery">
                                 @foreach($discounts as $discount)
-                                <tr>
+                                <?php 
+                                    if(@$discount->discount_photo) {
+                                        $path = asset('uploads/') . "/" . $discount->discount_photo;
+                                    }else{
+                                        $path = "";
+                                    }
+                                ?>
+                                <tr href="<?= $path ?>">
                                     <?php 
                                         $vendor_infor = App\Discounts::getVendorInformationByID($discount->vendor_id);
                                         $category = App\Vendors::getCategoryNameByID($vendor_infor->category_id);
@@ -42,25 +49,21 @@
                                     <td>{{ $discount->title }}</td>
                                     <td>{{ App\Discounts::getStatusBystatusID($discount->status) }}</td>
                                     <td><?= nl2br($discount->description) ?></td>
-                                    <?php 
-                                        if(@$discount->discount_photo) {
-                                            $path = asset('uploads/') . "/" . $discount->discount_photo;
-                                        }else{
-                                            $path = "";
-                                        }
-                                    ?>
-                                    <td><img src="<?= $path ?>" style="border-radius: unset; height: unset;" /></td>
+                                    
+                                    <td>
+                                        <a href="<?= $path ?>" class="image-tile">
+                                            <img src="<?= $path ?>" style="border-radius: unset; height: unset;" class="lightGallery" />    
+                                        </a>
+                                    </td>
                                     <td><?= $vendor_infor->vendorname ?></td>
                                     <td>{{ App\Discounts::getCategoryNameByID($discount->category_id) }}</td>
                                     <td>{{ $discount->coupon }}</td>
                                     <td>
-                                        <a href="{{ route('discounts.show', $discount->id) }}" class="btn btn-primary btn-sm btn-flat" title="Edit">
+                                        <a href="{{ route('discounts.show', $discount->id) }}" class="btn btn-primary btn-sm btn-flat" title="Edit" onclick="event.stopPropagation();">
                                             <i class="fa fa-edit"></i>Edit
                                         </a>
-                                        <a href="" onclick="event.preventDefault();
-                                             document.getElementById('delete-form-{{$discount->id}}').submit();" class="btn btn-danger btn-sm btn-flat" title="Delete">
-                                            <i class="fa fa-trash"></i>Delete
-                                        </a>
+
+                                        <button class="btn btn-danger btn-sm btn-flat" onclick="event.stopPropagation(); event.preventDefault(); showSwal('warning-message-and-cancel', 'delete-form-{{$discount->id}}')" title="Delete"><i class="fa fa-trash"></i>Delete</button>
 
                                         <form id="delete-form-{{$discount->id}}" action="{{ route('discounts.destroy', $discount->id) }}" method="POST" style="display: none;">
                                             <input type="hidden" name="_method" value="delete">
@@ -68,7 +71,7 @@
                                         </form>
 
                                         @if($discount->status == 1)
-                                            <a href="" onclick="event.preventDefault();
+                                            <a href="" onclick="event.stopPropagation(); event.preventDefault();
                                                  document.getElementById('setfeature-form-{{$discount->id}}').submit();" class="btn btn-success btn-sm btn-flat" title="Set as featured" style="background-color: #6060ff;">
                                                 <i class="fa fa-check"></i>Set as featured
                                             </a>
@@ -80,7 +83,7 @@
                                                 <input type="hidden" name="discountID" value="{{ $discount->id }}">
                                             </form>
                                         @elseif($discount->status == 2)
-                                            <a href="" onclick="event.preventDefault();
+                                            <a href="" onclick="event.stopPropagation(); event.preventDefault();
                                                  document.getElementById('resetfeatured-form-{{$discount->id}}').submit();" class="btn btn-success btn-sm btn-flat" title="Reset as general" style="background-color: #6060ff;">
                                                 <i class="fa fa-times"></i>Reset as general
                                             </a>

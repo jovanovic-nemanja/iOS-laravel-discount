@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/simple-line-icons/css/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/lightgallery/css/lightgallery.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('demo_admin_assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
@@ -161,9 +162,12 @@
     </div>
 
     <script src="{{ asset('demo_admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('demo_admin_assets/vendors/lightgallery/js/lightgallery-all.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
+    <script src="{{ asset('demo_admin_assets/js/light-gallery.js') }}"></script>
+
     <script src="{{ asset('demo_admin_assets/js/data-table.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -195,7 +199,8 @@
 
     <script src="{{ asset('demo_admin_assets/js/formpickers.js') }}"></script>
     <script src="{{ asset('demo_admin_assets/js/form-addons.js') }}"></script>
-    
+    <script src="{{ asset('demo_admin_assets/js/alerts.js') }}"></script>
+        
     <script src="{{ asset('js/myFunction.js') }}"></script>
 
     @yield('script')

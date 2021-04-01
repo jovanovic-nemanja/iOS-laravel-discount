@@ -1,5 +1,5 @@
 (function($) {
-  showSwal = function(type) {
+  showSwal = function(type, value) {
     'use strict';
     if (type === 'basic') {
       swal({
@@ -78,7 +78,15 @@
           }
         }
       })
-
+      .then((willDelete) => {
+        if (willDelete) {
+          if (value) {
+            document.getElementById(value).submit();
+          }          
+        } else {
+          
+        }
+      });
     } else if (type === 'custom-html') {
       swal({
         content: {

@@ -589,7 +589,7 @@
         var _this = this;
         var _hasPoster = false;
         var _$img;
-        var _src;
+        var _src = _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src');
         var _poster;
         var _srcset;
         var _sizes;

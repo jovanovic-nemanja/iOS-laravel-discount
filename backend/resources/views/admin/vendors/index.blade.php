@@ -57,10 +57,7 @@
                                         <a href="{{ route('vendor.show', $vendor->id) }}" class="btn btn-primary btn-sm btn-flat">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="" onclick="event.preventDefault();
-                                             document.getElementById('delete-form-{{$vendor->id}}').submit();" class="btn btn-danger btn-sm btn-flat">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+                                        <button class="btn btn-danger btn-sm btn-flat" onclick="event.stopPropagation(); event.preventDefault(); showSwal('warning-message-and-cancel', 'delete-form-{{$vendor->id}}')" title="Delete"><i class="fa fa-trash"></i></button>
 
                                         <form id="delete-form-{{$vendor->id}}" action="{{ route('vendor.destroy', $vendor->id) }}" method="POST" style="display: none;">
                                               <input type="hidden" name="_method" value="delete">

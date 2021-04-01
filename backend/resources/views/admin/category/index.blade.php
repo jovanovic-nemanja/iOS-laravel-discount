@@ -44,15 +44,13 @@
 										<a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary btn-sm btn-flat">
 											<i class="fa fa-edit"></i>
 										</a>
-										<a href="" onclick="event.preventDefault();
-			                                 document.getElementById('delete-form-{{$category->id}}').submit();" class="btn btn-danger btn-sm btn-flat">
-											<i class="fa fa-trash"></i>
-										</a>
 
-										<form id="delete-form-{{$category->id}}" action="{{ route('category.destroy', $category->id) }}" method="POST" style="display: none;">
-							                  <input type="hidden" name="_method" value="delete">
-							                  @csrf
-							            </form>
+										<button class="btn btn-danger btn-sm btn-flat" onclick="event.stopPropagation(); event.preventDefault(); showSwal('warning-message-and-cancel', 'delete-form-{{$category->id}}')" title="Delete"><i class="fa fa-trash"></i></button>
+
+                                        <form id="delete-form-{{$category->id}}" action="{{ route('category.destroy', $category->id) }}" method="POST" style="display: none;">
+                                            <input type="hidden" name="_method" value="delete">
+                                            @csrf
+                                        </form>
 									</td>
 								</tr>
 								@endforeach
