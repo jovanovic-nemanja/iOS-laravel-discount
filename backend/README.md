@@ -1,5 +1,5 @@
 # That Dubai Girl
-Laravel backend and API for frontend
+Laravel backend and API for That Dubai Girl
 
 1,   .env
 2,   composer install, composer require stripe/stripe-php
