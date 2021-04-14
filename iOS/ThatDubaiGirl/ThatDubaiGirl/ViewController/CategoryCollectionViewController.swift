@@ -52,7 +52,7 @@ class CategoryCollectionViewController: UICollectionViewController, UICollection
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.tabBarController?.title = "Categories"
+//        self.tabBarController?.title = "Categories"
     }
 
     /*

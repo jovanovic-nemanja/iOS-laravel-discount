@@ -26,7 +26,10 @@ class ReviewTableViewCell: UITableViewCell {
     }
     
     public func configure(_ review:Review) {
-        self.ivUser.sd_setImage(with: URL(string: APIManager.urlImage + review.photo!), completed: nil)
+        if let photo = review.photo {
+            self.ivUser.sd_setImage(with: URL(string: APIManager.urlImage + photo), completed: nil)
+        }
+        
         self.labelComments.text = review.comments
 
         if let marks = Double(review.marks ?? "") {

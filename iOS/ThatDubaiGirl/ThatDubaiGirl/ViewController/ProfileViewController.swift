@@ -86,21 +86,21 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.tabBarController?.title = "My TDG"
+//        self.tabBarController?.title = "My TDG"
         
-        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSave))
-        
-        self.tabBarController?.navigationItem.leftBarButtonItem?.tintColor = UIColor.systemBlue
-
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(onLogout))
-        
-        self.tabBarController?.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
+//        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSave))
+//
+//        self.tabBarController?.navigationItem.leftBarButtonItem?.tintColor = UIColor.systemBlue
+//
+//        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(onLogout))
+//
+//        self.tabBarController?.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        self.tabBarController?.navigationItem.leftBarButtonItem = nil
-        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+//        self.tabBarController?.navigationItem.leftBarButtonItem = nil
+//        self.tabBarController?.navigationItem.rightBarButtonItem = nil
         
         if isPhotoSelected || somethingChanged() {
             let alertController = UIAlertController(title: "Alert", message: "Changes made are not saved. Do you wish to save changes made?", preferredStyle: .alert)
@@ -141,8 +141,10 @@ class ProfileViewController: UIViewController {
             }
         }
         
-        if (tfAddress.text != DataManager.currentUser?.address) {
-            return true
+        if let address = DataManager.currentUser?.address {
+            if (tfAddress.text != address) {
+                return true
+            }
         }
         
         return false
@@ -169,7 +171,7 @@ class ProfileViewController: UIViewController {
         let address = (tfAddress.text != DataManager.currentUser?.address) ? tfAddress.text : nil
         let image = isPhotoSelected ? self.ivProfile.image : nil
 
-        if (birthday != nil) {
+        if !(birthday ?? "").isEmpty {
             formatter.dateFormat = "dd-MM-yyyy"
             let newBirthday = formatter.date(from: birthday!)
             formatter.dateFormat = "yyyy-MM-dd"
@@ -201,14 +203,35 @@ class ProfileViewController: UIViewController {
         }
     }
 
-    @objc func onSave() {
+    @IBAction func onSave(_ sender: Any) {
         if (!isPhotoSelected && !somethingChanged()) {
             return
         }
         
         self.updateProfile()
     }
+    /*
+    @objc func onSave() {
+        if (!isPhotoSelected && !somethingChanged()) {
+            return
+        }
+        
+        self.updateProfile()
+    }*/
 
+    @IBAction func onLogout(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "appleid")
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "password")
+        DataManager.currentUser = nil
+        
+        if let navController = self.navigationController {
+            if let parentNav = navController.navigationController {
+                parentNav.popToRootViewController(animated: true)
+            }
+        }
+    }
+    /*
     @objc func onLogout() {
         UserDefaults.standard.removeObject(forKey: "appleid")
         UserDefaults.standard.removeObject(forKey: "email")
@@ -216,7 +239,7 @@ class ProfileViewController: UIViewController {
         DataManager.currentUser = nil
         
         self.navigationController?.popToRootViewController(animated: true)
-    }
+    }*/
 
     /*
     // MARK: - Navigation

@@ -13,10 +13,18 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.hidesBackButton = true
-        
         tabBar.tintColor = UIColor.white
         tabBar.barTintColor = UIColor.black
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     /*

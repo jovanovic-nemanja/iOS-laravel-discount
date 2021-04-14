@@ -462,13 +462,14 @@ class APIManager {
         }
     }
     
-    func putReview(_ putterId: String, _ discountId: String, _ marks: Int, _ comments: String, _ callback: @escaping (Bool, String?) -> Void) {
+    func putReview(_ putterId: String, _ discountId: String, _ marks: Int, _ comments: String, _ reviewID: String?, _ callback: @escaping (Bool, String?) -> Void) {
         let urlString = urlMain + EndPoint.putReview.rawValue
         let params = [
             "putter": putterId,
             "discount_id": discountId,
             "mark": String(marks),
-            "comments": comments
+            "comments": comments,
+            "review_id": reviewID
         ]
 
         AF.request(urlString, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).validate(statusCode: 200 ..< 299).responseJSON { AFdata in

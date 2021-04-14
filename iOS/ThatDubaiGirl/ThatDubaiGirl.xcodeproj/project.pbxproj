@@ -603,14 +603,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ThatDubaiGirl/ThatDubaiGirl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2UKYV73549;
 				INFOPLIST_FILE = ThatDubaiGirl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mambodubai.thatdubaigirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -626,14 +626,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ThatDubaiGirl/ThatDubaiGirl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2UKYV73549;
 				INFOPLIST_FILE = ThatDubaiGirl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mambodubai.thatdubaigirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -129,10 +129,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             break
             
         case 1:
-            if (self.hasLeftReview) {
-                UIManager.shared.showAlert(vc: self, title: "", message: "You have already left a review.")
-                break
-            }
+            // Removed for multiple review.
+//            if (self.hasLeftReview) {
+//                UIManager.shared.showAlert(vc: self, title: "", message: "You have already left a review.")
+//                break
+//            }
             
             self.performSegue(withIdentifier: "review", sender: discount)
             break
@@ -183,6 +184,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let vcRate = segue.destination as? RateViewController {
                 vcRate.delegate = self
                 vcRate.discount = discount
+                vcRate.review = nil
+            }
+        } else if (segue.identifier == "review_edit") {
+            if let vcRate = segue.destination as? RateViewController {
+                vcRate.delegate = self
+                
+                if let data = sender as? [String: Any] {
+                    vcRate.discount = data["discount"] as? Discount
+                    vcRate.review = data["review"] as! Review
+                }
             }
         }
     }
@@ -231,6 +242,33 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.configure(review!)
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let review = self.detail?.reviews[indexPath.row]
+        
+        if review?.putter == String(DataManager.currentUser!.id) {
+            return true
+        }
+        
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+//            // delete item at indexPath
+//        }
+
+        let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, indexPath) in
+            var sender:[String:Any] = [:]
+            sender.updateValue(self.discount!, forKey: "discount")
+            let review = self.detail?.reviews[indexPath.row]
+            sender.updateValue(review!, forKey: "review")
+            self.performSegue(withIdentifier: "review_edit", sender: sender)
+        }
+
+//        return [delete, edit]
+        return [edit]
     }
 }
 

@@ -98,6 +98,8 @@ class DiscountViewController: UIViewController, UITableViewDelegate, UITableView
             return controller
         })()
 
+        self.definesPresentationContext = true
+        
         self.segmentedControl.sectionTitles = ["ALL"]
         self.segmentedControl.selectionStyle = .fullWidthStripe
         self.segmentedControl.selectionIndicatorLocation = .bottom
@@ -135,12 +137,6 @@ class DiscountViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
         updateTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        self.tabBarController?.title = "Category"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -218,11 +214,8 @@ class DiscountViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (searchController.isActive) {
-            self.performSegue(withIdentifier: "detail", sender: filteredDiscounts[indexPath.row])
-        } else {
-            self.performSegue(withIdentifier: "detail", sender: discounts[indexPath.row])
-        }
+        let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
+        self.performSegue(withIdentifier: "detail", sender: discount)
     }
 
     // MARK: - UISearchResultsUpdating

@@ -67,6 +67,8 @@ class DiscountTableViewController: UITableViewController, UISearchResultsUpdatin
             return controller
         })()
         
+        self.definesPresentationContext = true
+        
         self.tableView.tableFooterView = UIView()
         
         updateData()
@@ -78,12 +80,6 @@ class DiscountTableViewController: UITableViewController, UISearchResultsUpdatin
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        self.tabBarController?.title = "Discounts"
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -175,14 +171,8 @@ class DiscountTableViewController: UITableViewController, UISearchResultsUpdatin
     */
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.searchController.isActive) {
-            self.searchController.dismiss(animated: false) {
-                self.searchController.isActive = false
-                self.performSegue(withIdentifier: "detail", sender: self.filteredDiscounts[indexPath.row])
-            }
-        } else {
-            self.performSegue(withIdentifier: "detail", sender: self.discounts[indexPath.row])
-        }
+        let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
+        self.performSegue(withIdentifier: "detail", sender: discount)
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -15,7 +15,8 @@ protocol RateViewControllerDelegate: class {
 class RateViewController: UIViewController, UITextViewDelegate {
 
     public var discount: Discount!
-    
+    public var review: Review!
+
     @IBOutlet weak var cosmosView: CosmosView!
     @IBOutlet weak var textField: UITextField!
     
@@ -23,8 +24,11 @@ class RateViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if review != nil {
+            textField.text = review.comments
+        }
     }
-    
 
     /*
     // MARK: - Navigation
@@ -47,7 +51,9 @@ class RateViewController: UIViewController, UITextViewDelegate {
         let discountId = self.discount.id
         let marks = Int(self.cosmosView.rating)
         let comments = self.textField.text
-        APIManager.shared.putReview(userId, discountId!, marks, comments!) { (success, message) in
+        let reviewID = (review != nil) ? review.id : nil
+        
+        APIManager.shared.putReview(userId, discountId!, marks, comments!, reviewID) { (success, message) in
             UIManager.shared.hideHUD()
             
             if (success) {

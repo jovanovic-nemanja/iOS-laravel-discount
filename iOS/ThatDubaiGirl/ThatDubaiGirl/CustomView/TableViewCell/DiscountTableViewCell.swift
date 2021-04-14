@@ -41,7 +41,7 @@ class DiscountTableViewCell: UITableViewCell {
         self.ivVendor.sd_setImage(with: URL(string: APIManager.urlImage + discount.vendorPhoto!), completed: nil)
         
         self.labelVendorName.text = discount.vendorName
-        self.labelCategoryName.text = discount.categoryName
+        self.labelCategoryName.text = discount.location
 
         self.ivBanner.isHidden = !(Int((discount.status)!) == 2)
         

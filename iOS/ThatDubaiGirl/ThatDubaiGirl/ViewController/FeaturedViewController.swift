@@ -7,14 +7,14 @@
 
 import UIKit
 
-//class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
-class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+//class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var discounts: [Discount] = []
-//    private var filteredDiscounts: [Discount] = []
+    private var filteredDiscounts: [Discount] = []
     @IBOutlet weak var tableView: UITableView!
     
-//    var searchController = UISearchController()
+    var searchController = UISearchController()
 
     var refreshControl: UIRefreshControl = {
         return UIRefreshControl()
@@ -23,7 +23,7 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     func updateTableView() {
         discounts.removeAll()
         for discount in DataManager.discounts {
-            if (Int(discount.status!) == 2) {
+            if (Int(discount.status!) == 2) { // Only featured
                 discounts.append(discount)
             }
         }
@@ -53,32 +53,31 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.searchBar.sizeToFit()
+            controller.searchBar.placeholder = "Search Discounts"
+            controller.obscuresBackgroundDuringPresentation = false;
+
+            tableView.tableHeaderView = controller.searchBar
+            return controller
+        })()
+        
+        self.definesPresentationContext = true
         
         // Setup Pull to Refresh
         setupPullToRefresh()
 
         tableView.register(UINib(nibName: "DiscountTableViewCell", bundle: nil), forCellReuseIdentifier: "DiscountCell")
+        tableView.tableFooterView = UIView()
         
-//        searchController = ({
-//            let controller = UISearchController(searchResultsController: nil)
-//            controller.searchResultsUpdater = self
-//            controller.searchBar.sizeToFit()
-//            controller.searchBar.placeholder = "Search Discounts"
-//            controller.obscuresBackgroundDuringPresentation = false;
-//
-//            tableView.tableHeaderView = controller.searchBar
-//            return controller
-//        })()
-        
+        tableView.rowHeight = (tableView.frame.size.width / 2) + 138
+        tableView.estimatedRowHeight = 130
+
         DataManager.loadDatas(self.view) {
             self.updateTableView()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.tabBarController?.title = "Home"
     }
     
     // MARK: - Navigation
@@ -104,9 +103,9 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-//        if (searchController.isActive) {
-//            return filteredDiscounts.count
-//        }
+        if (searchController.isActive) {
+            return filteredDiscounts.count
+        }
         
         return discounts.count
     }
@@ -122,11 +121,11 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
         cell.ivVendor.layer.cornerRadius = cell.ivVendor.bounds.width / 2
 
         var discount: Discount?
-//        if (searchController.isActive) {
-//            discount = filteredDiscounts[indexPath.row]
-//        } else {
+        if (searchController.isActive) {
+            discount = filteredDiscounts[indexPath.row]
+        } else {
             discount = discounts[indexPath.row]
-//        }
+        }
 
         // Configure the cell...
         cell.configure(discount!)
@@ -135,15 +134,11 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (searchController.isActive) {
-//            self.performSegue(withIdentifier: "detail", sender: filteredDiscounts[indexPath.row])
-//        } else {
-            self.performSegue(withIdentifier: "detail", sender: discounts[indexPath.row])
-//        }
+        let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
+        self.performSegue(withIdentifier: "detail", sender: discount)
     }
 
     // MARK: - UISearchResultsUpdating
-    /*
     func updateSearchResults(for searchController: UISearchController) {
         filteredDiscounts.removeAll()
         
@@ -153,8 +148,8 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
                 return true
             })
         } else {
-            for discount in discounts {
-                if let _ = discount.vendorName?.range(of: key!, options: .caseInsensitive) {
+            for discount in DataManager.discounts {
+                if let _ = discount.title?.range(of: key!, options: .caseInsensitive) {
                     self.filteredDiscounts.append(discount)
                     continue
                 }
@@ -173,5 +168,4 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.tableView.reloadData()
     }
-    */
 }
