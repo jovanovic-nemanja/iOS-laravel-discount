@@ -217,6 +217,8 @@ class DiscountsController extends Controller
      */
     public function destroy($id)
     {
+        $discount = Discounts::where('id', $id)->first();
+        $review = Reviews::where('discount_id', $discount->id)->delete();
         $record = Discounts::where('id', $id)->delete();
         
         return redirect()->route('discounts.index');
