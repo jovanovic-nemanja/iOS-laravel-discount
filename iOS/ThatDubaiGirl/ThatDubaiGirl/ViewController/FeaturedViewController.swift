@@ -69,6 +69,7 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
         // Setup Pull to Refresh
         setupPullToRefresh()
 
+        tableView.register(UINib(nibName: "SolarisTableViewCell", bundle: nil), forCellReuseIdentifier: "SolarisCell")
         tableView.register(UINib(nibName: "DiscountTableViewCell", bundle: nil), forCellReuseIdentifier: "DiscountCell")
         tableView.tableFooterView = UIView()
         
@@ -103,40 +104,108 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        var count = 0
         if (searchController.isActive) {
-            return filteredDiscounts.count
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
         }
         
-        return discounts.count
+        return (count == 0) ? count : count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width / 2 + 138
+        var count = 0
+        if (searchController.isActive) {
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
+        }
+
+        if indexPath.row < count {
+            return tableView.frame.width / 2 + 138
+        } else {
+            return 64
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountCell", for: indexPath) as! DiscountTableViewCell
-        
-        cell.viewCard.layer.cornerRadius = 8
-        cell.ivVendor.layer.cornerRadius = cell.ivVendor.bounds.width / 2
-
-        var discount: Discount?
+        var count = 0
         if (searchController.isActive) {
-            discount = filteredDiscounts[indexPath.row]
+            count = filteredDiscounts.count
         } else {
-            discount = discounts[indexPath.row]
+            count = discounts.count
         }
+        
+        if indexPath.row < count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountCell", for: indexPath) as! DiscountTableViewCell
+            
+            cell.viewCard.layer.cornerRadius = 8
+            cell.ivVendor.layer.cornerRadius = cell.ivVendor.bounds.width / 2
 
-        // Configure the cell...
-        cell.configure(discount!)
+            var discount: Discount?
+            if (searchController.isActive) {
+                discount = filteredDiscounts[indexPath.row]
+            } else {
+                discount = discounts[indexPath.row]
+            }
 
+            // Configure the cell...
+            cell.configure(discount!)
+
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SolarisCell", for: indexPath) as! SolarisTableViewCell
+        cell.selectionStyle = .none
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
-        self.performSegue(withIdentifier: "detail", sender: discount)
+        var count = 0
+        if (searchController.isActive) {
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
+        }
+
+        if indexPath.row < count {
+            let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
+            self.performSegue(withIdentifier: "detail", sender: discount)
+        } else {
+            if let url = URL(string: "https://www.solarisdubai.com") {
+                UIApplication.shared.open(url)
+            }
+        }
     }
+    /*
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        var count = 0
+        if (searchController.isActive) {
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
+        }
+
+        if count == 0 {
+            return 0
+        }
+        
+        return 64
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 64))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 48))
+//        button.setImage(UIImage(named: "Solaris"), for: .normal)
+        button.setTitle("Powered by Solaris Tech", for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        button.contentHorizontalAlignment = .center
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        customView.addSubview(button)
+        
+        return customView
+    }*/
 
     // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {

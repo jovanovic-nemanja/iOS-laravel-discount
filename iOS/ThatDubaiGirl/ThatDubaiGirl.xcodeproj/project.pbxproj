@@ -20,6 +20,8 @@
 		A004954E25924E47000B2B01 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A03D35FB2590F80100B8892B /* OpenSans-Bold.ttf */; };
 		A004954F25924E47000B2B01 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A03D35F62590F80000B8892B /* OpenSans-Italic.ttf */; };
 		A004955025924E47000B2B01 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A03D35F92590F80100B8892B /* OpenSans-SemiBold.ttf */; };
+		A01F6F752685025200E3DFB5 /* SolarisTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01F6F732685025200E3DFB5 /* SolarisTableViewCell.swift */; };
+		A01F6F762685025300E3DFB5 /* SolarisTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A01F6F742685025200E3DFB5 /* SolarisTableViewCell.xib */; };
 		A0322856258CEBE000B0F941 /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0322855258CEBE000B0F941 /* ResetViewController.swift */; };
 		A0322861258CFA3400B0F941 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0322860258CFA3400B0F941 /* CategoryCollectionViewController.swift */; };
 		A0322864258CFA6400B0F941 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0322863258CFA6400B0F941 /* ProfileViewController.swift */; };
@@ -66,6 +68,8 @@
 		A004954025921EC3000B2B01 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		A004954125921EC3000B2B01 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		A014B31C25AE0A1E00B96E6E /* ThatDubaiGirl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThatDubaiGirl.entitlements; sourceTree = "<group>"; };
+		A01F6F732685025200E3DFB5 /* SolarisTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarisTableViewCell.swift; sourceTree = "<group>"; };
+		A01F6F742685025200E3DFB5 /* SolarisTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SolarisTableViewCell.xib; sourceTree = "<group>"; };
 		A0322855258CEBE000B0F941 /* ResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		A0322860258CFA3400B0F941 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		A0322863258CFA6400B0F941 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +283,8 @@
 				A30D1F96257F677500B976F9 /* CategoryTableViewCell.swift */,
 				A082E79A25A37491003F792B /* ReviewTableViewCell.swift */,
 				A082E79B25A37491003F792B /* ReviewTableViewCell.xib */,
+				A01F6F732685025200E3DFB5 /* SolarisTableViewCell.swift */,
+				A01F6F742685025200E3DFB5 /* SolarisTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 				A004954825924E47000B2B01 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				A0E3B1AD258F19FB00C57151 /* Lato-Regular.ttf in Resources */,
 				A0E3B1AA258F19FB00C57151 /* Lato-BlackItalic.ttf in Resources */,
+				A01F6F762685025300E3DFB5 /* SolarisTableViewCell.xib in Resources */,
 				A30D1F13257DADB100B976F9 /* Main.storyboard in Resources */,
 				A0E3B1AB258F19FB00C57151 /* Lato-Italic.ttf in Resources */,
 				A004954925924E47000B2B01 /* OpenSans-SemiBoldItalic.ttf in Resources */,
@@ -441,6 +448,7 @@
 				A30D1F10257DADB100B976F9 /* WelcomeViewController.swift in Sources */,
 				A30D1F42257E3A0000B976F9 /* VideoViewController.swift in Sources */,
 				A0E3B1E4258F2A6D00C57151 /* FeaturedViewController.swift in Sources */,
+				A01F6F752685025200E3DFB5 /* SolarisTableViewCell.swift in Sources */,
 				A30D1F53257E4FF400B976F9 /* APIManager.swift in Sources */,
 				A30D1F60257E520700B976F9 /* DataModel.swift in Sources */,
 				A0322856258CEBE000B0F941 /* ResetViewController.swift in Sources */,
@@ -603,14 +611,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ThatDubaiGirl/ThatDubaiGirl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2UKYV73549;
 				INFOPLIST_FILE = ThatDubaiGirl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mambodubai.thatdubaigirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -626,14 +634,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ThatDubaiGirl/ThatDubaiGirl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2UKYV73549;
 				INFOPLIST_FILE = ThatDubaiGirl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mambodubai.thatdubaigirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
