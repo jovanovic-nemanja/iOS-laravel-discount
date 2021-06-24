@@ -118,6 +118,7 @@ class DiscountViewController: UIViewController, UITableViewDelegate, UITableView
         self.segmentedControl.addTarget(self, action: #selector(onChanged), for: .valueChanged)
         
         setupPullToRefresh()
+        self.tableView.register(UINib(nibName: "SolarisTableViewCell", bundle: nil), forCellReuseIdentifier: "SolarisCell")
         self.tableView.register(UINib(nibName: "DiscountTableViewCell", bundle: nil), forCellReuseIdentifier: "DiscountCell")
         self.tableView.tableFooterView = UIView()
 
@@ -182,40 +183,80 @@ class DiscountViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        var count = 0
         if (searchController.isActive) {
-            return filteredDiscounts.count
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
         }
         
-        return discounts.count
+        return (count == 0) ? count : count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width / 2 + 138
+        var count = 0
+        if (searchController.isActive) {
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
+        }
+
+        if indexPath.row < count {
+            return tableView.frame.width / 2 + 138
+        }
+        
+        return 64
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountCell", for: indexPath) as! DiscountTableViewCell
-        
-        cell.viewCard.layer.cornerRadius = 8
-        cell.ivVendor.layer.cornerRadius = cell.ivVendor.bounds.width / 2
-
-
-        // Configure the cell...
-        var discount: Discount?
+        var count = 0
         if (searchController.isActive) {
-            discount = filteredDiscounts[indexPath.row]
+            count = filteredDiscounts.count
         } else {
-            discount = discounts[indexPath.row]
+            count = discounts.count
         }
         
-        cell.configure(discount!)
+        if indexPath.row < count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountCell", for: indexPath) as! DiscountTableViewCell
+            
+            cell.viewCard.layer.cornerRadius = 8
+            cell.ivVendor.layer.cornerRadius = cell.ivVendor.bounds.width / 2
 
+
+            // Configure the cell...
+            var discount: Discount?
+            if (searchController.isActive) {
+                discount = filteredDiscounts[indexPath.row]
+            } else {
+                discount = discounts[indexPath.row]
+            }
+            
+            cell.configure(discount!)
+
+            return cell
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SolarisCell", for: indexPath) as! SolarisTableViewCell
+        cell.selectionStyle = .none
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
-        self.performSegue(withIdentifier: "detail", sender: discount)
+        var count = 0
+        if (searchController.isActive) {
+            count = filteredDiscounts.count
+        } else {
+            count = discounts.count
+        }
+        
+        if indexPath.row < count {
+            let discount = searchController.isActive ? filteredDiscounts[indexPath.row] : discounts[indexPath.row]
+            self.performSegue(withIdentifier: "detail", sender: discount)
+        } else {
+            if let url = URL(string: "https://www.solarisdubai.com") {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 
     // MARK: - UISearchResultsUpdating
