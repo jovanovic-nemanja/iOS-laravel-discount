@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\User;
 use App\Vendors;
+use App\Reviews;
 use App\Category;
 use App\Discounts;
 use Illuminate\Http\Request;
