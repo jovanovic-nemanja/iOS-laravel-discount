@@ -67,5 +67,9 @@ Route::get('/v1/callback', 'Auth\LoginController@handleProviderCallbackgoogle');
 // putting review data by API
 Route::POST('/v1/putReviewsbyAPI', 'API\SwiftApiController@putReviewsbyAPI');
 
+
+// validate the pin code for redeem discount tracking
+Route::POST('/v1/validatePinCode', 'API\SwiftApiController@validatePinCode');
+
 // stripe
 Route::POST('/v1/stripe', 'API\SwiftApiController@stripePost');

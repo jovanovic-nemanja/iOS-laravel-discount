@@ -54,6 +54,17 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
+                                    <label>Code</label>
+                                    <input required="" type="number" maxlength="4" name="code" class="form-control code" placeholder="Code" />
+
+                                    @if ($errors->has('code'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('code') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     <label>Phone</label>
                                     <input required type="text" name="phone" class="form-control phone" placeholder="Phone" />
