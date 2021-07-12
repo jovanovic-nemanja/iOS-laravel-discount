@@ -54,6 +54,7 @@ $(function() {
     $('.submit_vendor_h').click(function() {
         var vendorname = $('.vendorname').val();
         var email = $('.email').val();
+        var code = $('.code').val();
         var phone = $('.phone').val();
         var location = $('.location').val();
         var photo = $('.photo').val();
@@ -67,17 +68,24 @@ $(function() {
         //     }
         // }
 
-        if (!vendorname || !email || !phone || !location || !photo)
+        if (!vendorname || !email || !code || !phone || !location || !photo)
         {
             Notificationsystem(3);
             return;
         }
+        if(code) {
+          if(code.length != 4) {
+            Notificationsystem(5);
+            return;   
+          } 
+        } 
 
         $('.submit_vendor').click();
     });
     $('.submit_vendor_edit').click(function() {
         var vendorname = $('.vendorname').val();
         var email = $('.email').val();
+        var code = $('.code').val();
         var phone = $('.phone').val();
         var location = $('.location').val();
 
@@ -96,11 +104,17 @@ $(function() {
         //     }
         // }
 
-        if (!vendorname || !email || !phone || !location)
+        if (!vendorname || !email || !code || !phone || !location)
         {
             Notificationsystem(3);
             return;
         }
+        if(code) {
+          if(code.length != 4) {
+            Notificationsystem(5);
+            return;   
+          } 
+        } 
 
         $('.submit_vendor').click();
     });    
@@ -177,7 +191,7 @@ function Notificationsystem(flag) {
     } if (flag == 3) {
         $.toast({
             heading: 'Error',
-            text: "Please confirm the Name and Profile Photo and Email, Phone and Location well. It's required fields.",
+            text: "Please confirm the Name and Profile Photo and Email, Code, Phone and Location well. It's required fields.",
             position: String("top-right"),
             icon: 'error',
             stack: false,
@@ -192,5 +206,14 @@ function Notificationsystem(flag) {
             stack: false,
             loaderBg: '#f96868'
         });
-    }       
+    } if (flag == 5) {
+        $.toast({
+            heading: 'Error',
+            text: "Please confirm the Code well. It should be 4 digit number.",
+            position: String("top-right"),
+            icon: 'error',
+            stack: false,
+            loaderBg: '#f96868'
+        });
+    }      
 }

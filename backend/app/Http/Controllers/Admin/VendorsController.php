@@ -56,6 +56,7 @@ class VendorsController extends Controller
         $this->validate(request(), [
             'vendorname' => 'required|string|max:255',
             'email' => 'required|string|max:255',
+            'code' => 'required',
             // 'category_id' => 'required',
             'phone' => 'required|string|max:32',
             'location' => 'required|string'
@@ -75,6 +76,7 @@ class VendorsController extends Controller
             $vendor = Vendors::create([
                 'vendorname' => $request['vendorname'],
                 'email' => $request['email'],
+                'code' => $request['code'],
                 // 'category_id' => $values,
                 'status' => 0,
                 'phone' => $request['phone'],
@@ -140,6 +142,7 @@ class VendorsController extends Controller
 
         $this->validate(request(), [
             'vendorname' => 'required|string|max:255',
+            'code' => 'required',
             // 'category_id' => 'required',
             'phone' => 'required|string|max:32',
             'location' => 'required|string'
@@ -158,6 +161,7 @@ class VendorsController extends Controller
         if (@$record) {
             $record->vendorname = $request->vendorname;
             $record->email = $request->email;
+            $record->code = $request->code;
             // $record->category_id = $values;
             $record->phone = $request->phone;
             $record->location = $request->location;

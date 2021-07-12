@@ -71,7 +71,7 @@
             <nav class="bottom-navbar">
                 <div class="container">
                     <ul class="nav page-navigation">
-                        <li class="nav-item <?= ($menu == 'vendor_create' || $menu == 'vendors' || $menu == 'discounts' || $menu == 'membership') ? "active" : "" ?>">
+                        <li class="nav-item <?= ($menu == 'vendor_create' || $menu == 'vendors' || $menu == 'discounts') ? "active" : "" ?>">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-shopping-cart menu-icon"></i>
                                 <span class="menu-title">Vendors</span>
@@ -138,12 +138,12 @@
                             </a>
                         </li>
 
-                        <!-- <li class="nav-item <?= ($menu == 'membership') ? "active" : "" ?>">
-                            <a href="{{ route('video.index') }}" class="nav-link">
-                                <i class="fa fa-shopping-cart"></i>&nbsp;
-                                <span class="menu-title">Membership</span>
+                        <li class="nav-item <?= ($menu == 'tracks') ? "active" : "" ?>">
+                            <a href="{{ route('tracks.index') }}" class="nav-link">
+                                <i class="fa fa-tag"></i>&nbsp;
+                                <span class="menu-title">Track of Redeem Discount</span>
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
                 </div>
             </nav>

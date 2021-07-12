@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Stripe;
 use App\User;
 use App\Video;
+use App\Tracks;
 use App\Reviews;
 use App\Vendors;
 use App\Category;
@@ -280,6 +281,60 @@ class SwiftApiController extends Controller
             $data = $reviews;
             $msg = "Successfully putted your review.";
             $status = 'success';
+        }
+
+        return response()->json(['status' => $status, 'data' => $data, 'msg' => $msg]);
+    }
+
+    /**
+     * Swift API: validate the pin code.
+     *
+     * @since 2021-07-12
+     * @author Nemanja
+     * @return \Illuminate\Http\Response
+     */
+    public function validatePinCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'discount_id' => 'required',
+            'code' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        if (@$request->discount_id) {
+            $discount = Discounts::where('id', $request['discount_id'])->first();
+            if (@$discount) {
+                $vendor = Vendors::where('id', $discount->vendor_id)->first();
+                if (@$vendor) {
+                    if ($request->code == $vendor['code']) {
+                        $track = Tracks::create([
+                            'discountID' => $request['discount_id'],
+                            'sign_date' => date('Y-m-d h:i:s'),
+                        ]);
+
+                        $msg = "Successfully updated your review.";
+                        $status = 'success';
+                    }else{
+                        $msg = "Pin code was wrong. Please enter the correct pin code.";
+                        $status = 'failed';
+                    }
+                }else{
+                    $msg = "Looks vendor doesn't exist now.";
+                    $status = 'failed';
+                }
+
+                $data = "";                
+            }else{
+                $data = "";
+                $msg = "Couldn't find the discount offer.";
+                $status = "failed";
+            }
         }
 
         return response()->json(['status' => $status, 'data' => $data, 'msg' => $msg]);

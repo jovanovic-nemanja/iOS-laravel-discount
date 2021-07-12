@@ -68,6 +68,17 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
+                                    <label>Code</label>
+                                    <input required="" type="number" maxlength="4" name="code" class="form-control code" placeholder="Code" value="{{ $vendor->code }}" />
+
+                                    @if ($errors->has('code'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('code') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <!-- <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
                                     <label>Category</label>
                                     <select class="form-control js-example-basic-multiple" multiple="multiple" required name="category_id[]">

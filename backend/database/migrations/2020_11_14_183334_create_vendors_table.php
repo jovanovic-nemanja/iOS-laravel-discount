@@ -33,6 +33,8 @@ class CreateVendorsTable extends Migration
             // website link
             $table->text('website_link')->nullable();
 
+            $table->integer('code')->unique();
+
             $table->datetime('sign_date');
             $table->string('remarks_vendor')->nullable();
 
