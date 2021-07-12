@@ -138,12 +138,12 @@
                             </a>
                         </li>
 
-                        <li class="nav-item <?= ($menu == 'tracks') ? "active" : "" ?>">
+                        <!-- <li class="nav-item <?= ($menu == 'tracks') ? "active" : "" ?>">
                             <a href="{{ route('tracks.index') }}" class="nav-link">
                                 <i class="fa fa-tag"></i>&nbsp;
                                 <span class="menu-title">Track of Redeem Discount</span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </nav>
