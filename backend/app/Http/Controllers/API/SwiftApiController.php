@@ -14,6 +14,7 @@ use App\Tracks;
 use App\Reviews;
 use App\Vendors;
 use App\Category;
+use Carbon\Carbon;
 use App\Discounts;
 use App\GeneralSetting;
 use Illuminate\Support\Facades\DB;
@@ -179,32 +180,83 @@ class SwiftApiController extends Controller
      */
     public function getDetaildiscountById(Request $request)
     {
-        if (@$request->id) {
-            $result = DB::table('discounts')
-                            ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
-                            ->join('categories', 'categories.id', '=', 'discounts.category_id')
-                            ->where('discounts.id', $request->id)
-                            ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
-                            ->get();
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'user_id' => 'required'
+        ]);
 
-            $reviews = DB::table('reviews')
-                            ->join('users', 'users.id', '=', 'reviews.putter')
-                            ->where('reviews.discount_id', $request->id)
-                            ->select('reviews.*', 'users.username', 'users.photo')
-                            ->orderBy('reviews.id', 'DESC')
-                            ->get();
+        if ($validator->fails()) {
+            $messages = $validator->messages();
 
-            if (@$reviews) {
-                $result[0]->reviews = $reviews;
+            //pass validator errors as errors object for ajax response
+            return response()->json(['status' => "failed", 'msg' => $messages->first()]);
+        }
+
+        $result = DB::table('discounts')
+                        ->join('vendors', 'vendors.id', '=', 'discounts.vendor_id')
+                        ->join('categories', 'categories.id', '=', 'discounts.category_id')
+                        ->where('discounts.id', $request->id)
+                        ->select('discounts.*', 'vendors.vendorname', 'vendors.location', 'vendors.photo', 'vendors.email', 'discounts.sign_date as discounts_date', 'categories.category_name', 'categories.id as category_id')
+                        ->get();
+
+        $discount = Discounts::where('id', $request->id)->first();
+        $track = Tracks::where('userID', $request->user_id)->where('discountID', $request->id)->orderBy('id', 'desc')->take(1)->first();
+
+        if (@$discount) {
+            $discount_redeem_type = $discount->type;
+            switch ($discount_redeem_type) {
+                case 1: //redeem type is forever....
+                    if (@$track) {
+                        $is_tracked = 1;    //redeemed.
+                    }else{
+                        $is_tracked = 0;    //not redeemed yet.
+                    }
+
+                    break;
+                
+                case 2: //redeem type is once 1 month....
+                    if (@$track) {
+                        $today = Carbon::parse(date('Y-m-d H:i:s')); 
+                        $diff_in_months = $today->diffInDays($track->sign_date);
+
+                        if($diff_in_months > 31) {
+                            $is_tracked = 0;
+                        }else{
+                            $is_tracked = 1;
+                        }
+                    }else{
+                        $is_tracked = 0;
+                    }
+                    
+                    break;
+
+                case 3: //redeem type is one time....
+                    $is_tracked = 0;
+                    
+                    break;
+
+                default:
+                    $is_tracked = 0;
+
+                    break;
             }
 
-            $status = "success";
-            $msg = "Success.";
-        }else{
-            $result = '';
-            $status = "failed";
-            $msg = "Id Not Found.";
+            $result[0]->isTracked = $is_tracked;
         }
+
+        $reviews = DB::table('reviews')
+                        ->join('users', 'users.id', '=', 'reviews.putter')
+                        ->where('reviews.discount_id', $request->id)
+                        ->select('reviews.*', 'users.username', 'users.photo')
+                        ->orderBy('reviews.id', 'DESC')
+                        ->get();
+
+        if (@$reviews) {
+            $result[0]->reviews = $reviews;
+        }
+
+        $status = "success";
+        $msg = "Success.";
 
         $path = env('APP_URL')."uploads/"; 
         
@@ -297,6 +349,7 @@ class SwiftApiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'discount_id' => 'required',
+            'user_id' => 'required',
             'code' => 'required'
         ]);
 
@@ -307,34 +360,33 @@ class SwiftApiController extends Controller
             return response()->json(['status' => "failed", 'msg' => $messages->first()]);
         }
 
-        if (@$request->discount_id) {
-            $discount = Discounts::where('id', $request['discount_id'])->first();
-            if (@$discount) {
-                $vendor = Vendors::where('id', $discount->vendor_id)->first();
-                if (@$vendor) {
-                    if ($request->code == $vendor['code']) {
-                        $track = Tracks::create([
-                            'discountID' => $request['discount_id'],
-                            'sign_date' => date('Y-m-d h:i:s'),
-                        ]);
+        $discount = Discounts::where('id', $request['discount_id'])->first();
+        if (@$discount) {
+            $vendor = Vendors::where('id', $discount->vendor_id)->first();
+            if (@$vendor) {
+                if ($request->code == $vendor['code']) {
+                    $track = Tracks::create([
+                        'discountID' => $request['discount_id'],
+                        'userID' => $request['user_id'],
+                        'sign_date' => date('Y-m-d h:i:s'),
+                    ]);
 
-                        $msg = "Successfully updated your review.";
-                        $status = 'success';
-                    }else{
-                        $msg = "Pin code was wrong. Please enter the correct pin code.";
-                        $status = 'failed';
-                    }
+                    $msg = "Successfully updated your review.";
+                    $status = 'success';
                 }else{
-                    $msg = "Looks vendor doesn't exist now.";
+                    $msg = "Pin code was wrong. Please enter the correct pin code.";
                     $status = 'failed';
                 }
-
-                $data = "";                
             }else{
-                $data = "";
-                $msg = "Couldn't find the discount offer.";
-                $status = "failed";
+                $msg = "Looks vendor doesn't exist now.";
+                $status = 'failed';
             }
+
+            $data = "";                
+        }else{
+            $data = "";
+            $msg = "Couldn't find the discount offer.";
+            $status = "failed";
         }
 
         return response()->json(['status' => $status, 'data' => $data, 'msg' => $msg]);

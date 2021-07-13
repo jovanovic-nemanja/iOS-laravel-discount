@@ -64,6 +64,7 @@ class DiscountsController extends Controller
             'description' => 'required',
             'category_id' => 'required',
             'discount_photo' => 'required',
+            'type' => 'required',
             // 'coupon' => 'string|max:32',
             'vendor_id' => 'required'
         ]);
@@ -79,6 +80,7 @@ class DiscountsController extends Controller
                     'category_id' => $request['category_id'],
                     'vendor_id' => $request['vendor_id'],
                     'coupon' => @$request['coupon'],
+                    'type' => @$request['type'],
                     'status' => 1,
                     'sign_date' => date('Y-m-d h:i:s'),
                 ]);
@@ -135,6 +137,7 @@ class DiscountsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
+            'type' => 'required',
             // 'coupon' => 'string|max:32',
             'vendor_id' => 'required'
         ]);
@@ -149,6 +152,7 @@ class DiscountsController extends Controller
             }
             // $record->status = 1;
             $record->coupon = $request->coupon;
+            $record->type = $request->type;
 
             $record->update();
         }

@@ -8,6 +8,7 @@ Validate the discount tracking API
 	method: POST
 	params: {
 		discount_id: required
+		user_id: required
 		code: required
 	}
 
@@ -415,6 +416,7 @@ Get discount detail information by Id
 
 	params: {
 		id: integer, not null
+		user_id: integer, not null
 	}
 	method:get
 
@@ -428,79 +430,45 @@ Get discount detail information by Id
 		            "title": "20% Off The Total Bill",
 		            "description": "Dhow and Anchor, known as D&A, is a modern, award-winning British gastropub offering contemporary British cuisine. For those who wish to dine al fresco, D&A offers a large terrace area with a panoramic view of Burj Al Arab Jumeirah and the surrounding gardens.\r\n\r\nDhow and Anchor are offering a 20% discount off the total bill to all TDG members. Discount valid everyday for up to a maximum of 6 guests. Discount excludes Happy Hour and any other F&B promotions.",
 		            "category_id": "5",
-		            "discount_photo": "bUKIwTTjmNCzSBXo6zM8arGCtuoVlGEnFR3NsEQ0.png",
+		            "discount_photo": "OImwY8tr4stUXtYTRIBxEjVSJ5rVJ3q7poeSayex.png",
 		            "vendor_id": "23",
 		            "coupon": "Present ID to redeem discount",
+		            "type": "1",
 		            "sign_date": "2021-01-08 12:01:57",
-		            "status": "2",
-		            "created_at": "2021-01-08 12:01:57",
-		            "updated_at": "2021-01-26 07:48:11",
+		            "status": "1",
+		            "created_at": "2021-01-08 13:01:57",
+		            "updated_at": "2021-02-17 14:17:21",
 		            "vendorname": "Dhow & Anchor",
 		            "location": "Jumeirah Beach Hotel",
 		            "photo": "VmOZYfCBtGvX720p9uZVXfpv8InubHsUtzOxS2AG.png",
 		            "email": "restaurants@jumeirah.com",
 		            "discounts_date": "2021-01-08 12:01:57",
 		            "category_name": "DRINKS + DINE",
+		            "isTracked": 0,
 		            "reviews": [
 		                {
-		                    "id": "27",
-		                    "putter": "87",
+		                    "id": "112",
+		                    "putter": "59",
 		                    "discount_id": "40",
 		                    "mark": "5",
-		                    "comments": "Lovely views and great service ☺️",
-		                    "put_date": "2021-01-28 07:00:29",
-		                    "created_at": "2021-01-28 19:00:29",
-		                    "updated_at": "2021-01-28 19:00:29",
-		                    "username": "Laura Shackcloth",
-		                    "photo": "bRcpOXm3w8nQeh1nwG5jer7dnAegXZgPntsr49sq.jpeg"
+		                    "comments": "Brilliant",
+		                    "put_date": "2021-06-18 06:30:02",
+		                    "created_at": "2021-06-18 20:30:02",
+		                    "updated_at": "2021-06-18 20:30:02",
+		                    "username": "Chandni Soni",
+		                    "photo": null
 		                },
 		                {
-		                    "id": "26",
-		                    "putter": "82",
+		                    "id": "107",
+		                    "putter": "1602",
 		                    "discount_id": "40",
 		                    "mark": "5",
-		                    "comments": "Amazing atmosphere, views and service! Recommended to everyone!",
-		                    "put_date": "2021-01-28 06:58:44",
-		                    "created_at": "2021-01-28 18:58:44",
-		                    "updated_at": "2021-01-28 18:58:44",
-		                    "username": "Mel George",
-		                    "photo": "rHY6vIsjFa66BzYZlu76iALxlpClODNCX0J3wYGx.jpeg"
-		                },
-		                {
-		                    "id": "25",
-		                    "putter": "108",
-		                    "discount_id": "40",
-		                    "mark": "5",
-		                    "comments": "Gorgeous venue, the view is stunning and it has the best fish and chips in Dubai!",
-		                    "put_date": "2021-01-28 06:58:31",
-		                    "created_at": "2021-01-28 18:58:31",
-		                    "updated_at": "2021-01-28 18:58:31",
-		                    "username": "Lauren",
-		                    "photo": "2KwQVTaRbLnS7tFW7D87zSNzqjUQIOnoS7fC2FpA.jpeg"
-		                },
-		                {
-		                    "id": "24",
-		                    "putter": "83",
-		                    "discount_id": "40",
-		                    "mark": "5",
-		                    "comments": "the best fish and chips in Dubai! also every good covid regulations.",
-		                    "put_date": "2021-01-28 06:58:29",
-		                    "created_at": "2021-01-28 18:58:29",
-		                    "updated_at": "2021-01-28 18:58:29",
-		                    "username": "Emily",
-		                    "photo": "Mad0PEa6x5Ze1zy7s5umWHuUM36DQScwrSIgBbvD.jpeg"
-		                },
-		                {
-		                    "id": "23",
-		                    "putter": "52",
-		                    "discount_id": "40",
-		                    "mark": "5",
-		                    "comments": "BEST roast dinner in Dubai!",
-		                    "put_date": "2021-01-28 06:57:45",
-		                    "created_at": "2021-01-28 18:57:45",
-		                    "updated_at": "2021-01-28 18:57:45",
-		                    "username": "Kirsty Campbell",
-		                    "photo": "X3SCSBZFFG2MXqH23o9Qpoj1gneLFyzEgiDS2fqC.jpeg"
+		                    "comments": "Perfect service & best roast in Dubai",
+		                    "put_date": "2021-06-05 01:29:13",
+		                    "created_at": "2021-06-05 15:29:13",
+		                    "updated_at": "2021-06-05 15:29:13",
+		                    "username": "Lucy Pritchard",
+		                    "photo": null
 		                }
 		            ]
 		        }
@@ -512,9 +480,7 @@ Get discount detail information by Id
 	-- failed
 		{
 		    "status": "failed",
-		    "data": "",
-		    "msg": "Id Not Found.",
-		    "path": "https://tdguae.com/uploads/"
+		    "msg": "The user id field is required."
 		}
 
 
