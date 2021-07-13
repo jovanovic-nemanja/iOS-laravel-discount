@@ -13,5 +13,5 @@ class Tracks extends Model
 {
     public $table = "tracks";
 
-    public $fillable = ['discountID', 'sign_date'];
+    public $fillable = ['discountID', 'userID', 'sign_date'];
 }

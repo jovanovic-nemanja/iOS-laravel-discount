@@ -17,6 +17,7 @@ class CreateTracksTable extends Migration
             $table->increments('id');
 
             $table->integer('discountID');
+            $table->integer('userID');
             $table->datetime('sign_date');
 
             $table->timestamps();

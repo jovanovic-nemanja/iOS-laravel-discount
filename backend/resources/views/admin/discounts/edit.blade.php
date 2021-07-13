@@ -94,6 +94,21 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
+                                    <label>Redeem Type</label>
+                                    <select class="form-control" required name="type">
+                                        <option <?php if($discount->type == 1){ echo 'selected'; } ?> value="1">Forever</option>
+                                        <option <?php if($discount->type == 2){ echo 'selected'; } ?> value="2">Once 1 month</option>
+                                        <option <?php if($discount->type == 3){ echo 'selected'; } ?> value="3">One time</option>
+                                    </select>
+
+                                    @if ($errors->has('type'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('type') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <input type="hidden" name="vendor_id" value="{{ $discount->vendor_id }}" class="form-control" />
                             </div>
 

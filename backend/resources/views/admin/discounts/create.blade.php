@@ -81,6 +81,21 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
+                                    <label>Redeem Type</label>
+                                    <select class="form-control" required name="type">
+                                        <option value="1">Forever</option>
+                                        <option value="2">Once 1 month</option>
+                                        <option value="3">One time</option>
+                                    </select>
+
+                                    @if ($errors->has('type'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('type') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <br>
                                 <input type="hidden" name="vendor_id" value="{{ $id }}" class="form-control" />
                             </div>
