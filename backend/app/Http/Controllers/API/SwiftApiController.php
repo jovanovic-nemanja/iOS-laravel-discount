@@ -371,7 +371,7 @@ class SwiftApiController extends Controller
                         'sign_date' => date('Y-m-d h:i:s'),
                     ]);
 
-                    $msg = "Successfully updated your review.";
+                    $msg = "Successfully passed the pin code.";
                     $status = 'success';
                 }else{
                     $msg = "Pin code was wrong. Please enter the correct pin code.";

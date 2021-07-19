@@ -17,7 +17,7 @@ Validate the discount tracking API
 		{
     			"status": "success",
     			"data": "",
-    			"msg": "Successfully updated your review."
+    			"msg": "Successfully passed the pin code."
 		}
 	-- failed 
 		{
