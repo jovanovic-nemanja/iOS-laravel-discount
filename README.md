@@ -15,3 +15,5 @@ Laravel backend and API for frontend
 https://tdguae.com/
 
 https://apps.apple.com/sr/app/thatdubaigirl/id1542442380
+
+https://play.google.com/store/apps/details?id=com.thatdubaigirl.com
