@@ -1,12 +1,5 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +9,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.thatdubaigirl.com.Model.Common_Model_A;
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.Api;
 import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import com.thekhaeng.pushdownanim.PushDownAnim;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;
 

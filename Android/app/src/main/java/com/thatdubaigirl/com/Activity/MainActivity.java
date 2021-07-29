@@ -1,27 +1,19 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.thatdubaigirl.com.Fargment.AllOfferFragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.thatdubaigirl.com.Fargment.CategoryFragment;
 import com.thatdubaigirl.com.Fargment.HomeFragment;
 import com.thatdubaigirl.com.Fargment.ProfileFragment;
 import com.thatdubaigirl.com.R;
-import com.theartofdev.edmodo.cropper.CropImage;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;

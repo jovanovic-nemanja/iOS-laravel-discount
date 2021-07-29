@@ -1,13 +1,5 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -20,6 +12,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,7 +30,12 @@ import com.thatdubaigirl.com.Utils.Api;
 import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
-import static com.thatdubaigirl.com.Utils.RS_Application.ed;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;
 
 public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
@@ -161,7 +161,8 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-            Log.e("sfgsafgsa", "" + task.toString());
+
+            //Log.e("sfgsafgsa", "" + task.getException());
 //            Toast.makeText(this, "faffa:  " + task.toString(), Toast.LENGTH_SHORT).show();
         } else {
         }
@@ -183,7 +184,7 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
                 loginwithGoogle(mUserIdToken, emailname, emial_id);
             }
         } catch (Exception e) {
-
+            Log.e("Google sign error",e.getLocalizedMessage());
         }
     }
 

@@ -1,30 +1,5 @@
 package com.thatdubaigirl.com.Adapter;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Activity.DetalisPage;
-import com.thatdubaigirl.com.Model.Categori_Model;
-import com.thatdubaigirl.com.R;
-import com.thatdubaigirl.com.Utils.OnSingleClickListener;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 //public class Adapter_Home_Offer_List extends RecyclerView.Adapter<Adapter_Home_Offer_List.Holder> {
 //    private Activity context;
 //    private ArrayList<Categori_Model> Product_models;

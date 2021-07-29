@@ -1,27 +1,5 @@
 package com.thatdubaigirl.com.Adapter;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Activity.DiscountsList;
-import com.thatdubaigirl.com.Fargment.ProfileFragment;
-import com.thatdubaigirl.com.Model.Categori_Model;
-import com.thatdubaigirl.com.R;
-
-import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
 //public class Cat_Adapter extends RecyclerView.Adapter<Cat_Adapter.Holder> {
 //
 //    private Activity context;

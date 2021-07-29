@@ -1,20 +1,12 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thatdubaigirl.com.Adapter.ReviewRate_Adapter;
@@ -33,6 +29,13 @@ import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;
 
@@ -188,12 +191,14 @@ public class DetalisPage extends AppCompatActivity {
     /*get getdetaildiscountbyid APi*/
     public void getdetaildiscountbyid(String id) {
         dialog.show();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String userID = sp.getString("user_id","");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.commn_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api loginservice = retrofit.create(Api.class);
-        Call<Categori_Model> call = loginservice.getdetaildiscountbyid(id);
+        Call<Categori_Model> call = loginservice.getdetaildiscountbyid(id,userID);
         call.enqueue(new Callback<Categori_Model>() {
             @Override
             public void onResponse(Call<Categori_Model> call, Response<Categori_Model> response) {

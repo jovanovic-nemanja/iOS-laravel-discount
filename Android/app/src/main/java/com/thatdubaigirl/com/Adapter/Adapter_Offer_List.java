@@ -10,6 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 import com.thatdubaigirl.com.Activity.DetalisPage;
 import com.thatdubaigirl.com.Model.Categori_Model;
@@ -19,9 +23,6 @@ import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Adapter_Offer_List extends RecyclerView.Adapter<Adapter_Offer_List.Holder> {

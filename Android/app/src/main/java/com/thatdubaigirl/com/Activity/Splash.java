@@ -1,28 +1,18 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Base64;
-import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.RS_Application;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Splash extends AppCompatActivity {
     protected static final int REQUEST_ACCESS_FINE_LOCATION_PERMISSION = 101;

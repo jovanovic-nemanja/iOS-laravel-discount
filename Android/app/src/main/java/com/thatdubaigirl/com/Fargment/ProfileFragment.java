@@ -9,18 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,9 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import androidx.fragment.app.Fragment;
+
 import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Activity.Login;
 import com.thatdubaigirl.com.Activity.MainActivity;
 import com.thatdubaigirl.com.Activity.Welcome;
 import com.thatdubaigirl.com.Model.Common_Model;
@@ -50,8 +38,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;
 
@@ -276,7 +271,7 @@ public class ProfileFragment extends Fragment {
 //                    .addFormDataPart("photo", Image_url, RequestBody.create(MultipartBody.FORM, bos.toByteArray()));
 
         } else {
-            builder.addFormDataPart("email", sp.getString("email", ""))
+             builder.addFormDataPart("email", sp.getString("email", ""))
                     .addFormDataPart("birthday", dob1)
                     .addFormDataPart("username", edname.getText().toString())
                     .addFormDataPart("address", edaddess.getText().toString())

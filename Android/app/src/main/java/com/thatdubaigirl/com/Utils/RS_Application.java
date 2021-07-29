@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.thatdubaigirl.com.R;
-
 import androidx.annotation.RequiresApi;
+
+import com.thatdubaigirl.com.R;
 
 public class RS_Application extends Application {
     public static int pcoutner = 0;

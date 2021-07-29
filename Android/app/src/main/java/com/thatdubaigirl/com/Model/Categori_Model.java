@@ -8,6 +8,7 @@ public class Categori_Model implements Serializable {
     String id,putter, category_name, parent, category_photo, slug, sign_date, updated_at, created_at, path;
     ArrayList<Categori_Model> data;
     ArrayList<Categori_Model> reviews;
+    int isTracked;
 
     public ArrayList<Categori_Model> getReviews() {
         return reviews;
@@ -262,5 +263,49 @@ public class Categori_Model implements Serializable {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "Categori_Model{" +
+                "isTracked='" + isTracked + '\'' +
+                "status='" + status + '\'' +
+                ", id='" + id + '\'' +
+                ", putter='" + putter + '\'' +
+                ", category_name='" + category_name + '\'' +
+                ", parent='" + parent + '\'' +
+                ", category_photo='" + category_photo + '\'' +
+                ", slug='" + slug + '\'' +
+                ", sign_date='" + sign_date + '\'' +
+                ", updated_at='" + updated_at + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", path='" + path + '\'' +
+                ", data=" + data +
+                ", reviews=" + reviews +
+                ", comments='" + comments + '\'' +
+                ", mark='" + mark + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", category_id='" + category_id + '\'' +
+                ", discount_photo='" + discount_photo + '\'' +
+                ", vendor_id='" + vendor_id + '\'' +
+                ", coupon='" + coupon + '\'' +
+                ", vendorname='" + vendorname + '\'' +
+                ", photo='" + photo + '\'' +
+                ", location='" + location + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", instagram_id='" + instagram_id + '\'' +
+                ", website_link='" + website_link + '\'' +
+                ", discounts_date='" + discounts_date + '\'' +
+                ", avg_marks='" + avg_marks + '\'' +
+                ", count_reviews='" + count_reviews + '\'' +
+                '}';
+    }
 
+    public int getIsTracked() {
+        return isTracked;
+    }
+
+    public void setIsTracked(int isTracked) {
+        this.isTracked = isTracked;
+    }
 }

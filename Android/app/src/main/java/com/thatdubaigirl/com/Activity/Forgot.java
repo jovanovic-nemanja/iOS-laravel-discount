@@ -8,13 +8,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.thatdubaigirl.com.Model.Common_Model;
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.Api;
 import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
-import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
