@@ -182,7 +182,7 @@ class SwiftApiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
-            'user_id' => 'required'
+            // 'user_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -200,8 +200,8 @@ class SwiftApiController extends Controller
                         ->get();
 
         $discount = Discounts::where('id', $request->id)->first();
-        $track = Tracks::where('userID', $request->user_id)->where('discountID', $request->id)->orderBy('id', 'desc')->take(1)->first();
-
+        // $track = Tracks::where('userID', $request->user_id)->where('discountID', $request->id)->orderBy('id', 'desc')->take(1)->first();
+        /*
         if (@$discount) {
             $discount_redeem_type = $discount->type;
             switch ($discount_redeem_type) {
@@ -243,6 +243,7 @@ class SwiftApiController extends Controller
 
             $result[0]->isTracked = $is_tracked;
         }
+        */
 
         $reviews = DB::table('reviews')
                         ->join('users', 'users.id', '=', 'reviews.putter')
