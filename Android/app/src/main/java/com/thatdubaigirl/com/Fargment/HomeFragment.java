@@ -2,20 +2,7 @@ package com.thatdubaigirl.com.Fargment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import cz.msebera.android.httpclient.Header;
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,18 +14,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Activity.DetalisPage;
-import com.thatdubaigirl.com.Activity.SerachDiscount;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
-import com.thatdubaigirl.com.Utils.Api;
 import com.thatdubaigirl.com.Utils.Const;
 import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 
@@ -48,6 +38,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
     RecyclerView rlyofferlist;
@@ -271,6 +264,7 @@ public class HomeFragment extends Fragment {
             holder.card.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    Log.d("selected.data",Product_models.get(position).toString());
                     Fragment fr = new DetalisPageFragment();
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();

@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
 import com.thatdubaigirl.com.Utils.Const;
 
-
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReviewRate_Adapter extends RecyclerView.Adapter<ReviewRate_Adapter.Holder> {

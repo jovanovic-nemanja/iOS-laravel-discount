@@ -1,8 +1,5 @@
 package com.thatdubaigirl.com.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,9 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RedeemDiscount extends AppCompatActivity {
     CircleImageView ivprofile;

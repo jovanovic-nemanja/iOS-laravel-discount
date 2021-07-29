@@ -3,37 +3,27 @@ package com.thatdubaigirl.com.Fargment;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import android.text.Html;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.thatdubaigirl.com.Activity.DetalisPage;
-import com.thatdubaigirl.com.Activity.RedeemDiscount;
-import com.thatdubaigirl.com.Activity.WriteReview;
 import com.thatdubaigirl.com.Adapter.ReviewRate_Adapter;
 import com.thatdubaigirl.com.Model.Categori_Model;
 import com.thatdubaigirl.com.R;
@@ -43,6 +33,13 @@ import com.thatdubaigirl.com.Utils.OnSingleClickListener;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.thekhaeng.pushdownanim.PushDownAnim.MODE_SCALE;
 
@@ -57,7 +54,7 @@ public class DetalisPageFragment extends Fragment {
     ProgressDialog dialog;
     private ArrayList<Categori_Model> rate_list = new ArrayList<>();
     RecyclerView recyclerviewreview;
-
+    private Categori_Model selectedObj;
 
     public DetalisPageFragment() {
     }
@@ -183,34 +180,27 @@ public class DetalisPageFragment extends Fragment {
         PushDownAnim.setPushDownAnimTo(txtbtn).setScale(MODE_SCALE, 0.89f).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                //Log.d("redeem btn","click");
                 if (txtbtn.getText().toString().equalsIgnoreCase("Redeem Discount")) {
 //                    startActivity(new Intent(getActivity(), RedeemDiscount.class)
 //                            .putExtra("Title",""+ getArguments().getString("Title"))
 //                            .putExtra("Photo", ""+getArguments().getString("Photo"))
 //                            .putExtra("path_img", path_img));
 //                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    if(selectedObj!=null && selectedObj.getIsTracked() == 0){
+                        ValidatePincodeView pincodeView = new ValidatePincodeView(getArguments().getString("Id"), new ValidatePincodeView.onValidateListener() {
+                            @Override
+                            public void onValidate(Boolean status) {
+                                redirectToDiscountPage();
+                            }
+                        });
 
-                    Fragment fr = new RedeemDidcountFragment();
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Type", getArguments().getString("Type"));
-                    bundle.putString("path_img", path_img);
-                    bundle.putString("Title", getArguments().getString("Title"));
-                    bundle.putString("Vendorname", getArguments().getString("Vendorname"));
-                    bundle.putString("Location", getArguments().getString("Location"));
-                    bundle.putString("Description", getArguments().getString("Description"));
-                    bundle.putString("Status", getArguments().getString("Status"));
-                    bundle.putString("Discount_photo", getArguments().getString("Discount_photo"));
-                    bundle.putString("Photo", getArguments().getString("Photo"));
-                    bundle.putString("Website_link", getArguments().getString("Website_link"));
-                    bundle.putString("Instagram_id", getArguments().getString("Instagram_id"));
-                    bundle.putString("Phone", getArguments().getString("Phone"));
-                    bundle.putString("Id", getArguments().getString("Id"));
-                    bundle.putString("layout", "" + getArguments().getString("layout"));
-                    fr.setArguments(bundle);
-                    ft.replace(R.id.fragment_frame, fr);
-                    ft.commit();
+                        pincodeView.show(getActivity().getSupportFragmentManager(),"Validate pincode");
+                    }else{
+                        redirectToDiscountPage();
+                    }
+
+
 
                 } else {
                     if (Const.review_type_a.equalsIgnoreCase("0")) {
@@ -253,22 +243,49 @@ public class DetalisPageFragment extends Fragment {
         return v;
     }
 
+    private void redirectToDiscountPage() {
+        Fragment fr = new RedeemDiscountFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("Type", getArguments().getString("Type"));
+        bundle.putString("path_img", path_img);
+        bundle.putString("Title", getArguments().getString("Title"));
+        bundle.putString("Vendorname", getArguments().getString("Vendorname"));
+        bundle.putString("Location", getArguments().getString("Location"));
+        bundle.putString("Description", getArguments().getString("Description"));
+        bundle.putString("Status", getArguments().getString("Status"));
+        bundle.putString("Discount_photo", getArguments().getString("Discount_photo"));
+        bundle.putString("Photo", getArguments().getString("Photo"));
+        bundle.putString("Website_link", getArguments().getString("Website_link"));
+        bundle.putString("Instagram_id", getArguments().getString("Instagram_id"));
+        bundle.putString("Phone", getArguments().getString("Phone"));
+        bundle.putString("Id", getArguments().getString("Id"));
+        bundle.putString("layout", "" + getArguments().getString("layout"));
+        fr.setArguments(bundle);
+        ft.replace(R.id.fragment_frame, fr);
+        ft.commit();
+    }
+
     /*get getdetaildiscountbyid APi*/
     public void getdetaildiscountbyid(String id) {
         dialog.show();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String userID = sp.getString("user_id","");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.commn_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api loginservice = retrofit.create(Api.class);
-        Call<Categori_Model> call = loginservice.getdetaildiscountbyid(id);
+        Call<Categori_Model> call = loginservice.getdetaildiscountbyid(id,userID);
         call.enqueue(new Callback<Categori_Model>() {
             @Override
             public void onResponse(Call<Categori_Model> call, Response<Categori_Model> response) {
                 if (response.code() == 200) {
                     dialog.dismiss();
-                    Log.e("adffadada", "" + response.toString());
                     if (response.body().getStatus().equalsIgnoreCase("success")) {
+                        selectedObj = response.body().getData().get(0);
+
                         rate_list = response.body().getData().get(0).getReviews();
                         if (rate_list.size() > 0) {
                             ReviewRate_Adapter adapter_home_offer_list = new ReviewRate_Adapter(getActivity(), rate_list, path_img);
